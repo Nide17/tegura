@@ -51,7 +51,7 @@ class _IgaState extends State<Iga> {
                       borderRadius: BorderRadius.circular(30.0),
                     ),
 
-                    // ROW WIDGET WITH ICON AND TEXT - BUTTON
+                    // GestureDetector WIDGET, ROW WITH ICON AND TEXT - BUTTON
                     child: GestureDetector(
                       // NAVIGATE TO THE IBICIRO PAGE
                       onTap: () {

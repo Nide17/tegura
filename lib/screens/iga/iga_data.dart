@@ -1,10 +1,13 @@
 // DATA FOR THE LIST VIEW
+import 'package:flutter/material.dart';
+import 'package:tegura/screens/iga/hagati/hagati.dart';
+
 final List<Map<String, dynamic>> igaList = [
   {
     'icon': 'assets/images/video_icon.svg',
     'text': 'Amasomo ugezemo hagati',
     'route': 'hagati',
-    'widget': 'Hagati()'
+    'widget': MaterialPageRoute(builder: (context) => const Hagati()),
   },
   {
     'icon': 'assets/images/course_list.svg',
