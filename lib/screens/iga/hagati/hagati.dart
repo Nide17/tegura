@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
 import 'package:tegura/screens/iga/gradient_title.dart';
+import 'package:tegura/screens/iga/hagati/hagati_logged_in.dart';
+import 'package:tegura/screens/iga/hagati/hagati_not_logged_in.dart';
 import 'package:tegura/screens/iga/hagati/progress_circle.dart';
 import 'package:tegura/screens/my_appbar.dart';
 
@@ -15,6 +19,10 @@ class _HagatiState extends State<Hagati> {
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
+    final usr = Provider.of<UserModel?>(context);
+    // const usr = null;
+    print(usr?.uid);
+
     return Scaffold(
         backgroundColor: const Color(0xFF5B8BDF),
 
@@ -28,20 +36,24 @@ class _HagatiState extends State<Hagati> {
         body: SizedBox(
           width: double.infinity,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const <Widget>[
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                // 1. GRADIENT TITLE
+                const GradientTitle(),
 
-              // 1. GRADIENT TITLE
-              GradientTitle(),
+                // 2. ADD 10.0 PIXELS OF SPACE
+                const SizedBox(height: 8.0),
 
-              // 2. ADD 10.0 PIXELS OF SPACE
-              SizedBox(height: 16.0),
+                // 3. ELLIPSE WITH SPACES IN THE STROKE
+                ProgressCircle(
+                  percent: usr != null ? 0.5 : 0.0,
+                  progress: usr != null ? 'Ugeze kukigero cya 50% wiga!' : 'Nturatangira kwiga!',
+                  usr: usr,
+                  ),
 
-              // 3. ELLIPSE WITH SPACES IN THE STROKE
-              ProgressCircle()
-
-            ]
-          ),
+                if (usr != null) const HagatiLoggedIn()
+                else const HagatiNotLoggedIn(),
+              ]),
         ),
 
         // BOTTOM NAVIGATION BAR

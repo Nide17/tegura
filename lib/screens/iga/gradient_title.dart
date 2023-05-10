@@ -10,7 +10,7 @@ class GradientTitle extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * .8,
       height: 36.0,
-      margin: const EdgeInsets.only(left: 10, top: 36),
+      margin: const EdgeInsets.only(left: 10, top: 24),
 
       // STYLING
       decoration: BoxDecoration(

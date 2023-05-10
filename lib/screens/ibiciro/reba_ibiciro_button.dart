@@ -10,10 +10,10 @@ class RebaIbiciro extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
-        height: 50.0,
+        height: 40.0,
         child: ElevatedButton(
           onPressed: () {
             Navigator.pushNamed(context, '/ibiciro');
@@ -27,7 +27,7 @@ class RebaIbiciro extends StatelessWidget {
           child: const Text(
             'Reba ibiciro byo kwiga',
             style: TextStyle(
-              fontSize: 18.0,
+              fontSize: 16.0,
               color: Color.fromARGB(255, 255, 255, 255),
               fontWeight: FontWeight.bold,
             ),

@@ -1,4 +1,5 @@
 // WIDGET FOR HOLDING THE APPBAR
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,11 @@ class AppBarTegura extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // GET PROVIDER USER
-    final usr = Provider.of<UserModel?>(context);
+    // final usr = Provider.of<UserModel?>(context);
+    const usr = null;
+    if (kDebugMode) {
+      print(usr?.uid);
+    }
 
     return AppBar(
       backgroundColor: const Color(0xFF5B8BDF),
