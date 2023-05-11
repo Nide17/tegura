@@ -11,8 +11,8 @@ class AppBarTegura extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // GET PROVIDER USER
-    final usr = Provider.of<UserModel?>(context);
-    // const usr = null;
+    // final usr = Provider.of<UserModel?>(context);
+    const usr = null;
 
     // if (kDebugMode) {
     //   print(usr?.uid);
@@ -58,6 +58,7 @@ class AppBarTegura extends StatelessWidget {
         // IF USER IS LOGGED IN
         if (usr != null)
           IconButton(
+            
             // USE CUSTOM ICON - SVG
             icon: SvgPicture.asset(
               'assets/images/avatar.svg',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/user.dart';
+import 'package:tegura/screens/auth/auth.dart';
 import 'package:tegura/screens/ibiciro/ibiciro.dart';
 import 'package:tegura/screens/iga/iga.dart';
 import 'package:tegura/screens/loading.dart';
@@ -46,6 +47,8 @@ class TeguraApp extends StatelessWidget {
         routes: {
           '/iga': (context) => const Iga(),
           '/ibiciro': (context) => const Ibiciro(),
+          // ignore: unnecessary_null_comparison
+          '/injira': (context) => AuthService().usr == null ? const Auth() : const Auth(),
         },
       ),
     );

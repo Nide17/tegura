@@ -12,7 +12,6 @@ class Iga extends StatefulWidget {
 }
 
 class _IgaState extends State<Iga> {
-
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
@@ -27,26 +26,26 @@ class _IgaState extends State<Iga> {
 
         // PAGE BODY
         body: ListView(
-
           // CHILDREN OF THE COLUMN WIDGET
           children: igaList.asMap().entries.map((entry) {
             final bool isFirst = entry.key == 0;
             final bool isLast = entry.key == igaList.length - 1;
-            final double height = isFirst ? 36.0 : 16.0;
+            final double height = isFirst
+                ? MediaQuery.of(context).size.height * 0.06
+                : MediaQuery.of(context).size.height * 0.025;
             final Map<String, dynamic> item = entry.value;
 
             return Column(
               children: <Widget>[
-                
                 // 1. ADD 10.0 PIXELS OF SPACE
                 SizedBox(height: height),
 
                 // 2. BUTTON CONTAINER WIDGET
                 Container(
                   width: MediaQuery.of(context).size.width * .9,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 6.0,
-                    horizontal: 8.0,
+                  padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.012,
+                    horizontal: MediaQuery.of(context).size.width * 0.025,
                   ),
                   decoration: BoxDecoration(
                     color: const Color(0xFF00CCE5),
@@ -94,16 +93,20 @@ class _IgaState extends State<Iga> {
                 if (isLast)
                   Column(children: <Widget>[
                     // ADD 10.0 PIXELS OF SPACE
-                    const SizedBox(height: 16.0),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
+                    ),
 
                     // BOTTOM BORDER
                     Container(
                       color: const Color(0xFF000000),
-                      height: 8.0,
+                      height: MediaQuery.of(context).size.height * 0.01,
                     ),
 
                     // ADD 10.0 PIXELS OF SPACE
-                    const SizedBox(height: 48.0),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.01,
+                    ),
                   ])
               ],
             );

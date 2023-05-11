@@ -7,11 +7,14 @@ class UserProgress extends StatelessWidget {
   String title = "";
   String description = "";
 
-  UserProgress({super.key, required this.percent, required this.title, required this.description});
+  UserProgress(
+      {super.key,
+      required this.percent,
+      required this.title,
+      required this.description});
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
@@ -19,20 +22,21 @@ class UserProgress extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(
+          MediaQuery.of(context).size.width * 0.04,
+        ),
         child: Column(
-
           children: [
-
             // TITLE
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 1.0, vertical: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 1.0, vertical: 4.0),
               child: Text(
                 title,
                 textAlign: TextAlign.left,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w900,
-                  fontSize: 16.0,
+                  fontSize: MediaQuery.of(context).size.width * 0.04,
                   color: Colors.black,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -42,11 +46,13 @@ class UserProgress extends StatelessWidget {
             // BOTTOM BORDER OF THE ABOVE SECTION
             Container(
               color: const Color(0xFFFFBD59),
-              height: 6.0,
+              height: MediaQuery.of(context).size.height * 0.009,
             ),
 
-            // 8.0 PIXELS OF SPACE
-            const SizedBox(height: 8.0),
+            // VERTICAL SPACE
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.01,
+            ),
 
             // DESCRIPTION
             Padding(
@@ -54,33 +60,34 @@ class UserProgress extends StatelessWidget {
               child: Text(
                 description,
                 textAlign: TextAlign.left,
-                style: const TextStyle(
-                  fontSize: 13.0,
+                style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width * 0.034,
                   color: Colors.white,
                 ),
               ),
             ),
 
-            // 8.0 PIXELS OF SPACE
-            const SizedBox(height: 8.0),
+            // VERTICAL SPACE
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.01,
+            ),
 
             // PROGRESS BAR WITH CTA BUTTON
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 // PROGRESS BAR
                 LinearPercentIndicator(
-                  width: 150,
+                  width: MediaQuery.of(context).size.width * 0.4,
                   animation: true,
-                  lineHeight: 16.0,
+                  lineHeight: MediaQuery.of(context).size.height * 0.032,
                   animationDuration: 2500,
                   percent: percent,
                   center: Text(
                     '${(percent * 100).toStringAsFixed(0)}%',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.w900,
-                      fontSize: 12.0,
+                      fontSize: MediaQuery.of(context).size.width * 0.035,
                       color: Colors.white,
                     ),
                   ),
@@ -92,31 +99,31 @@ class UserProgress extends StatelessWidget {
                 ),
 
                 // CTA BUTTON
-                if (percent != 1.0) GestureDetector(
-                  
-                  // NAVIGATE TO IGA
-                  onTap: () {
-                    Navigator.pushNamed(context, '/iga');
-                  },
-                  child: Container(
-                    width: 100.0,
-                    height: 18.0,
-                    decoration: BoxDecoration(
-                      color: const Color(0XFF00CCE5),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        (percent == 0.0) ? "TANGIRA" : "KOMEZA",
-                        style: const TextStyle(
-                          fontSize: 13.0,
-                          color: Color(0xFF000000),
-                          fontWeight: FontWeight.bold,
+                if (percent != 1.0)
+                  GestureDetector(
+                    // NAVIGATE TO IGA
+                    onTap: () {
+                      Navigator.pushNamed(context, '/iga');
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      height: MediaQuery.of(context).size.height * 0.033,
+                      decoration: BoxDecoration(
+                        color: const Color(0XFF00CCE5),
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: Center(
+                        child: Text(
+                          (percent == 0.0) ? "TANGIRA" : "KOMEZA",
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                            color: const Color(0xFF000000),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
               ],
             ),
           ],

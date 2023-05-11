@@ -8,14 +8,14 @@ import 'package:tegura/screens/iga/view_not_logged_in.dart';
 import 'package:tegura/screens/iga/progress_circle.dart';
 import 'package:tegura/screens/my_appbar.dart';
 
-class Hagati extends StatefulWidget {
-  const Hagati({Key? key}) : super(key: key);
+class Wasoje extends StatefulWidget {
+  const Wasoje({Key? key}) : super(key: key);
 
   @override
-  _HagatiState createState() => _HagatiState();
+  _WasojeState createState() => _WasojeState();
 }
 
-class _HagatiState extends State<Hagati> {
+class _WasojeState extends State<Wasoje> {
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
@@ -36,19 +36,19 @@ class _HagatiState extends State<Hagati> {
         body: ListView(children: <Widget>[
           // 1. GRADIENT TITLE
           GradientTitle(
-              title: 'Amasomo ugezemo hagati',
-              icon: 'assets/images/video_icon.svg'),
+              title: 'Amasomo wasoje kwiga',
+              icon: 'assets/images/course_list.svg'),
 
-          // 2. ADD 10.0 PIXELS OF SPACE
+          // 2. VERTICAL SPACE
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,
           ),
 
           // 3. ELLIPSE WITH SPACES IN THE STROKE
           ProgressCircle(
-            percent: usr != null ? 0.5 : 0.0,
+            percent: usr != null ? 1.0 : 0.0,
             progress: usr != null
-                ? 'Ugeze kukigero cya 50% wiga!'
+                ? 'Ugeze kukigero cya 100% wiga!'
                 : 'Nturatangira kwiga!',
             usr: usr,
           ),
@@ -60,17 +60,17 @@ class _HagatiState extends State<Hagati> {
                     title: 'IBYAPA BYO KUMIHANDA',
                     description:
                         'Ibyapa byo kumuhanda bigira uruhare runini mukurinda umutekano mumihanda yacu...',
-                    progress: 0.75),
+                    progress: 1.0),
                 ViewLoggedIn(
                     title: 'IBYAPA BYO MUMUHANDA',
                     description:
                         'Ibimenyetso byo mumuhanda ni imirongo cyangwa inyuguti bishushanyije mumuhanda...',
-                    progress: 2.8),
+                    progress: 1.0),
                 ViewLoggedIn(
                     title: 'IMPANUKA',
                     description:
                         'Hari amategeko yihariye ajyena uko umuyobozi agomba kwitwara mubihe by\'impanuka...',
-                    progress: 0.0),
+                    progress: 1.0),
               ],
             )
           else

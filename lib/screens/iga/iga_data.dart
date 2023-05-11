@@ -1,6 +1,7 @@
 // DATA FOR THE LIST VIEW
 import 'package:flutter/material.dart';
 import 'package:tegura/screens/iga/hagati/hagati.dart';
+import 'package:tegura/screens/iga/wasoje/wasoje.dart';
 
 final List<Map<String, dynamic>> igaList = [
   {
@@ -13,7 +14,7 @@ final List<Map<String, dynamic>> igaList = [
     'icon': 'assets/images/course_list.svg',
     'text': 'Amasomo wasoje kwiga',
     'route': 'wasoje',
-    'widget': 'Wasoje()'
+    'widget': MaterialPageRoute(builder: (context) => const Wasoje()),
   },
   {
     'icon': 'assets/images/igazeti.svg',

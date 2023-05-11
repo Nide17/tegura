@@ -3,14 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class GradientTitle extends StatelessWidget {
-  const GradientTitle({super.key});
+
+// INSTANCE VARIABLES
+  String title;
+  String icon;
+
+// CONSTRUCTOR
+  GradientTitle({super.key, required this.title, required this.icon});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: MediaQuery.of(context).size.width * .9,
-        height: 36.0,
+        width: MediaQuery.of(context).size.width * 0.9,
+        height: MediaQuery.of(context).size.height * 0.08,
         margin: const EdgeInsets.only(left: 0, top: 24),
 
         // STYLING
@@ -32,23 +38,27 @@ class GradientTitle extends StatelessWidget {
         // CONTENT
         child: Row(
           children: <Widget>[
-            // ADD 10.0 PIXELS OF SPACE
-            const SizedBox(width: 24.0),
+            // HORIZONTAL SPACE
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.05,
+            ),
 
             // SVG ICON
             SvgPicture.asset(
-              'assets/images/video_icon.svg',
-              height: 24.0,
+              icon,
+              height: MediaQuery.of(context).size.height * 0.05,
             ),
 
-            // ADD 10.0 PIXELS OF SPACE
-            const SizedBox(width: 12.0),
+            // HORIZONTAL SPACE
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.03,
+            ),
 
             // TEXT WIDGET
-            const Text('Amasomo ugezemo hagati',
+            Text(title,
                 style: TextStyle(
-                  fontSize: 18.0,
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontSize: MediaQuery.of(context).size.width * 0.052,
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontWeight: FontWeight.bold,
                 )),
           ],

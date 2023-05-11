@@ -27,7 +27,9 @@ class ProgressCircle extends StatelessWidget {
         children: [
           
           SizedBox(
-            height: usr != null ? 120 : 160,
+            height: usr != null ? 
+            MediaQuery.of(context).size.height * 0.2 : 
+            MediaQuery.of(context).size.height * 0.3,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -71,7 +73,7 @@ class ProgressCircle extends StatelessWidget {
                               style: TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize:
-                                      MediaQuery.of(context).size.width * 0.06,
+                                      MediaQuery.of(context).size.width * 0.07,
                                   overflow: TextOverflow.ellipsis),
                             ),
                           )

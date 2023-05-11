@@ -3,6 +3,7 @@ import 'package:tegura/models/user.dart';
 
 // CLASS FOR HANDLING AUTH SERVICES
 class AuthService {
+
   // INSTANCE OF THE FIREBASE AUTHENTICATION
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -20,8 +21,10 @@ class AuthService {
 
   // SIGN IN ANONYMOUSLY METHOD
   Future signInAnon() async {
+
     // ASYNC METHOD TO RETURN A FUTURE
     try {
+      
       // SIGN IN ANONYMOUSLY
       UserCredential result = await _auth.signInAnonymously();
 
@@ -30,6 +33,7 @@ class AuthService {
 
       // RETURN THE USER
       return _userFromFirebaseUser(user!);
+      
     } catch (e) {
       // PRINT THE ERROR
       print(e.toString());

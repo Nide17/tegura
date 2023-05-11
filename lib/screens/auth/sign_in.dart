@@ -11,6 +11,7 @@ class SignIn extends StatefulWidget {
 
 // STATE FOR THE SIGN IN PAGE - STATEFUL
 class _SignInState extends State<SignIn> {
+
   // AUTH SERVICE INSTANCE
   final AuthService _auth = AuthService();
 
@@ -37,6 +38,7 @@ class _SignInState extends State<SignIn> {
               // SIGN IN
               dynamic result =
                   await _auth.signInAnon(); // DYNAMIC TYPE - CAN USER OR NULL
+                  
               if (result == null) {
                 print('Error signing in');
               } else {

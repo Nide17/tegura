@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-class HagatiNotLoggedIn extends StatelessWidget {
-  const HagatiNotLoggedIn({super.key});
+
+class ViewNotLoggedIn extends StatelessWidget {
+  const ViewNotLoggedIn({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         // 4. TEXT Injira niba wariyandikishije cyangwa wiyandikishe utangire kwiga!
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.7,
@@ -22,7 +22,9 @@ class HagatiNotLoggedIn extends StatelessWidget {
         ),
 
         // 5. ADD 10.0 PIXELS OF SPACE
-        const SizedBox(height: 32.0),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.045,
+        ),
 
         // 6. BUTTONS FOR INJIRA & IYANDIKISHE
         SizedBox(
@@ -30,7 +32,6 @@ class HagatiNotLoggedIn extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
               // 6.1. INJIRA
               ElevatedButton(
                 onPressed: () {
@@ -48,7 +49,6 @@ class HagatiNotLoggedIn extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 12.0),
                 ),
-
                 child: Text(
                   'Injira',
                   style: TextStyle(
@@ -67,16 +67,16 @@ class HagatiNotLoggedIn extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(
                     MediaQuery.of(context).size.width * 0.4,
-                    MediaQuery.of(context).size.height * 0.08,
+                    MediaQuery.of(context).size.height * 0.07,
                   ),
                   backgroundColor: const Color(0xFF00CCE5),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32.0),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 12.0),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.04,
+                      vertical: MediaQuery.of(context).size.height * 0.016),
                 ),
-
                 child: Text(
                   'Iyandikishe',
                   style: TextStyle(
