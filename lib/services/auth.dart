@@ -18,7 +18,6 @@ class AuthService {
         .map((User? usr) => _userFromFirebaseUser(usr!));
   }
 
-
   // SIGN IN ANONYMOUSLY METHOD
   Future signInAnon() async {
     // ASYNC METHOD TO RETURN A FUTURE

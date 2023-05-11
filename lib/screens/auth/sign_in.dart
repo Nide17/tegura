@@ -29,9 +29,11 @@ class _SignInState extends State<SignIn> {
         // PAGE BODY
         body: Container(
           padding: const EdgeInsets.all(40.0),
+
           // RAISED BUTTON
           child: ElevatedButton(
             onPressed: () async {
+              
               // SIGN IN
               dynamic result =
                   await _auth.signInAnon(); // DYNAMIC TYPE - CAN USER OR NULL

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class HagatiNotLoggedIn extends StatelessWidget {
   const HagatiNotLoggedIn({super.key});
 
@@ -7,15 +6,16 @@ class HagatiNotLoggedIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+
         // 4. TEXT Injira niba wariyandikishije cyangwa wiyandikishe utangire kwiga!
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.7,
-          child: const Text(
+          child: Text(
             'Injira niba wariyandikishije cyangwa wiyandikishe utangire kwiga!',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w900,
-              fontSize: 22.0,
+              fontSize: MediaQuery.of(context).size.width * 0.05,
               color: Colors.white,
             ),
           ),
@@ -30,13 +30,17 @@ class HagatiNotLoggedIn extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+
               // 6.1. INJIRA
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/injira');
                 },
                 style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(152, 50),
+                  fixedSize: Size(
+                    MediaQuery.of(context).size.width * 0.4,
+                    MediaQuery.of(context).size.height * 0.08,
+                  ),
                   backgroundColor: const Color(0xFF00CCE5),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32.0),
@@ -44,11 +48,12 @@ class HagatiNotLoggedIn extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 12.0),
                 ),
-                child: const Text(
+
+                child: Text(
                   'Injira',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
+                    fontSize: MediaQuery.of(context).size.width * 0.045,
                     color: Colors.white,
                   ),
                 ),
@@ -60,7 +65,10 @@ class HagatiNotLoggedIn extends StatelessWidget {
                   Navigator.pushNamed(context, '/iyandikishe');
                 },
                 style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(152, 50),
+                  fixedSize: Size(
+                    MediaQuery.of(context).size.width * 0.4,
+                    MediaQuery.of(context).size.height * 0.08,
+                  ),
                   backgroundColor: const Color(0xFF00CCE5),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32.0),
@@ -68,11 +76,12 @@ class HagatiNotLoggedIn extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 12.0),
                 ),
-                child: const Text(
+
+                child: Text(
                   'Iyandikishe',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
+                    fontSize: MediaQuery.of(context).size.width * 0.045,
                     color: Colors.white,
                   ),
                 ),

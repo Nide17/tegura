@@ -12,7 +12,9 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     // GET PROVIDER USER
     final usr = Provider.of<UserModel?>(context);
-    print(usr);
+    // const usr = null;
+
+    // print(usr?.uid);
     // RETURN A WIDGET BASED ON THE AUTH STATE - HOME OR AUTH
     if (usr == null) {
       return const Auth();

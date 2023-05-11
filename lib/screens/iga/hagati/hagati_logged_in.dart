@@ -8,6 +8,7 @@ class HagatiLoggedIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        
         UserProgress(
           title: 'IBYAPA BYO KUMIHANDA',
           description:

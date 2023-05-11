@@ -11,6 +11,7 @@ class UserProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
@@ -67,6 +68,7 @@ class UserProgress extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
                 // PROGRESS BAR
                 LinearPercentIndicator(
                   width: 150,
@@ -91,6 +93,7 @@ class UserProgress extends StatelessWidget {
 
                 // CTA BUTTON
                 if (percent != 1.0) GestureDetector(
+                  
                   // NAVIGATE TO IGA
                   onTap: () {
                     Navigator.pushNamed(context, '/iga');

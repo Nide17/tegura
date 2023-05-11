@@ -15,162 +15,188 @@ class Home extends StatelessWidget {
         preferredSize: Size.fromHeight(58.0),
         child: AppBarTegura(),
       ),
+
       // PAGE BODY
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+      body: ListView(
+        
+        // CHILDREN OF THE COLUMN WIDGET
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.02,
+          ),
 
-          // CHILDREN OF THE COLUMN WIDGET
-          children: [
-            const SizedBox(height: 16),
+          // TEXT WIDGET TO DISPLAY THE TEXT
+          Text(
+            "Mwiriwe neza!",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width * 0.06,
+              color: const Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
 
-            // TEXT WIDGET TO DISPLAY THE TEXT
-            const Text(
-              "Mwiriwe neza!",
+          // TEXT WIDGET TO DISPLAY THE TEXT
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0,
+                8.0), // Add 16.0 pixels of padding to all sides
+            child: Text(
+              "Iga amategeko y'umuhanda utavunitse kandi udahenzwe!",
+              textAlign: TextAlign.justify,
               style: TextStyle(
-                fontSize: 23.0,
-                color: Color.fromARGB(255, 255, 255, 255),
+                fontSize: MediaQuery.of(context).size.width * 0.05,
+                color: const Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 16),
+          ),
 
-            // TEXT WIDGET TO DISPLAY THE TEXT
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0,
-                  8.0), // Add 16.0 pixels of padding to all sides
-              child: Text(
-                "Iga amategeko y'umuhanda utavunitse kandi udahenzwe!",
-                textAlign: TextAlign.justify,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  fontWeight: FontWeight.bold,
-                ),
+          // BOTTOM BORDER OF THE ABOVE SECTION
+          Container(
+            color: const Color.fromARGB(255, 0, 0, 0),
+            height: 8.0,
+          ),
+
+          // TEXT WIDGET TO DISPLAY THE TEXT
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0,
+                8.0),
+            child: Text(
+              "Amasomo ateguwe muburyo bufasha umunyeshuri gusobanukirwa neza amategeko y'umuhanda ndetse agategurwa kuzakora ikizamini cya provisoire agatsinda ntankomyi!",
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width * 0.05,
+                color: const Color.fromARGB(255, 0, 0, 0),
+                fontWeight: FontWeight.bold,
               ),
             ),
+          ),
 
-            // BOTTOM BORDER OF THE ABOVE SECTION
-            Container(
-              color: const Color.fromARGB(255, 0, 0, 0),
-              height: 8.0,
-            ),
-            // TEXT WIDGET TO DISPLAY THE TEXT
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0,
-                  8.0), // Add 16.0 pixels of padding to all sides
-              child: Text(
-                "Amasomo ateguwe muburyo bufasha umunyeshuri gusobanukirwa neza amategeko y'umuhanda ndetse agategurwa kuzakora ikizamini cya provisoire agatsinda ntankomyi!",
-                textAlign: TextAlign.justify,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  fontWeight: FontWeight.bold,
-                ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
+
+          // BOTTOM BORDER OF THE ABOVE SECTION
+          Container(
+            color: const Color.fromARGB(255, 0, 0, 0),
+            height: MediaQuery.of(context).size.height * 0.016,
+          ),
+
+          // TEXT WIDGET TO DISPLAY THE TEXT
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0,
+                8.0), // Add 16.0 pixels of padding to all sides
+            child: Text(
+              "Kanda aha utangire kwiga",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width * 0.05,
+                color: const Color.fromARGB(255, 255, 255, 255),
+                fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 16),
-            // BOTTOM BORDER OF THE ABOVE SECTION
-            Container(
-              color: const Color.fromARGB(255, 0, 0, 0),
-              height: 8.0,
-            ),
+          ),
 
-            // TEXT WIDGET TO DISPLAY THE TEXT
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0,
-                  8.0), // Add 16.0 pixels of padding to all sides
-              child: Text(
-                "Kanda aha utangire kwiga",
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
 
-            // DOWN ARROW ICON SVG
-            SvgPicture.asset(
-              'assets/images/down_arrow.svg',
-              height: 44.0,
-            ),
-            const SizedBox(height: 8),
+          // DOWN ARROW ICON SVG
+          SvgPicture.asset(
+            'assets/images/down_arrow.svg',
+            height: MediaQuery.of(context).size.height * 0.04,
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
 
-            // IGA ROUNDED GREEN BUTTON WITH YELLOW TEXT
-            GestureDetector(
-              // NAVIGATE TO IGA
-              onTap: () {
+          // IGA ROUNDED GREEN BUTTON WITH YELLOW TEXT
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
                 Navigator.pushNamed(context, '/iga');
               },
-              child: Container(
-                width: 180.0,
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: const Color(0XFF00A651),
-                  borderRadius: BorderRadius.circular(30.0),
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(124, 32),
+                backgroundColor: const Color(0XFF00A651),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32.0),
                 ),
-                child: const Center(
-                  child: Text(
-                    "IGA",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Color(0xFFFFBD59),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              ),
+
+              child: Text(
+                'IGA',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: MediaQuery.of(context).size.width * 0.05,
+                  color: const Color(0xFFFFBD59),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+          ),
 
-            // TEXT WIDGET TO DISPLAY THE TEXT
-            const Text(
-              "Kanda aha ubone ibiciro byo kwiga",
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontWeight: FontWeight.bold,
-              ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.02,
+          ),
+
+          // TEXT WIDGET TO DISPLAY THE TEXT
+          Text(
+            "Kanda aha ubone ibiciro byo kwiga",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width * 0.05,
+              color: const Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 8),
+          ),
 
-            // DOWN ARROW ICON SVG
-            SvgPicture.asset(
-              'assets/images/down_arrow.svg',
-              height: 44.0,
-            ),
-            const SizedBox(height: 8),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
 
-            // IGA ROUNDED GREEN BUTTON WITH YELLOW TEXT
-            GestureDetector(
-              // NAVIGATE TO THE IBICIRO PAGE
-              onTap: () {
+          // DOWN ARROW ICON SVG
+          SvgPicture.asset(
+            'assets/images/down_arrow.svg',
+            height: MediaQuery.of(context).size.height * 0.04,
+          ),
+
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
+
+          // IBICIRO ROUNDED GREEN BUTTON WITH YELLOW TEXT
+            Center(
+              child: ElevatedButton(
+              onPressed: () {
                 Navigator.pushNamed(context, '/ibiciro');
               },
-              child: Container(
-                width: 180.0,
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: const Color(0XFF00A651),
-                  borderRadius: BorderRadius.circular(30.0),
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(124, 32),
+                backgroundColor: const Color(0XFF00A651),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32.0),
                 ),
-                child: const Center(
-                  child: Text(
-                    "IBICIRO",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Color(0xFFFFBD59),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              ),
+              
+              child: Text(
+                'IBICIRO',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: MediaQuery.of(context).size.width * 0.05,
+                  color: const Color(0xFFFFBD59),
                 ),
               ),
+                      ),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }

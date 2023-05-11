@@ -13,7 +13,7 @@ class RebaIbiciro extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
-        height: 40.0,
+        height: MediaQuery.of(context).size.height * 0.07,
         child: ElevatedButton(
           onPressed: () {
             Navigator.pushNamed(context, '/ibiciro');
@@ -24,11 +24,12 @@ class RebaIbiciro extends StatelessWidget {
               borderRadius: BorderRadius.circular(30.0),
             ),
           ),
-          child: const Text(
+
+          child: Text(
             'Reba ibiciro byo kwiga',
             style: TextStyle(
-              fontSize: 16.0,
-              color: Color.fromARGB(255, 255, 255, 255),
+              fontSize: MediaQuery.of(context).size.width * 0.05,
+              color: const Color.fromARGB(255, 255, 255, 255),
               fontWeight: FontWeight.bold,
             ),
           ),

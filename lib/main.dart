@@ -23,11 +23,14 @@ class TeguraApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     // USER STREAM PROVIDER - LISTENS TO AUTH CHANGES
     return StreamProvider<UserModel?>.value(
       value: AuthService().usr,
       initialData: null,
+
       child: MaterialApp(
+
         // REMOVE DEBUG BANNER
         debugShowCheckedModeBanner: false,
 

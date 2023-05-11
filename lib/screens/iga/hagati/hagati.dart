@@ -16,45 +16,48 @@ class Hagati extends StatefulWidget {
 }
 
 class _HagatiState extends State<Hagati> {
+  
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
     final usr = Provider.of<UserModel?>(context);
     // const usr = null;
-    print(usr?.uid);
+    // print(usr?.uid);
 
     return Scaffold(
         backgroundColor: const Color(0xFF5B8BDF),
 
         // APP BAR
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(58.0),
-          child: AppBarTegura(),
+        appBar: PreferredSize(
+          preferredSize: MediaQuery.of(context).size * 0.07,
+          child: const AppBarTegura(),
         ),
 
         // PAGE BODY
-        body: SizedBox(
-          width: double.infinity,
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                // 1. GRADIENT TITLE
-                const GradientTitle(),
+        body: ListView(children: <Widget>[
 
-                // 2. ADD 10.0 PIXELS OF SPACE
-                const SizedBox(height: 8.0),
+          // 1. GRADIENT TITLE
+          const GradientTitle(),
 
-                // 3. ELLIPSE WITH SPACES IN THE STROKE
-                ProgressCircle(
-                  percent: usr != null ? 0.5 : 0.0,
-                  progress: usr != null ? 'Ugeze kukigero cya 50% wiga!' : 'Nturatangira kwiga!',
-                  usr: usr,
-                  ),
+          // 2. ADD 10.0 PIXELS OF SPACE
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
 
-                if (usr != null) const HagatiLoggedIn()
-                else const HagatiNotLoggedIn(),
-              ]),
-        ),
+          // 3. ELLIPSE WITH SPACES IN THE STROKE
+          ProgressCircle(
+            percent: usr != null ? 0.5 : 0.0,
+            progress: usr != null
+                ? 'Ugeze kukigero cya 50% wiga!'
+                : 'Nturatangira kwiga!',
+            usr: usr,
+          ),
+
+          if (usr != null)
+            const HagatiLoggedIn()
+          else
+            const HagatiNotLoggedIn(),
+        ]),
 
         // BOTTOM NAVIGATION BAR
         bottomNavigationBar: const RebaIbiciro());

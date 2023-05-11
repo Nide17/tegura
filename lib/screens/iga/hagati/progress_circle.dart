@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tegura/models/user.dart';
 
 class ProgressCircle extends StatelessWidget {
+
   // PROPERTIES
   double percent = 0.0;
   String progress = "";
@@ -19,13 +20,14 @@ class ProgressCircle extends StatelessWidget {
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    print("User:$usr");
+    // print("User:$usr");
 
     return Center(
       child: Column(
         children: [
+          
           SizedBox(
-            height: usr != null ? 100 : 160,
+            height: usr != null ? 120 : 160,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -34,9 +36,9 @@ class ProgressCircle extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Text(progress,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w900,
-                          fontSize: 20.0,
+                          fontSize: MediaQuery.of(context).size.width * 0.05,
                         )),
                   )
                 else
@@ -45,26 +47,31 @@ class ProgressCircle extends StatelessWidget {
                 // 2. CIRCULAR PERCENT INDICATOR
                 SizedBox(
                   child: CircularPercentIndicator(
-                    radius: 40.0,
-                    lineWidth: 14.0,
+                    radius: MediaQuery.of(context).size.width * 0.14,
+                    lineWidth: MediaQuery.of(context).size.width * 0.035,
                     animation: true,
                     percent: percent,
                     center: Text(
                       '${(percent * 100).toStringAsFixed(0)}%',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w900, fontSize: 18.0),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: MediaQuery.of(context).size.width * 0.075,
+                      ),
                     ),
                     circularStrokeCap: CircularStrokeCap.butt,
                     progressColor: const Color(0xFF9D14DD),
-                    backgroundColor: const Color(0xFF89D998),
+                    backgroundColor: const Color(0xFFBCCCBF),
+                    
                     footer: usr == null
                         ? Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.028),
                             child: Text(
                               progress,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontWeight: FontWeight.w900,
-                                  fontSize: 18.0,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.06,
                                   overflow: TextOverflow.ellipsis),
                             ),
                           )
@@ -76,7 +83,9 @@ class ProgressCircle extends StatelessWidget {
           ),
 
           // 3. ADD 8.0 PIXELS OF SPACE
-          const SizedBox(height: 8.0),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.009,
+          ),
         ],
       ),
     );

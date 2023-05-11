@@ -12,6 +12,7 @@ class Iga extends StatefulWidget {
 }
 
 class _IgaState extends State<Iga> {
+
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
@@ -19,84 +20,94 @@ class _IgaState extends State<Iga> {
         backgroundColor: const Color(0xFF5B8BDF),
 
         // APP BAR
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(58.0),
-          child: AppBarTegura(),
+        appBar: PreferredSize(
+          preferredSize: MediaQuery.of(context).size * 0.07,
+          child: const AppBarTegura(),
         ),
 
         // PAGE BODY
-        body: SizedBox(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+        body: ListView(
 
-            // CHILDREN OF THE COLUMN WIDGET
-            children: igaList.asMap().entries.map((entry) {
-              final bool isFirst = entry.key == 0;
-              final bool isLast = entry.key == igaList.length - 1;
-              final double height = isFirst ? 36.0 : 16.0;
-              final Map<String, dynamic> item = entry.value;
+          // CHILDREN OF THE COLUMN WIDGET
+          children: igaList.asMap().entries.map((entry) {
+            final bool isFirst = entry.key == 0;
+            final bool isLast = entry.key == igaList.length - 1;
+            final double height = isFirst ? 36.0 : 16.0;
+            final Map<String, dynamic> item = entry.value;
 
-              return Column(
-                children: <Widget>[
-                  // 1. ADD 10.0 PIXELS OF SPACE
-                  SizedBox(height: height),
+            return Column(
+              children: <Widget>[
+                
+                // 1. ADD 10.0 PIXELS OF SPACE
+                SizedBox(height: height),
 
-                  // 2. BUTTON CONTAINER WIDGET
-                  Container(
-                    width: MediaQuery.of(context).size.width * .9,
-                    height: 48.0,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF00CCE5),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
+                // 2. BUTTON CONTAINER WIDGET
+                Container(
+                  width: MediaQuery.of(context).size.width * .9,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 6.0,
+                    horizontal: 8.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF00CCE5),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
 
-                    // GestureDetector WIDGET, ROW WITH ICON AND TEXT - BUTTON
-                    child: GestureDetector(
-                      // NAVIGATE TO THE IBICIRO PAGE
-                      onTap: () {
-                        Navigator.push(context, item['widget']);
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          // ADD 10.0 PIXELS OF SPACE
-                          const SizedBox(width: 24.0),
-                          // SVG ICON
-                          SvgPicture.asset(
-                            item['icon'],
-                            height: 22.0,
-                          ),
-                          // ADD 10.0 PIXELS OF SPACE
-                          const SizedBox(width: 8.0),
-                          // TEXT WIDGET
-                          Text(item['text'],
-                              style: const TextStyle(
-                                fontSize: 18.0,
-                                color: Color(0xFF000000),
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ],
-                      ),
+                  // GestureDetector WIDGET, ROW WITH ICON AND TEXT - BUTTON
+                  child: GestureDetector(
+                    // NAVIGATE TO THE IBICIRO PAGE
+                    onTap: () {
+                      Navigator.push(context, item['widget']);
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        // ADD 10.0 PIXELS OF SPACE
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.025,
+                        ),
+
+                        // SVG ICON
+                        SvgPicture.asset(
+                          item['icon'],
+                          height: MediaQuery.of(context).size.height * 0.05,
+                        ),
+
+                        // ADD 10.0 PIXELS OF SPACE
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.025,
+                        ),
+
+                        // TEXT WIDGET
+                        Text(item['text'],
+                            style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.045,
+                              color: const Color(0xFF000000),
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
                     ),
                   ),
-                  // 3. ADD BOTTOM BORDER IF LAST ITEM
-                  if (isLast)
-                    Column(children: <Widget>[
-                      // ADD 10.0 PIXELS OF SPACE
-                      const SizedBox(height: 16.0),
-                      // BOTTOM BORDER
-                      Container(
-                        color: const Color(0xFF000000),
-                        height: 8.0,
-                      ),
+                ),
 
-                      // ADD 10.0 PIXELS OF SPACE
-                      const SizedBox(height: 48.0),
-                    ])
-                ],
-              );
-            }).toList(),
-          ),
+                // 3. ADD BOTTOM BORDER IF LAST ITEM
+                if (isLast)
+                  Column(children: <Widget>[
+                    // ADD 10.0 PIXELS OF SPACE
+                    const SizedBox(height: 16.0),
+
+                    // BOTTOM BORDER
+                    Container(
+                      color: const Color(0xFF000000),
+                      height: 8.0,
+                    ),
+
+                    // ADD 10.0 PIXELS OF SPACE
+                    const SizedBox(height: 48.0),
+                  ])
+              ],
+            );
+          }).toList(),
         ),
         bottomNavigationBar: const RebaIbiciro());
   }
