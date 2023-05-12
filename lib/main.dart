@@ -47,7 +47,6 @@ class TeguraApp extends StatelessWidget {
         routes: {
           '/iga': (context) => const Iga(),
           '/ibiciro': (context) => const Ibiciro(),
-          // ignore: unnecessary_null_comparison
           '/injira': (context) => AuthService().usr == null ? const Auth() : const Auth(),
         },
       ),

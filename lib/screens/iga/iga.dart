@@ -37,7 +37,7 @@ class _IgaState extends State<Iga> {
 
             return Column(
               children: <Widget>[
-                // 1. ADD 10.0 PIXELS OF SPACE
+                // 1. VERTICAL SPACE
                 SizedBox(height: height),
 
                 // 2. BUTTON CONTAINER WIDGET
@@ -54,13 +54,16 @@ class _IgaState extends State<Iga> {
 
                   // GestureDetector WIDGET, ROW WITH ICON AND TEXT - BUTTON
                   child: GestureDetector(
-                    // NAVIGATE TO THE IBICIRO PAGE
+                    // NAVIGATE TO THE CHILD PAGE
                     onTap: () {
-                      Navigator.push(context, item['widget']);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => item['screen']));
                     },
                     child: Row(
                       children: <Widget>[
-                        // ADD 10.0 PIXELS OF SPACE
+                        // HORIZONTAL SPACE
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.025,
                         ),
@@ -71,7 +74,7 @@ class _IgaState extends State<Iga> {
                           height: MediaQuery.of(context).size.height * 0.05,
                         ),
 
-                        // ADD 10.0 PIXELS OF SPACE
+                        // HORIZONTAL SPACE
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.025,
                         ),
@@ -89,10 +92,10 @@ class _IgaState extends State<Iga> {
                   ),
                 ),
 
-                // 3. ADD BOTTOM BORDER IF LAST ITEM
+                // 3. BOTTOM BORDER IF LAST ITEM
                 if (isLast)
                   Column(children: <Widget>[
-                    // ADD 10.0 PIXELS OF SPACE
+                    // VERTICAL SPACE
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.03,
                     ),
@@ -103,7 +106,7 @@ class _IgaState extends State<Iga> {
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),
 
-                    // ADD 10.0 PIXELS OF SPACE
+                    // VERTICAL SPACE
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),

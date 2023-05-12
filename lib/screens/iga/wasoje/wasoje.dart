@@ -19,8 +19,8 @@ class _WasojeState extends State<Wasoje> {
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    // final usr = Provider.of<UserModel?>(context);
-    const usr = null;
+    final usr = Provider.of<UserModel?>(context);
+    // const usr = null;
     // print(usr?.uid);
 
     return Scaffold(
