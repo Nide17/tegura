@@ -5,7 +5,7 @@ import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
 import 'package:tegura/screens/iga/gradient_title.dart';
 import 'package:tegura/screens/iga/igazeti/igazeti_book.dart';
-import 'package:tegura/screens/iga/igazeti/igazeti_card.dart';
+import 'package:tegura/screens/iga/iga_card.dart';
 import 'package:tegura/screens/iga/igazeti/igazeti_ibimurika.dart';
 import 'package:tegura/screens/iga/igazeti/igazeti_ibyapa.dart';
 import 'package:tegura/screens/iga/igazeti/igazeti_imirongo.dart';
@@ -54,12 +54,12 @@ class IgazetiState extends State<Igazeti> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: const [
-              IgazetiCard(
+              IgaCard(
                 title: 'IGAZETI',
                 icon: 'assets/images/igazeti_book.png',
                 screen: IgazetiBook(),
               ),
-              IgazetiCard(
+              IgaCard(
                 title: 'IBYAPA',
                 icon: 'assets/images/ibyapa.png',
                 screen: IgazetiIbyapa(),
@@ -76,12 +76,12 @@ class IgazetiState extends State<Igazeti> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: const [
-              IgazetiCard(
+              IgaCard(
                 title: 'IMIRONGO YO MUMUHANDA',
                 icon: 'assets/images/imirongo.png',
                 screen: IgazetiImirongo(),
               ),
-              IgazetiCard(
+              IgaCard(
                 title: 'IBIMENYETSO BIMURIKA',
                 icon: 'assets/images/ibimurika.png',
                 screen: IgazetiIbimurika(),

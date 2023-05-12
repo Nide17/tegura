@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class IgazetiCard extends StatelessWidget {
+class IgaCard extends StatelessWidget {
   // INSTANCE VARIABLES
   final String title;
   final String icon;
   final Widget screen;
 
   // CONSTRUCTOR
-  const IgazetiCard(
+  const IgaCard(
       {super.key,
       required this.title,
       required this.icon,
@@ -42,7 +42,7 @@ class IgazetiCard extends StatelessWidget {
                 softWrap: true,
                 style: TextStyle(
                   fontWeight: FontWeight.w900,
-                  fontSize: MediaQuery.of(context).size.width * 0.04,
+                  fontSize: MediaQuery.of(context).size.width * 0.038,
                   color: const Color.fromARGB(255, 255, 255, 255),
                 ),
               ),
