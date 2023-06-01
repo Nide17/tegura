@@ -3,14 +3,14 @@ import "package:tegura/screens/utilities/cta_button.dart";
 import "package:tegura/screens/utilities/default_input.dart";
 import 'package:tegura/screens/utilities/description.dart';
 import "package:tegura/screens/iga/gradient_title.dart";
-import 'package:tegura/screens/utilities/my_appbar.dart';
+import 'package:tegura/screens/utilities/appbar.dart';
 import "package:tegura/services/auth.dart";
 
 class UrStudent extends StatefulWidget {
   const UrStudent({Key? key}) : super(key: key);
 
   @override
-  _UrStudentState createState() => _UrStudentState();
+  State<UrStudent> createState() => _UrStudentState();
 }
 
 // STATE FOR THE SIGN IN PAGE - STATEFUL

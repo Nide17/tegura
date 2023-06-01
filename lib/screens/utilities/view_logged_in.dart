@@ -1,34 +1,144 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tegura/models/course_progress.dart';
 import 'package:tegura/screens/utilities/user_progress.dart';
+import 'package:tegura/services/course_progress.dart';
+import 'package:tegura/services/ingingodb.dart';
 
 class ViewLoggedIn extends StatelessWidget {
   // INSTANCE VARIABLES
-  double progress;
-  String description;
-  String title;
+  final double progress;
+  final String? description;
+  final String title;
+  final String isomoId;
+  final String userId;
 
   // CONSTRUCTOR
-  ViewLoggedIn(
+  const ViewLoggedIn(
       {super.key,
       required this.progress,
-      required this.description,
-      required this.title});
+      this.description,
+      required this.title,
+      required this.isomoId,
+      required this.userId});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        UserProgress(
-          title: title,
-          description: description,
-          percent: progress,
+
+    return MultiProvider(
+      providers: [
+        // DB REFERENCE TO COURSE PROGRESS COLLECTION
+        StreamProvider<CourseProgressModel?>.value(
+          // WHAT TO GIVE TO THE CHILDREN WIDGETS
+          value: CourseProgressService().getProgress(userId, isomoId),
+          initialData: null,
+
+          // CATCH ERRORS
+          catchError: (context, error) {
+            // PRINT THE ERROR
+            if (kDebugMode) {
+              print("Error in logged in: $error");
+              print(
+                  "The err: ${CourseProgressService().getProgress(userId, isomoId)}");
+            }
+            // RETURN NULL
+            return null;
+          },
         ),
 
-        // VERTICAL SPACE
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.015,
+        // STREAM PROVIDER FOR TOTAL INGINGOS FOR A PARTICULAR COURSE OR ISOMO
+        StreamProvider<int?>.value(
+          // WHAT TO GIVE TO THE CHILDREN WIDGETS
+          value: IngingoService().getTotalIngingos(isomoId),
+          initialData: null,
+
+          // CATCH ERRORS
+          catchError: (context, error) {
+            // PRINT THE ERROR
+            if (kDebugMode) {
+              print("Error in logged in for ingingos: $error");
+              print("The err: ${IngingoService().getTotalIngingos(isomoId)}");
+            }
+            // RETURN NULL
+            return null;
+          },
         ),
       ],
+      child: Column(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            decoration: BoxDecoration(
+              color: const Color(0xFF2C64C6),
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.width * 0.04,
+                horizontal: MediaQuery.of(context).size.width * 0.01,
+              ),
+              child: Column(
+                children: [
+                  // TITLE
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 0.02, vertical: 4.0),
+                    child: Text(
+                      title,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                        color: Colors.black,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+
+                  // BOTTOM BORDER OF THE ABOVE SECTION
+                  Container(
+                    color: const Color(0xFFFFBD59),
+                    height: MediaQuery.of(context).size.height * 0.009,
+                  ),
+
+                  // VERTICAL SPACE
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+
+                  // DESCRIPTION
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(
+                      description!,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.034,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+
+                  // VERTICAL SPACE
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  UserProgress(
+                      isomoId: isomoId,
+                      userId: userId,
+                      title: title,
+                      description: description),
+                ],
+              ),
+            ),
+          ),
+          // VERTICAL SPACE
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.015,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -4,7 +4,7 @@ import "package:tegura/screens/utilities/cta_link.dart";
 import "package:tegura/screens/utilities/default_input.dart";
 import 'package:tegura/screens/utilities/description.dart';
 import "package:tegura/screens/iga/gradient_title.dart";
-import 'package:tegura/screens/utilities/my_appbar.dart';
+import 'package:tegura/screens/utilities/appbar.dart';
 import "package:tegura/screens/utilities/spinner.dart";
 import "package:tegura/services/auth.dart";
 
@@ -12,7 +12,7 @@ class Injira extends StatefulWidget {
   const Injira({Key? key}) : super(key: key);
 
   @override
-  _InjiraState createState() => _InjiraState();
+  State<Injira> createState() => _InjiraState();
 }
 
 // STATE FOR THE SIGN IN PAGE - STATEFUL
@@ -47,7 +47,7 @@ class _InjiraState extends State<Injira> {
             body: ListView(
               children: [
                 // 1. GRADIENT TITLE
-                GradientTitle(
+                const GradientTitle(
                     title: 'INJIRA', icon: 'assets/images/injira.svg'),
 
                 // 2. DESCRIPTION

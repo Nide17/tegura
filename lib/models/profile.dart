@@ -1,5 +1,8 @@
 // DEFINING USER MODEL TO REPRESENT THE USER
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProfileModel {
+
   final String? uid; // UNIQUE ID OF THE USER - FROM FIREBASE
   final String? username;
   final String? names;
@@ -11,7 +14,8 @@ class ProfileModel {
   final bool? urStudent;
   final String? regNumber;
   final String? campus;
-  final int? roleId;
+  // roleId IS A REFERENCE TYPE TO ROLES COLLECTION
+  final DocumentReference? roleId;
 
   // CONSTRUCTOR
   ProfileModel(

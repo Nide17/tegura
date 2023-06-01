@@ -1,5 +1,4 @@
 // WIDGET FOR HOLDING THE APPBAR
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:tegura/models/profile.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/services/auth.dart';
+
 class AppBarTegura extends StatelessWidget {
   const AppBarTegura({Key? key}) : super(key: key);
 
@@ -18,13 +18,13 @@ class AppBarTegura extends StatelessWidget {
     // GET PROVIDER USER PROFILE
     final profile = Provider.of<ProfileModel?>(context);
 
-    // PRINT THE USER ID
-    if (kDebugMode) {
-      print("AppBar UID: ${usr?.uid} --- AppBar Email: ${usr?.email}");
+    // // PRINT THE USER ID
+    // if (kDebugMode) {
+    //   print("AppBar UID: ${usr?.uid} --- AppBar Email: ${usr?.email}");
 
-      // PRINT THE USER PROFILE
-      print(profile?.username);
-    }
+    //   // PRINT THE USER PROFILE
+    //   print(profile?.username);
+    // }
 
     return AppBar(
       backgroundColor: const Color(0xFF5B8BDF),
@@ -76,18 +76,40 @@ class AppBarTegura extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: const Text('User Details'),
+                    title: Text("${profile?.username}'s Profile"),
+                    backgroundColor: const Color.fromARGB(255, 201, 222, 255),
+                    elevation: 10.0,
+                    shadowColor: const Color(0xFFFFF59D),
                     content: SingleChildScrollView(
                       child: ListBody(
                         children: <Widget>[
-                          const Text('Name: Anon'),
-                          Text('UID: ${usr.uid}'),
+                          Text('Name: ${profile?.username}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              )),
+                          const SizedBox(height: 10.0),
+                          Text('Email: ${usr.email}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              )),
                         ],
                       ),
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text('Logout'),
+                        style: TextButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 74, 185, 0),
+                          elevation: 8.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                        ),
+                        child: const Text('Logout',
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 252, 255, 79))),
                         onPressed: () {
                           // CLOSE THE DIALOG BOX
                           Navigator.of(context).pop();

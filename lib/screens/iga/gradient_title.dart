@@ -5,11 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 class GradientTitle extends StatelessWidget {
 
 // INSTANCE VARIABLES
-  String title;
-  String icon;
+  final String title;
+  final String icon;
+  final double? marginTop;
 
 // CONSTRUCTOR
-  GradientTitle({super.key, required this.title, required this.icon});
+  const GradientTitle({super.key, required this.title, required this.icon, this.marginTop});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class GradientTitle extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.08,
-        margin: const EdgeInsets.only(left: 0, top: 24),
+        margin: EdgeInsets.only(left: 0, top: marginTop ?? 24),
 
         // STYLING
         decoration: BoxDecoration(
@@ -45,10 +46,10 @@ class GradientTitle extends StatelessWidget {
             ),
 
             // SVG ICON
-            SvgPicture.asset(
+            icon != '' ? SvgPicture.asset(
               icon,
               height: MediaQuery.of(context).size.height * 0.03,
-            ),
+            ): Container(),
 
             // HORIZONTAL SPACE
             SizedBox(
