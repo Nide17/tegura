@@ -55,7 +55,7 @@ class _BibazaState extends State<Bibaza> {
         // PAGE BODY
         body: ListView(children: <Widget>[
           // 1. GRADIENT TITLE
-          GradientTitle(
+          const GradientTitle(
               title: 'IBIBAZO ABANYESHURI BIBAZA',
               icon: 'assets/images/ibibazo_bibaza.svg'),
 

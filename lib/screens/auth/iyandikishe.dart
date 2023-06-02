@@ -42,7 +42,7 @@ class _IyandikisheState extends State<Iyandikishe> {
         body: ListView(
           children: [
             // 1. GRADIENT TITLE
-            GradientTitle(
+            const GradientTitle(
                 title: 'IYANDIKISHE', icon: 'assets/images/iyandikishe.svg'),
 
             // 2. DESCRIPTION
