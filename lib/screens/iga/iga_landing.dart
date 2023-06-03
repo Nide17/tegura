@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
-import 'package:tegura/screens/utilities/appbar.dart'; // APP BAR
+import 'package:tegura/utilities/appbar.dart'; // APP BAR
 import 'package:tegura/screens/iga/iga_data.dart';
 import 'package:tegura/services/isomodb.dart'; // DATA FOR THE IGA PAGE
 

@@ -86,8 +86,13 @@ class UserProgress extends StatelessWidget {
               // final int curCourseIngingo = courseProgress != null ? courseProgress.ingingo : 0;
 
               // NAVIGATE TO IGA CONTENT
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => IgaContent(isomoId: isomoId, isomoTitle: title, isomoDescription: description)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => IgaContent(
+                          isomoId: isomoId,
+                          isomoTitle: title,
+                          isomoDescription: description!)));
             },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.3,

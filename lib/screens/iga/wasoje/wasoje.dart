@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
 import 'package:tegura/screens/iga/gradient_title.dart';
-import 'package:tegura/screens/utilities/view_logged_in.dart';
-import 'package:tegura/screens/utilities/view_not_logged_in.dart';
-import 'package:tegura/screens/utilities/progress_circle.dart';
-import 'package:tegura/screens/utilities/appbar.dart';
+import 'package:tegura/utilities/view_logged_in.dart';
+import 'package:tegura/utilities/view_not_logged_in.dart';
+import 'package:tegura/utilities/progress_circle.dart';
+import 'package:tegura/utilities/appbar.dart';
 
 class Wasoje extends StatefulWidget {
   const Wasoje({Key? key}) : super(key: key);

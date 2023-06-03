@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tegura/models/user.dart';
-import 'package:tegura/services/database.dart';
+import 'package:tegura/services/profiledb.dart';
 
 // CLASS FOR HANDLING AUTH SERVICES
 class AuthService {
@@ -81,7 +81,7 @@ class AuthService {
 
       // SAVE THE USER DATA TO PROFILE COLLECTION
       if (user != null) {
-        await DatabaseService(uid: user.uid).updateUserProfile(
+        await ProfileService(uid: user.uid).updateUserProfile(
           user.uid,
           username,
           '',

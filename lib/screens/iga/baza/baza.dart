@@ -2,12 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/user.dart';
-import 'package:tegura/screens/utilities/description.dart';
+import 'package:tegura/utilities/description.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
 import 'package:tegura/screens/iga/baza/contact_form.dart';
 import 'package:tegura/screens/iga/baza/social.dart';
 import 'package:tegura/screens/iga/gradient_title.dart';
-import 'package:tegura/screens/utilities/appbar.dart';
+import 'package:tegura/utilities/appbar.dart';
 
 class Baza extends StatefulWidget {
   const Baza({Key? key}) : super(key: key);

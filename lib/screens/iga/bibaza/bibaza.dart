@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/user.dart';
-import 'package:tegura/screens/utilities/description.dart';
+import 'package:tegura/utilities/description.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
 import 'package:tegura/screens/iga/bibaza/faq.dart';
 import 'package:tegura/screens/iga/gradient_title.dart';
-import 'package:tegura/screens/utilities/appbar.dart';
+import 'package:tegura/utilities/appbar.dart';
 
 class Bibaza extends StatefulWidget {
   const Bibaza({Key? key}) : super(key: key);

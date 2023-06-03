@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tegura/screens/iga/iga_content.dart';
 
 class DirectionButton extends StatelessWidget {
   // INSTANCE VARIABLES
   final String buttonText;
   final String direction;
   final double opacity;
-  final String portion;
+  final int skip;
+  final ValueChanged<int> changeSkip;
+  final String isomoId;
+  final String isomoTitle;
+  final String isomoDescription;
 
   const DirectionButton({
     Key? key,
     required this.buttonText,
     required this.direction,
     required this.opacity,
-    required this.portion,
+    required this.skip,
+    required this.changeSkip,
+    required this.isomoId,
+    required this.isomoTitle,
+    required this.isomoDescription,
   }) : super(key: key);
 
   @override
@@ -24,11 +33,27 @@ class DirectionButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         if (direction == 'inyuma') {
+          // DECREASE SKIP STATE
+          changeSkip(-2);
           // GO BACK TO THE PREVIOUS PAGE
           Navigator.pop(context);
         } else if (direction == 'komeza') {
+          // INCREASE SKIP STATE
+          changeSkip(2);
           // GO TO THE NEXT PAGE
-          Navigator.pushNamed(context, '/iga-$portion');
+          // Navigator.pushNamed(context, '/iga-$portion');
+
+          // SHOW THE WIDGET WITH UPDATED SKIP STATE
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => IgaContent(
+                isomoId: isomoId,
+                isomoTitle: isomoTitle,
+                isomoDescription: isomoDescription,
+              ),
+            ),
+          );
         }
       },
       style: ElevatedButton.styleFrom(
@@ -66,7 +91,7 @@ class DirectionButton extends StatelessWidget {
               fontSize: MediaQuery.of(context).size.width * 0.035,
               color: const Color.fromARGB(255, 0, 0, 0),
             ),
-          ),// ICON
+          ), // ICON
           Visibility(
             visible: direction == 'backward' ? false : true,
             child: Opacity(

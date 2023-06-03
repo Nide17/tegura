@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
-import "package:tegura/screens/utilities/cta_button.dart";
-import "package:tegura/screens/utilities/cta_link.dart";
-import "package:tegura/screens/utilities/default_input.dart";
-import 'package:tegura/screens/utilities/description.dart';
+import 'package:tegura/utilities/cta_button.dart';
+import 'package:tegura/utilities/cta_link.dart';
+import 'package:tegura/utilities/default_input.dart';
+import 'package:tegura/utilities/description.dart';
 import "package:tegura/screens/iga/gradient_title.dart";
-import 'package:tegura/screens/utilities/appbar.dart';
-import "package:tegura/screens/utilities/spinner.dart";
+import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/spinner.dart';
 import "package:tegura/services/auth.dart";
 
 class Injira extends StatefulWidget {

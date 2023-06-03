@@ -112,24 +112,29 @@ class IngingoService {
 // GET A LIST OF ingingos FOR A GIVEN isomoId, LIMITED TO THE GIVEN NUMBER, AND SKIP THE GIVEN NUMBER OF DOCUMENTS RETURNED FROM THE QUERY RESULTS - PAGINATION - ORDERED BY ITS DOCUMENT ID
   Stream<List<IngingoModel>> getIngingosByIsomoIdPaginated(
       String isomoId, int limit, int lastDocumentID) {
-
     // Construct the initial query
     Query query = ingingoCollection
         .where('isomoID', isEqualTo: isomoId)
         .orderBy(FieldPath.documentId)
         .limit(limit);
 
-        // If there is a lastDocumentID, start the query after it
-    if (lastDocumentID != null) {
-      query = query.startAfter([lastDocumentID]);
-    }
+    // If there is a lastDocumentID, start the query after it
+    query = query.startAfter(['$lastDocumentID']);
 
     // Retrieve the stream of documents from Firestore
     final documentsStream = query.snapshots();
 
+    // // print results before returning
+    // documentsStream.listen((event) {
+    //   print('The last document id was: $lastDocumentID');
+    //   print('Got ingos by isomo');
+    //   event.docs.forEach((element) {
+    //     print(element.data());
+    //   });
+    // });
+
     // Map the stream to a list of IngingoModel objects
     return documentsStream.map((event) => _ingingosFromSnapshot(event));
-
   }
 
 // #############################################################################

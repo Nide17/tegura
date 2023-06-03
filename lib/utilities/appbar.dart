@@ -18,13 +18,13 @@ class AppBarTegura extends StatelessWidget {
     // GET PROVIDER USER PROFILE
     final profile = Provider.of<ProfileModel?>(context);
 
-    // // PRINT THE USER ID
-    // if (kDebugMode) {
-    //   print("AppBar UID: ${usr?.uid} --- AppBar Email: ${usr?.email}");
+    // PRINT THE USER ID
+    if (kDebugMode) {
+      print("AppBar UID: ${usr?.uid} --- AppBar Email: ${usr?.email}");
 
-    //   // PRINT THE USER PROFILE
-    //   print(profile?.username);
-    // }
+      // PRINT THE USER PROFILE
+      print(profile?.username);
+    }
 
     return AppBar(
       backgroundColor: const Color(0xFF5B8BDF),
@@ -32,7 +32,8 @@ class AppBarTegura extends StatelessWidget {
 
       // BOTTOM BORDER OF THE APP BAR
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(18.0),
+        // SET RESPONSIVE HEIGHT OF THE BOTTOM BORDER
+        preferredSize: MediaQuery.of(context).size * 0.001,
         child: Container(
           color: const Color(0xFFFFBD59),
           height: MediaQuery.of(context).size.height * 0.01,
@@ -43,18 +44,18 @@ class AppBarTegura extends StatelessWidget {
           // ARRAY OF WIDGETS - ROW
           SvgPicture.asset(
             'assets/images/car.svg',
-            height: MediaQuery.of(context).size.height * 0.05,
+            height: MediaQuery.of(context).size.height * 0.045,
           ),
 
           // SPACING BETWEEN THE TWO WIDGETS
           SizedBox(
-            width: MediaQuery.of(context).size.height * 0.013,
+            width: MediaQuery.of(context).size.height * 0.012,
           ),
           Text('Tegura.rw', // TEXT WIDGET
               style: TextStyle(
                 color: const Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.w900,
-                fontSize: MediaQuery.of(context).size.width * 0.05,
+                fontSize: MediaQuery.of(context).size.width * 0.048,
               )),
         ],
       ),
@@ -68,7 +69,7 @@ class AppBarTegura extends StatelessWidget {
             // USE CUSTOM ICON - SVG
             icon: SvgPicture.asset(
               'assets/images/avatar.svg',
-              height: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery.of(context).size.height * 0.048,
             ),
             onPressed: () {
               // OPEN A DIALOG BOX TO DISPLAY USER DETAILS AND LOGOUT BUTTON

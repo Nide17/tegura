@@ -41,7 +41,7 @@ class IngingoModel {
   String? imageUrl = '';
   String? imageTitle = '';
   String? imageDesc = '';
-  List<Option>? options = [];
+  dynamic options = [];
 
   // CONSTRUCTOR
   IngingoModel({
@@ -54,4 +54,50 @@ class IngingoModel {
     this.imageDesc,
     this.options,
   });
+
+  // FROM JSON
+  IngingoModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    isomoId = json['isomoId'];
+    title = json['title'];
+    text = json['text'];
+    imageUrl = json['imageUrl'];
+    imageTitle = json['imageTitle'];
+    imageDesc = json['imageDesc'];
+    options = json['options'];
+  }
+
+  // TO JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'isomoId': isomoId,
+      'title': title,
+      'text': text,
+      'imageUrl': imageUrl,
+      'imageTitle': imageTitle,
+      'imageDesc': imageDesc,
+      'options': options,
+    };
+  }
+
+  // TO STRING
+  @override
+  String toString() {
+    return 'IngingoModel(id: $id, isomoId: $isomoId, title: $title, text: $text, imageUrl: $imageUrl, imageTitle: $imageTitle, imageDesc: $imageDesc, options: $options)';
+  }
+
+  // TO OBJECT
+  IngingoModel toObject(Map<String, dynamic> map) {
+    return IngingoModel(
+      id: map['id'],
+      isomoId: map['isomoId'],
+      title: map['title'],
+      text: map['text'],
+      imageUrl: map['imageUrl'],
+      imageTitle: map['imageTitle'],
+      imageDesc: map['imageDesc'],
+      options: map['options'],
+    );
+  }
 }

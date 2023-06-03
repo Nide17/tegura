@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tegura/screens/utilities/default_input.dart';
+import 'package:tegura/utilities/default_input.dart';
 
 class ContactForm extends StatefulWidget {
   const ContactForm({super.key});

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tegura/models/profile.dart';
 
-class DatabaseService {
+class ProfileService {
   // COLLECTIONS REFERENCE - FIRESTORE
   final CollectionReference profilesCollection =
       FirebaseFirestore.instance.collection('profiles');
@@ -9,7 +9,7 @@ class DatabaseService {
   final String? uid;
 
   // CONSTRUCTOR
-  DatabaseService({this.uid});
+  ProfileService({this.uid});
 
   // THIS FUNCTION WILL UPDATE THE USER DATA IN THE DATABASE WHEN THE USER SIGNS UP AND WHEN THE USER UPDATES HIS/HER PROFILE
   Future updateUserProfile(
@@ -141,7 +141,7 @@ class DatabaseService {
   // }
 
   // GET A SINGLE USER PROFILE STREAM - CURRENT LOGGED IN USER PROFILE USING UID
-  Stream<ProfileModel?>? getCurrentUser(String? uid) {
+  Stream<ProfileModel?>? getCurrentProfile(String? uid) {
     // CHECK IF CURRENT USER UID IS NULL, IF IT IS, RETURN NULL
     if (uid == null) return null;
 

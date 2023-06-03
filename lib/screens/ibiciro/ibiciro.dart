@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tegura/screens/ibiciro/ibiciro_data.dart';
 import 'package:tegura/screens/ibiciro/ifatabuguzi.dart';
 import 'package:tegura/screens/iga/gradient_title.dart';
-import 'package:tegura/screens/utilities/description.dart';
-import 'package:tegura/screens/utilities/appbar.dart';
+import 'package:tegura/utilities/description.dart';
+import 'package:tegura/utilities/appbar.dart';
 
 class Ibiciro extends StatefulWidget {
   const Ibiciro({Key? key}) : super(key: key);

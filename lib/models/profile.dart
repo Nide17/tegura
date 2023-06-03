@@ -2,7 +2,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfileModel {
-
   final String? uid; // UNIQUE ID OF THE USER - FROM FIREBASE
   final String? username;
   final String? names;
@@ -31,4 +30,10 @@ class ProfileModel {
       this.regNumber,
       this.campus,
       this.roleId});
+
+  // TO STRING
+  @override
+  String toString() {
+    return "ProfileModel {id: $uid, username: $username, email: $email, roleId: $roleId}";
+  }
 }

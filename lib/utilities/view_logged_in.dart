@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/course_progress.dart';
-import 'package:tegura/screens/utilities/user_progress.dart';
+import 'package:tegura/utilities/user_progress.dart';
 import 'package:tegura/services/course_progress.dart';
 import 'package:tegura/services/ingingodb.dart';
 

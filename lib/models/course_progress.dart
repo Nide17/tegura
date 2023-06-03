@@ -14,4 +14,10 @@ class CourseProgressModel {
       required this.courseId,
       required this.currentIngingo,
       required this.totalIngingos});
+
+  // TO STRING
+  @override
+  String toString() {
+    return 'CourseProgressModel{id: $id, userId: $userId, courseId: $courseId, currentIngingo: $currentIngingo, totalIngingos: $totalIngingos}';
+  }
 }

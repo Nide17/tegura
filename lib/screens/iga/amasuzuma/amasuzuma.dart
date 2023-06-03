@@ -2,14 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/user.dart';
-import 'package:tegura/screens/utilities/description.dart';
+import 'package:tegura/utilities/description.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
 import 'package:tegura/screens/iga/amasuzuma/amanota.dart';
 import 'package:tegura/screens/iga/gradient_title.dart';
 import 'package:tegura/screens/iga/igazeti/igazeti_book.dart';
 import 'package:tegura/screens/iga/iga_card.dart';
 import 'package:tegura/screens/iga/igazeti/igazeti_imirongo.dart';
-import 'package:tegura/screens/utilities/appbar.dart';
+import 'package:tegura/utilities/appbar.dart';
 
 class Amasuzumabumenyi extends StatefulWidget {
   const Amasuzumabumenyi({Key? key}) : super(key: key);
