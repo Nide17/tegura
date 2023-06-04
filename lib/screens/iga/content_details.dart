@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/ingingo.dart';
 import 'package:tegura/screens/iga/gradient_title.dart';
-import 'package:tegura/utilities/direction_button.dart';
 
 class ContentDetails extends StatelessWidget {
 // INSTANCE VARIABLES
@@ -22,9 +21,6 @@ class ContentDetails extends StatelessWidget {
     // PROVIDERS
     // GET THE INGINGOS
     final ingingos = Provider.of<List<IngingoModel>?>(context);
-    // print("Trying to get ingingos...");
-
-    // print("Ingingos: $ingingos");
 
     // RETURN THE WIDGETS
     return Column(children: <Widget>[

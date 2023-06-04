@@ -50,7 +50,7 @@ class ViewLoggedIn extends StatelessWidget {
         // STREAM PROVIDER FOR TOTAL INGINGOS FOR A PARTICULAR COURSE OR ISOMO
         StreamProvider<int?>.value(
           // WHAT TO GIVE TO THE CHILDREN WIDGETS
-          value: IngingoService().getTotalIngingos(isomoId),
+          value: IngingoService().getTotalIsomoIngingos(isomoId),
           initialData: null,
 
           // CATCH ERRORS
@@ -58,7 +58,7 @@ class ViewLoggedIn extends StatelessWidget {
             // PRINT THE ERROR
             if (kDebugMode) {
               print("Error in logged in for ingingos: $error");
-              print("The err: ${IngingoService().getTotalIngingos(isomoId)}");
+              print("The err: ${IngingoService().getTotalIsomoIngingos(isomoId)}");
             }
             // RETURN NULL
             return null;

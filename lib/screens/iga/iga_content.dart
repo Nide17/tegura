@@ -15,11 +15,12 @@ class IgaContent extends StatefulWidget {
   final String isomoTitle;
   final String isomoDescription;
 
-  const IgaContent(
-      {super.key,
-      required this.isomoId,
-      required this.isomoTitle,
-      required this.isomoDescription});
+  const IgaContent({
+    super.key,
+    required this.isomoId,
+    required this.isomoTitle,
+    required this.isomoDescription,
+  });
 
   @override
   State<IgaContent> createState() => _IgaContentState();
@@ -27,32 +28,38 @@ class IgaContent extends StatefulWidget {
 
 class _IgaContentState extends State<IgaContent> {
   final int pageNumber = 1;
+  int _skip =
+      0; // MOVED TO INSTANCE VARIABLES TO MAKE CHANGES BE RETAINED ON REBUILDS
 
-  final int? limit = 1;
+  // CALLBACK TO CHANGE THE SKIP STATE
+  void changeSkip(int val) {
+    setState(() {
+      _skip = _skip + val;
+      if (_skip < 0) {
+        _skip = 0;
+        // GO BACK TO THE PREVIOUS PAGE IF NO MORE PREV CONTENT
+        Navigator.pop(context);
+      }
+    });
+  }
 
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
     // GET THE USER
     final usr = Provider.of<UserModel?>(context);
-    int skip = 0;
-
-    // CALLBACK TO CHANGE THE SKIP STATE
-    void changeSkip(int val) {
-      setState(() {
-        skip += val;
-      });
-    }
 
     // RETURN THE WIDGETS
+    const int limit = 2;
+
     return MultiProvider(
       providers: [
         // STREAM PROVIDER FOR TOTAL INGINGOS FOR A PARTICULAR COURSE OR ISOMO
         StreamProvider<List<IngingoModel>?>.value(
           // WHAT TO GIVE TO THE CHILDREN WIDGETS
-          value: skip >= 0
+          value: _skip >= 0
               ? IngingoService()
-                  .getIngingosByIsomoIdPaginated(widget.isomoId, 2, skip)
+                  .getIngingosByIsomoIdPaginated(widget.isomoId, 2, _skip)
               : const Stream<List<IngingoModel>?>.empty(),
           initialData: null,
 
@@ -62,7 +69,7 @@ class _IgaContentState extends State<IgaContent> {
             if (kDebugMode) {
               print("Error in logged in for ingingos: $error");
               print(
-                  "The err: ${IngingoService().getIngingosByIsomoIdPaginated(widget.isomoId, 2, skip)}");
+                  "The err: ${IngingoService().getIngingosByIsomoIdPaginated(widget.isomoId, 2, _skip)}");
             }
             // RETURN NULL
             return null;
@@ -93,14 +100,15 @@ class _IgaContentState extends State<IgaContent> {
                 // 2. INYUMA BUTTON
                 DirectionButton(
                   buttonText: 'inyuma',
-                  direction: 'backward',
+                  direction: 'inyuma',
                   opacity: 1,
-                  skip: skip,
+                  skip: _skip,
+                  limit: limit,
                   // SET STATE TO CHANGE THE SKIP BY SUBTRACTING 2 ON EACH BACKWARD BUTTON PRESS
                   changeSkip: changeSkip,
                   isomoId: widget.isomoId,
                   isomoTitle: widget.isomoTitle,
-                  isomoDescription: widget.isomoDescription!,
+                  isomoDescription: widget.isomoDescription,
                 ),
 
                 CircularPercentIndicator(
@@ -123,9 +131,10 @@ class _IgaContentState extends State<IgaContent> {
                 // 3. KOMEZA BUTTON
                 DirectionButton(
                   buttonText: 'komeza',
-                  direction: 'forward',
+                  direction: 'komeza',
                   opacity: 1,
-                  skip: skip,
+                  skip: _skip,
+                  limit: limit,
                   // SET STATE TO CHANGE THE SKIP BY ADDING 2 ON EACH FORWARD BUTTON PRESS
                   changeSkip: changeSkip,
                   isomoId: widget.isomoId,

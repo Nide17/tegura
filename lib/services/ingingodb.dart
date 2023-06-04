@@ -90,7 +90,7 @@ class IngingoService {
   }
 
 // GET TOTAL ingingos FOR A GIVEN isomoId
-  Stream<int> getTotalIngingos(String isomoId) {
+  Stream<int> getTotalIsomoIngingos(String isomoId) {
     // Retrieve the stream of documents from Firestore
     final documentsStream =
         ingingoCollection.where('isomoID', isEqualTo: isomoId).snapshots();
@@ -123,15 +123,6 @@ class IngingoService {
 
     // Retrieve the stream of documents from Firestore
     final documentsStream = query.snapshots();
-
-    // // print results before returning
-    // documentsStream.listen((event) {
-    //   print('The last document id was: $lastDocumentID');
-    //   print('Got ingos by isomo');
-    //   event.docs.forEach((element) {
-    //     print(element.data());
-    //   });
-    // });
 
     // Map the stream to a list of IngingoModel objects
     return documentsStream.map((event) => _ingingosFromSnapshot(event));
