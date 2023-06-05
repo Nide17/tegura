@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/course_progress.dart';
+import 'package:tegura/models/isomo.dart';
 import 'package:tegura/utilities/user_progress.dart';
 import 'package:tegura/services/course_progress.dart';
 import 'package:tegura/services/ingingodb.dart';
@@ -9,18 +10,14 @@ import 'package:tegura/services/ingingodb.dart';
 class ViewLoggedIn extends StatelessWidget {
   // INSTANCE VARIABLES
   final double progress;
-  final String? description;
-  final String title;
-  final String isomoId;
   final String userId;
+  final IsomoModel isomo;
 
   // CONSTRUCTOR
   const ViewLoggedIn(
       {super.key,
       required this.progress,
-      this.description,
-      required this.title,
-      required this.isomoId,
+      required this.isomo,
       required this.userId});
 
   @override
@@ -31,7 +28,7 @@ class ViewLoggedIn extends StatelessWidget {
         // DB REFERENCE TO COURSE PROGRESS COLLECTION
         StreamProvider<CourseProgressModel?>.value(
           // WHAT TO GIVE TO THE CHILDREN WIDGETS
-          value: CourseProgressService().getProgress(userId, isomoId),
+          value: CourseProgressService().getProgress(userId, isomo.id),
           initialData: null,
 
           // CATCH ERRORS
@@ -40,7 +37,7 @@ class ViewLoggedIn extends StatelessWidget {
             if (kDebugMode) {
               print("Error in logged in: $error");
               print(
-                  "The err: ${CourseProgressService().getProgress(userId, isomoId)}");
+                  "The err: ${CourseProgressService().getProgress(userId, isomo.id)}");
             }
             // RETURN NULL
             return null;
@@ -50,7 +47,7 @@ class ViewLoggedIn extends StatelessWidget {
         // STREAM PROVIDER FOR TOTAL INGINGOS FOR A PARTICULAR COURSE OR ISOMO
         StreamProvider<int?>.value(
           // WHAT TO GIVE TO THE CHILDREN WIDGETS
-          value: IngingoService().getTotalIsomoIngingos(isomoId),
+          value: IngingoService().getTotalIsomoIngingos(isomo.id),
           initialData: null,
 
           // CATCH ERRORS
@@ -58,7 +55,7 @@ class ViewLoggedIn extends StatelessWidget {
             // PRINT THE ERROR
             if (kDebugMode) {
               print("Error in logged in for ingingos: $error");
-              print("The err: ${IngingoService().getTotalIsomoIngingos(isomoId)}");
+              print("The err: ${IngingoService().getTotalIsomoIngingos(isomo.id)}");
             }
             // RETURN NULL
             return null;
@@ -85,7 +82,7 @@ class ViewLoggedIn extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 0.02, vertical: 4.0),
                     child: Text(
-                      title,
+                      isomo.title,
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
@@ -111,7 +108,7 @@ class ViewLoggedIn extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Text(
-                      description!,
+                      isomo.description,
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.034,
@@ -125,10 +122,9 @@ class ViewLoggedIn extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   UserProgress(
-                      isomoId: isomoId,
+                      isomo: isomo,
                       userId: userId,
-                      title: title,
-                      description: description),
+                      ),
                 ],
               ),
             ),

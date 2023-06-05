@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/isomo.dart';
@@ -26,13 +25,22 @@ class _HagatiState extends State<Hagati> {
 
     // GET THE AMASOMO DATA - IsomoService().getAllAmasomo(FirebaseAuth.instance.currentUser?.uid
     final amasomo = Provider.of<List<IsomoModel?>?>(context);
+    print('AMASOMO: $amasomo');
 
     // BUILD ViewLoggedIn WIDGETS WITH THE AMASOMO DATA ELEMENTS
-    final amasomoWidgets = amasomo?.map((e) => ViewLoggedIn(
-          title: e!.title,
-          description: e.description,
+    final amasomoWidgets = amasomo?.map((isomo) => ViewLoggedIn(
+          // title: isomo!.title,
+          // description: isomo.description,
+          isomo: isomo ??
+              IsomoModel(
+                title: 'Nta somo ryabonetse',
+                description: 'Nta somo ryabonetse',
+                introText: 'Nta somo ryabonetse',
+                id: '0',
+                conclusion: 'Nta somo ryabonetse',
+              ),
           progress: 0.0,
-          isomoId: e.id,
+          // isomoId: isomo.id,
           userId: usr!.uid,
         ));
 

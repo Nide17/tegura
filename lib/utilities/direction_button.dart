@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/ingingo.dart';
+import 'package:tegura/models/isomo.dart';
 
 class DirectionButton extends StatelessWidget {
   // INSTANCE VARIABLES
@@ -11,9 +12,7 @@ class DirectionButton extends StatelessWidget {
   final int skip;
   final int limit;
   final ValueChanged<int> changeSkip;
-  final String isomoId;
-  final String isomoTitle;
-  final String isomoDescription;
+  final IsomoModel isomo;
 
   const DirectionButton({
     Key? key,
@@ -23,9 +22,7 @@ class DirectionButton extends StatelessWidget {
     required this.skip,
     required this.limit,
     required this.changeSkip,
-    required this.isomoId,
-    required this.isomoTitle,
-    required this.isomoDescription,
+    required this.isomo,
   }) : super(key: key);
 
   @override
@@ -38,10 +35,10 @@ class DirectionButton extends StatelessWidget {
       onPressed: () {
         if (direction == 'inyuma') {
           // DECREASE SKIP STATE
-          changeSkip(-2);
+          changeSkip(-5);
         } else if (direction == 'komeza') {
           // INCREASE SKIP STATE
-          changeSkip(2);
+          changeSkip(5);
           // REMOVE THE CURRENT PAGE FROM THE STACK IF NO MORE NEXT PAGES
           if (ingingos.length < limit) {
             Navigator.pop(context);

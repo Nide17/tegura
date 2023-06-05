@@ -2,24 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/course_progress.dart';
+import 'package:tegura/models/isomo.dart';
 import 'package:tegura/screens/iga/iga_content.dart';
 import 'package:tegura/services/course_progress.dart';
 
 class UserProgress extends StatelessWidget {
   // INSTANCE VARIABLES
-  final String isomoId;
+  final IsomoModel isomo;
   final String userId;
-  final String title;
-  final String? description;
   final int totalIngingos = 0;
 
   // CONSTRUCTOR
   const UserProgress({
     super.key,
-    required this.isomoId,
+    required this.isomo,
     required this.userId,
-    required this.title,
-    this.description,
   });
 
   @override
@@ -76,7 +73,7 @@ class UserProgress extends StatelessWidget {
                 // CREATE A NEW PROGRESS BY UPDATING THE COURSE PROGRESS
                 CourseProgressService().updateUserCourseProgress(
                   userId,
-                  isomoId,
+                  isomo.id,
                   totalIngingos,
                   curCourseIngingo,
                 );
@@ -90,9 +87,7 @@ class UserProgress extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => IgaContent(
-                          isomoId: isomoId,
-                          isomoTitle: title,
-                          isomoDescription: description!)));
+                          isomo: isomo)));
             },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.3,

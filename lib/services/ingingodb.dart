@@ -30,6 +30,8 @@ class IngingoService {
           data.containsKey('imageTitle') ? data['imageTitle'] : '';
       final imageDesc = data.containsKey('imageDesc') ? data['imageDesc'] : '';
       final options = data.containsKey('options') ? data['options'] : '';
+      final nb = data.containsKey('nb') ? data['nb'] : '';
+      final insideTitle = data.containsKey('insideTitle') ? data['insideTitle'] : '';
 
       // RETURN A LIST OF ingingos FROM THE SNAPSHOT
       return IngingoModel(
@@ -42,6 +44,8 @@ class IngingoService {
         imageTitle: imageTitle,
         imageDesc: imageDesc,
         options: options,
+        nb: nb,
+        insideTitle: insideTitle,
       );
     }).toList();
   }
@@ -61,6 +65,8 @@ class IngingoService {
     final imageTitle = data.containsKey('imageTitle') ? data['imageTitle'] : '';
     final imageDesc = data.containsKey('imageDesc') ? data['imageDesc'] : '';
     final options = data.containsKey('options') ? data['options'] : '';
+    final nb = data.containsKey('nb') ? data['nb'] : '';
+    final insideTitle = data.containsKey('insideTitle') ? data['insideTitle'] : '';
 
     // RETURN A LIST OF ingingos FROM THE SNAPSHOT
     return IngingoModel(
@@ -73,6 +79,8 @@ class IngingoService {
       imageTitle: imageTitle,
       imageDesc: imageDesc,
       options: options,
+      nb: nb,
+      insideTitle: insideTitle,
     );
   }
 
@@ -111,15 +119,16 @@ class IngingoService {
 
 // GET A LIST OF ingingos FOR A GIVEN isomoId, LIMITED TO THE GIVEN NUMBER, AND SKIP THE GIVEN NUMBER OF DOCUMENTS RETURNED FROM THE QUERY RESULTS - PAGINATION - ORDERED BY ITS DOCUMENT ID
   Stream<List<IngingoModel>> getIngingosByIsomoIdPaginated(
-      String isomoId, int limit, int lastDocumentID) {
+      String isomoId, int limit, int lastIDinsideDoc) {
     // Construct the initial query
     Query query = ingingoCollection
         .where('isomoID', isEqualTo: isomoId)
-        .orderBy(FieldPath.documentId)
+        // Order the documents by the document ID
+        .orderBy('id', descending: false)
         .limit(limit);
-
-    // If there is a lastDocumentID, start the query after it
-    query = query.startAfter(['$lastDocumentID']);
+        
+    // If there is a lastIDinsideDoc, start the query after it
+    query = query.startAfter([lastIDinsideDoc]);
 
     // Retrieve the stream of documents from Firestore
     final documentsStream = query.snapshots();
@@ -133,7 +142,7 @@ class IngingoService {
 // #############################################################################
   // CREATE ONE ingingo
   Future createIngingo(IngingoModel ingingo) async {
-    return await ingingoCollection.doc(ingingo.id).set({
+    return await ingingoCollection.doc(ingingo.id as String?).set({
       'id': ingingo.id,
       'isomoId': ingingo.isomoId,
       'title': ingingo.title,
@@ -142,6 +151,8 @@ class IngingoService {
       'imageTitle': ingingo.imageTitle,
       'imageDesc': ingingo.imageDesc,
       'options': ingingo.options,
+      'nb': ingingo.nb,
+      'insideTitle': ingingo.insideTitle,
     });
   }
 
@@ -150,7 +161,7 @@ class IngingoService {
 // #############################################################################
   // UPDATE ONE ingingo
   Future updateIngingo(IngingoModel ingingo) async {
-    return await ingingoCollection.doc(ingingo.id).update({
+    return await ingingoCollection.doc(ingingo.id as String?).update({
       'id': ingingo.id,
       'isomoId': ingingo.isomoId,
       'title': ingingo.title,
@@ -159,6 +170,8 @@ class IngingoService {
       'imageTitle': ingingo.imageTitle,
       'imageDesc': ingingo.imageDesc,
       'options': ingingo.options,
+      'nb': ingingo.nb,
+      'insideTitle': ingingo.insideTitle,
     });
   }
 

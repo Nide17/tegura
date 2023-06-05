@@ -71,14 +71,14 @@ class CourseProgressService {
 // #############################################################################
 // FUNCTIONS FOR INTERACTING WITH THE DATABASE
 // #############################################################################
-  // GET progresses STREAM
-  Stream<List<CourseProgressModel?>>? getAllProgresses(String? uid) {
-    // CHECK IF CURRENT USER UID IS NULL, IF IT IS, RETURN NULL
-    if (uid == null) return null;
+  // // GET progresses STREAM
+  // Stream<List<CourseProgressModel?>>? getAllProgresses(String? uid) {
+  //   // CHECK IF CURRENT USER UID IS NULL, IF IT IS, RETURN NULL
+  //   if (uid == null) return null;
 
-    // GET ALL progresses FROM FIRESTORE AS A STREAM OF DOCUMENT SNAPSHOT
-    return progressCollection.snapshots().map(_progressesFromSnapshot);
-  }
+  //   // GET ALL progresses FROM FIRESTORE AS A STREAM OF DOCUMENT SNAPSHOT
+  //   return progressCollection.snapshots().map(_progressesFromSnapshot);
+  // }
 
   // GET ONE USER progress ON A COURSE STREAM
   Stream<CourseProgressModel?>? getProgress(String? uid, String? courseId) {

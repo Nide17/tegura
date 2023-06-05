@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/ingingo.dart';
+import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/iga/content_details.dart';
 import 'package:tegura/utilities/appbar.dart';
@@ -11,15 +12,11 @@ import 'package:tegura/services/ingingodb.dart';
 
 class IgaContent extends StatefulWidget {
 // INSTANCE VARIABLES
-  final String isomoId;
-  final String isomoTitle;
-  final String isomoDescription;
+  final IsomoModel isomo;
 
   const IgaContent({
     super.key,
-    required this.isomoId,
-    required this.isomoTitle,
-    required this.isomoDescription,
+    required this.isomo,
   });
 
   @override
@@ -50,7 +47,7 @@ class _IgaContentState extends State<IgaContent> {
     final usr = Provider.of<UserModel?>(context);
 
     // RETURN THE WIDGETS
-    const int limit = 2;
+    const int limit = 5;
 
     return MultiProvider(
       providers: [
@@ -59,7 +56,7 @@ class _IgaContentState extends State<IgaContent> {
           // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value: _skip >= 0
               ? IngingoService()
-                  .getIngingosByIsomoIdPaginated(widget.isomoId, 2, _skip)
+                  .getIngingosByIsomoIdPaginated(widget.isomo.id, limit, _skip)
               : const Stream<List<IngingoModel>?>.empty(),
           initialData: null,
 
@@ -69,7 +66,7 @@ class _IgaContentState extends State<IgaContent> {
             if (kDebugMode) {
               print("Error in logged in for ingingos: $error");
               print(
-                  "The err: ${IngingoService().getIngingosByIsomoIdPaginated(widget.isomoId, 2, _skip)}");
+                  "The err: ${IngingoService().getIngingosByIsomoIdPaginated(widget.isomo.id, limit, _skip)}");
             }
             // RETURN NULL
             return null;
@@ -87,8 +84,7 @@ class _IgaContentState extends State<IgaContent> {
 
           // PAGE BODY
           body: ContentDetails(
-            isomoDescription: widget.isomoDescription,
-            isomoTitle: widget.isomoTitle,
+            isomo: widget.isomo
           ),
           bottomNavigationBar: Container(
             margin: EdgeInsets.zero,
@@ -106,9 +102,7 @@ class _IgaContentState extends State<IgaContent> {
                   limit: limit,
                   // SET STATE TO CHANGE THE SKIP BY SUBTRACTING 2 ON EACH BACKWARD BUTTON PRESS
                   changeSkip: changeSkip,
-                  isomoId: widget.isomoId,
-                  isomoTitle: widget.isomoTitle,
-                  isomoDescription: widget.isomoDescription,
+                  isomo: widget.isomo
                 ),
 
                 CircularPercentIndicator(
@@ -137,9 +131,7 @@ class _IgaContentState extends State<IgaContent> {
                   limit: limit,
                   // SET STATE TO CHANGE THE SKIP BY ADDING 2 ON EACH FORWARD BUTTON PRESS
                   changeSkip: changeSkip,
-                  isomoId: widget.isomoId,
-                  isomoTitle: widget.isomoTitle,
-                  isomoDescription: widget.isomoDescription,
+                  isomo: widget.isomo
                 ),
               ],
             ),

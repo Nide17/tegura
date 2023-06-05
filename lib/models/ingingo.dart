@@ -1,4 +1,5 @@
 class Option {
+  int id = 0;
   String? title;
   String? text;
   String? imageUrl;
@@ -6,6 +7,7 @@ class Option {
   String? imageDesc;
 
   Option({
+    required this.id,
     this.title,
     this.text,
     this.imageUrl,
@@ -14,6 +16,7 @@ class Option {
   });
 
   Option.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     title = json['title'];
     text = json['text'];
     imageUrl = json['imageUrl'];
@@ -23,6 +26,7 @@ class Option {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'text': text,
       'imageUrl': imageUrl,
@@ -30,18 +34,36 @@ class Option {
       'imageDesc': imageDesc,
     };
   }
+
+  @override
+  String toString() {
+    return '$text';
+  }
+
+  Option toObject(Map<String, dynamic> map) {
+    return Option(
+      id: map['id'],
+      title: map['title'],
+      text: map['text'],
+      imageUrl: map['imageUrl'],
+      imageTitle: map['imageTitle'],
+      imageDesc: map['imageDesc'],
+    );
+  }
 }
 
 // MODEL TO REPRESENT THE INGINGO
 class IngingoModel {
-  String id = '';
+  int id = 0;
   String isomoId = '';
   String? title = '';
   String? text = '';
   String? imageUrl = '';
   String? imageTitle = '';
   String? imageDesc = '';
-  dynamic options = [];
+  dynamic options = '';
+  String? nb = '';
+  String? insideTitle = '';
 
   // CONSTRUCTOR
   IngingoModel({
@@ -53,6 +75,8 @@ class IngingoModel {
     this.imageTitle,
     this.imageDesc,
     this.options,
+    this.nb,
+    this.insideTitle,
   });
 
   // FROM JSON
@@ -65,6 +89,8 @@ class IngingoModel {
     imageTitle = json['imageTitle'];
     imageDesc = json['imageDesc'];
     options = json['options'];
+    nb = json['nb'];
+    insideTitle = json['insideTitle'];
   }
 
   // TO JSON
@@ -78,13 +104,15 @@ class IngingoModel {
       'imageTitle': imageTitle,
       'imageDesc': imageDesc,
       'options': options,
+      'nb': nb,
+      'insideTitle': insideTitle,
     };
   }
 
   // TO STRING
   @override
   String toString() {
-    return 'IngingoModel(id: $id, isomoId: $isomoId, title: $title, text: $text, imageUrl: $imageUrl, imageTitle: $imageTitle, imageDesc: $imageDesc, options: $options)';
+    return 'IngingoModel(id: $id, isomoId: $isomoId, title: $title, text: $text, imageUrl: $imageUrl, imageTitle: $imageTitle, imageDesc: $imageDesc, options: $options, nb: $nb, insideTitle: $insideTitle)';
   }
 
   // TO OBJECT
@@ -98,6 +126,8 @@ class IngingoModel {
       imageTitle: map['imageTitle'],
       imageDesc: map['imageDesc'],
       options: map['options'],
+      nb: map['nb'],
+      insideTitle: map['insideTitle'],
     );
   }
 }

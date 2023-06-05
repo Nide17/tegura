@@ -23,6 +23,7 @@ class IsomoService {
       final description =
           data.containsKey('description') ? data['description'] : '';
       final introText = data.containsKey('introText') ? data['introText'] : '';
+      final conclusion = data.containsKey('conclusion') ? data['conclusion'] : '';
 
       // RETURN A LIST OF AMASOMO FROM THE SNAPSHOT
       return IsomoModel(
@@ -31,6 +32,7 @@ class IsomoService {
         title: title,
         description: description,
         introText: introText,
+        conclusion: conclusion,
       );
     }).toList();
   }
