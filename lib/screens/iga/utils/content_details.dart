@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/ingingo.dart';
 import 'package:tegura/models/isomo.dart';
-import 'package:tegura/screens/iga/gradient_title.dart';
+import 'package:tegura/screens/iga/utils/gradient_title.dart';
 
 class ContentDetails extends StatelessWidget {
 // INSTANCE VARIABLES
@@ -20,10 +20,9 @@ class ContentDetails extends StatelessWidget {
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    // PROVIDERS
-    // GET THE INGINGOS
-    final ingingos = Provider.of<List<IngingoModel>?>(context);
-    print('INGINGOS: $ingingos');
+    // GET THE currINGINGOS
+    final currIngingos = Provider.of<List<IngingoModel>?>(context);
+    // print('currIngingos: $currIngingos');
 
     // RETURN THE WIDGETS
     return Column(children: <Widget>[
@@ -44,7 +43,7 @@ class ContentDetails extends StatelessWidget {
           // 68% OF THE SCREEN HEIGHT
           height: MediaQuery.of(context).size.height * 0.64,
           child: ListView.builder(
-            itemCount: ingingos?.length ?? 0,
+            itemCount: currIngingos?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               return Align(
                   child: Padding(
@@ -64,19 +63,19 @@ class ContentDetails extends StatelessWidget {
                           fontSize: MediaQuery.of(context).size.height * 0.027),
                       TextSpan(
                           text:
-                              '${ingingos?[index].id}. ${ingingos?[index].title} ',
+                              '${currIngingos?[index].id}. ${currIngingos?[index].title} ',
                           style: const TextStyle(fontWeight: FontWeight.bold),
                           children: [
                             // INGINGO TEXT
                             TextSpan(
-                                text: '${ingingos?[index].text}',
+                                text: '${currIngingos?[index].text}',
                                 style: const TextStyle(
                                     fontWeight: FontWeight.normal)),
                             // IF INGINGO HAS insideTitle
-                            if (ingingos?[index].insideTitle != null &&
-                                ingingos?[index].insideTitle != '')
+                            if (currIngingos?[index].insideTitle != null &&
+                                currIngingos?[index].insideTitle != '')
                               TextSpan(
-                                text: '\n\n${ingingos?[index].insideTitle}',
+                                text: '\n\n${currIngingos?[index].insideTitle}',
                                 style: const TextStyle(
                                     fontSize: 17.0,
                                     fontWeight: FontWeight.bold),
@@ -84,15 +83,15 @@ class ContentDetails extends StatelessWidget {
                           ]),
                     ),
                     // IF INGINGO HAS OPTIONS USING ABOVE METHOD
-                    if (ingingos?[index].options != null &&
-                        ingingos?[index].options != [])
+                    if (currIngingos?[index].options != null &&
+                        currIngingos?[index].options != [])
                       Column(
                         children: List<Widget>.generate(
-                          ingingos![index].options.length,
+                          currIngingos![index].options.length,
                           (optionIndex) {
                             // ONE OPTION
                             Option option = Option.fromJson(
-                                ingingos[index].options[optionIndex]);
+                                currIngingos[index].options[optionIndex]);
 
                             // RETURN THE WIDGETS OF THE OPTIONS
                             return Column(children: [
@@ -161,8 +160,8 @@ class ContentDetails extends StatelessWidget {
                       ),
 
                     // INGINGO NB IF ANY
-                    if (ingingos?[index].nb != null &&
-                        ingingos?[index].nb != '')
+                    if (currIngingos?[index].nb != null &&
+                        currIngingos?[index].nb != '')
                       Text.rich(
                         textAlign: TextAlign.left,
                         TextSpan(
@@ -170,14 +169,14 @@ class ContentDetails extends StatelessWidget {
                             const TextSpan(
                                 text: '\nNB: ',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            TextSpan(text: '${ingingos?[index].nb}'),
+                            TextSpan(text: '${currIngingos?[index].nb}'),
                           ],
                         ),
                       ),
 
                     // INGINGO FB STORAGE NETWORK IMAGE IF ANY
-                    if (ingingos?[index].imageUrl != null &&
-                        ingingos?[index].imageUrl != '')
+                    if (currIngingos?[index].imageUrl != null &&
+                        currIngingos?[index].imageUrl != '')
                       Column(
                         children: [
                           Container(
@@ -202,7 +201,7 @@ class ContentDetails extends StatelessWidget {
                               borderRadius: BorderRadius.circular(
                                   10.0), // Set the desired border radius
                               child: Image.network(
-                                ingingos?[index].imageUrl ?? '',
+                                currIngingos?[index].imageUrl ?? '',
                                 height:
                                     MediaQuery.of(context).size.height * 0.2,
                                 fit: BoxFit.cover,
@@ -211,10 +210,10 @@ class ContentDetails extends StatelessWidget {
                           ),
 
                           // INGINGO IMAGE CAPTION IF ANY
-                          if (ingingos?[index].imageDesc != null &&
-                              ingingos?[index].imageDesc != '')
+                          if (currIngingos?[index].imageDesc != null &&
+                              currIngingos?[index].imageDesc != '')
                             Text(
-                              ingingos?[index].imageDesc ?? '',
+                              currIngingos?[index].imageDesc ?? '',
                               style: const TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.normal),
                             ),
@@ -222,7 +221,7 @@ class ContentDetails extends StatelessWidget {
                       ),
 
                     // ISOMO CONCLUSION IF ANY
-                    if (index == ingingos!.length - 1 && isomo.conclusion != '')
+                    if (index == currIngingos!.length - 1 && isomo.conclusion != '')
                       Container(
                         margin: const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 14.0),
                         child: Text(

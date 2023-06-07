@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/course_progress.dart';
+import 'package:tegura/models/ingingo.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/utilities/user_progress.dart';
 import 'package:tegura/services/course_progress.dart';
@@ -45,7 +46,7 @@ class ViewLoggedIn extends StatelessWidget {
         ),
 
         // STREAM PROVIDER FOR TOTAL INGINGOS FOR A PARTICULAR COURSE OR ISOMO
-        StreamProvider<int?>.value(
+        StreamProvider<IngingoSum?>.value(
           // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value: IngingoService().getTotalIsomoIngingos(isomo.id),
           initialData: null,

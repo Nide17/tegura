@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:tegura/models/course_progress.dart';
 import 'package:tegura/models/ingingo.dart';
 import 'package:tegura/models/isomo.dart';
+import 'package:tegura/services/course_progress.dart';
 
 class DirectionButton extends StatelessWidget {
   // INSTANCE VARIABLES
@@ -27,8 +29,12 @@ class DirectionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // STATE VARIABLES
     final ingingos = Provider.of<List<IngingoModel>?>(context) ?? [];
+    print('last ingingos: ${ingingos.last.id}');
+
+    // TOTAL NUMBER OF INGINGOS
+    final courseProgress = Provider.of<CourseProgressModel?>(context);
+    print('courseProgress: $courseProgress');
 
     // RETURN THE WIDGETS
     return ElevatedButton(
@@ -39,6 +45,17 @@ class DirectionButton extends StatelessWidget {
         } else if (direction == 'komeza') {
           // INCREASE SKIP STATE
           changeSkip(5);
+
+          // // UPDATE THE CURRENT INGINGO
+          // if (ingingos.length < limit) {
+          //   // UPDATE THE CURRENT INGINGO
+          //   CourseProgressService().updateUserCourseProgress(
+          //     courseProgress!.userId,
+          //     isomo.id,
+          //     courseProgress.totalIngingos,
+          //     ingingos.last.id,
+          //   );
+          // }
           // REMOVE THE CURRENT PAGE FROM THE STACK IF NO MORE NEXT PAGES
           if (ingingos.length < limit) {
             Navigator.pop(context);

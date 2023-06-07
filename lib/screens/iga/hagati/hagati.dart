@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
-import 'package:tegura/screens/iga/gradient_title.dart';
+import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/utilities/view_logged_in.dart';
 import 'package:tegura/utilities/view_not_logged_in.dart';
 import 'package:tegura/utilities/progress_circle.dart';
@@ -25,8 +25,7 @@ class _HagatiState extends State<Hagati> {
 
     // GET THE AMASOMO DATA - IsomoService().getAllAmasomo(FirebaseAuth.instance.currentUser?.uid
     final amasomo = Provider.of<List<IsomoModel?>?>(context);
-    print('AMASOMO: $amasomo');
-
+    
     // BUILD ViewLoggedIn WIDGETS WITH THE AMASOMO DATA ELEMENTS
     final amasomoWidgets = amasomo?.map((isomo) => ViewLoggedIn(
           // title: isomo!.title,
