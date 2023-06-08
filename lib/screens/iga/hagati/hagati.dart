@@ -28,8 +28,6 @@ class _HagatiState extends State<Hagati> {
     
     // BUILD ViewLoggedIn WIDGETS WITH THE AMASOMO DATA ELEMENTS
     final amasomoWidgets = amasomo?.map((isomo) => ViewLoggedIn(
-          // title: isomo!.title,
-          // description: isomo.description,
           isomo: isomo ??
               IsomoModel(
                 title: 'Nta somo ryabonetse',
@@ -38,8 +36,6 @@ class _HagatiState extends State<Hagati> {
                 id: '0',
                 conclusion: 'Nta somo ryabonetse',
               ),
-          progress: 0.0,
-          // isomoId: isomo.id,
           userId: usr!.uid,
         ));
 

@@ -7,7 +7,7 @@ import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/iga/utils/circle_progress.dart';
 import 'package:tegura/screens/iga/utils/content_details.dart';
-import 'package:tegura/services/course_progress.dart';
+import 'package:tegura/services/isomo_progress.dart';
 import 'package:tegura/utilities/appbar.dart';
 import 'package:tegura/utilities/direction_button.dart';
 import 'package:tegura/services/ingingodb.dart';
@@ -128,6 +128,16 @@ class _IgaContentState extends State<IgaContent> {
             margin: EdgeInsets.zero,
             padding: EdgeInsets.zero,
             height: MediaQuery.of(context).size.height * 0.1,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 255, 255, 255),
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromARGB(255, 72, 255, 0),
+                  offset: Offset(0, -1),
+                  blurRadius: 1,
+                ),
+              ],
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -137,7 +147,6 @@ class _IgaContentState extends State<IgaContent> {
                     direction: 'inyuma',
                     opacity: 1,
                     skip: _skip,
-                    limit: limit,
                     // SET STATE TO CHANGE THE SKIP BY SUBTRACTING 2 ON EACH BACKWARD BUTTON PRESS
                     changeSkip: changeSkip,
                     isomo: widget.isomo),
@@ -151,7 +160,6 @@ class _IgaContentState extends State<IgaContent> {
                     direction: 'komeza',
                     opacity: 1,
                     skip: _skip,
-                    limit: limit,
                     // SET STATE TO CHANGE THE SKIP BY ADDING 2 ON EACH FORWARD BUTTON PRESS
                     changeSkip: changeSkip,
                     isomo: widget.isomo),
