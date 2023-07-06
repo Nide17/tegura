@@ -36,15 +36,20 @@ class UserProgress extends StatelessWidget {
                   userId: '',
                 ));
 
+    // print('PROGRESS: $courseProgress');
+
     // GET THE CURRENT INGINGO IF THE USER HAS STARTED THE COURSE OR 1
     final int curCourseIngingo =
         courseProgress != null ? courseProgress.currentIngingo : 1;
 
     // GET THE PERCENTAGE
     final double percent = (courseProgress != null &&
-            courseProgress.totalIngingos != 0 && courseProgress.totalIngingos >= curCourseIngingo)
+            courseProgress.totalIngingos != 0 &&
+            courseProgress.totalIngingos >= curCourseIngingo)
         ? (curCourseIngingo / courseProgress.totalIngingos) // GET THE PROGRESS
-        : 0.0; // GET THE PROGRESS
+        : 1.0; // GET THE PROGRESS
+    // print('courseProgress.totalIngingos: $curCourseIngingo / ${courseProgress!.totalIngingos} : ${curCourseIngingo / courseProgress.totalIngingos}');
+    // print('PERCENT: $percent');
 
     return // PROGRESS BAR WITH CTA BUTTON
         Row(
@@ -77,6 +82,12 @@ class UserProgress extends StatelessWidget {
           onTap: () {
             // IF THE USER HAS NOT STARTED THE COURSE, CREATE A NEW PROGRESS
             if (courseProgress?.totalIngingos != totalIngingos) {
+              // print('USER PROGRESS');
+              // print('userId: $userId');
+              // print('courseId: ${isomo.id}');
+              // print('totalIngingos: $totalIngingos');
+              // print('currentIngingo: ${curCourseIngingo + 1}');
+
               // CREATE OR UPDATE USER PROGRESS
               CourseProgressService().updateUserCourseProgress(
                 userId,
@@ -86,16 +97,19 @@ class UserProgress extends StatelessWidget {
               );
             }
 
-            print('USER ID: $userId');
-            print('ISOMO ID: ${isomo.id}');
-            print('TOTAL INGINGOS: $totalIngingos');
-            print('CURRENT INGINGO: $curCourseIngingo');
+            // print('USER ID: $userId');
+            // print('ISOMO ID: ${isomo.id}');
+            // print('TOTAL INGINGOS: $totalIngingos');
+            // print('CURRENT INGINGO: ${curCourseIngingo + 1}');
 
             // NAVIGATE TO IGA CONTENT
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => IgaContent(isomo: isomo)));
+                    builder: (context) => IgaContent(
+                          isomo: isomo,
+                          courseProgress: courseProgress,
+                        )));
           },
           child: Container(
             width: MediaQuery.of(context).size.width * 0.3,
