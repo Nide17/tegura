@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tegura/models/pop_question.dart';
+import 'package:tegura/screens/iga/utils/quiz_score_provider.dart';
 
-class DirectionButtonPq extends StatefulWidget {
+class DirectionButtonIsuzume extends StatefulWidget {
   // INSTANCE VARIABLES
   final String buttonText;
   final String direction;
   final double opacity;
-  final Function()? forward;
-  final Function()? backward;
+  final Function? forward;
+  final Function? backward;
   final List<PopQuestionModel> popQuestions;
-  final int? currQnID;
+  final int currQnID;
   final bool isDisabled;
+  final QuizScoreProvider scoreObject;
 
-  const DirectionButtonPq({
+  const DirectionButtonIsuzume({
     Key? key,
     required this.buttonText,
     required this.direction,
@@ -21,15 +23,16 @@ class DirectionButtonPq extends StatefulWidget {
     this.forward,
     this.backward,
     required this.popQuestions,
-    this.currQnID,
+    required this.currQnID,
     required this.isDisabled,
+    required this.scoreObject,
   }) : super(key: key);
 
   @override
-  State<DirectionButtonPq> createState() => _DirectionButtonPqState();
+  State<DirectionButtonIsuzume> createState() => _DirectionButtonIsuzumeState();
 }
 
-class _DirectionButtonPqState extends State<DirectionButtonPq> {
+class _DirectionButtonIsuzumeState extends State<DirectionButtonIsuzume> {
   @override
   Widget build(BuildContext context) {
     final int lastQn = (widget.popQuestions.length) - 1;
@@ -37,9 +40,11 @@ class _DirectionButtonPqState extends State<DirectionButtonPq> {
     // RETURN THE WIDGETS
     return ElevatedButton(
       onPressed: () {
+        // print(widget.direction == 'inyuma' && widget.isDisabled == false);
         if (widget.direction == 'inyuma' && widget.isDisabled == false) {
           // DECREASE SKIP STATE
           widget.backward!();
+          // print(widget.currQnID);
 
           // REMOVE THE CURRENT PAGE FROM THE STACK IF NO MORE PREVIOUS PAGES
           if (widget.currQnID == 0) {
@@ -48,6 +53,7 @@ class _DirectionButtonPqState extends State<DirectionButtonPq> {
         } else if (widget.direction == 'komeza' && widget.isDisabled == false) {
           // INCREASE SKIP STATE
           widget.forward!();
+          // print(widget.currQnID);
 
           // REMOVE THE CURRENT PAGE FROM THE STACK IF NO MORE NEXT PAGES
           if (widget.currQnID == lastQn) {
@@ -57,7 +63,7 @@ class _DirectionButtonPqState extends State<DirectionButtonPq> {
       },
       style: ElevatedButton.styleFrom(
         fixedSize: Size(
-          MediaQuery.of(context).size.width * 0.3,
+          MediaQuery.of(context).size.width * 0.21,
           MediaQuery.of(context).size.height * 0.0,
         ),
         backgroundColor: widget.isDisabled
@@ -66,7 +72,7 @@ class _DirectionButtonPqState extends State<DirectionButtonPq> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 0.0),
       ),
       child: SingleChildScrollView(
         child: Row(
@@ -82,7 +88,7 @@ class _DirectionButtonPqState extends State<DirectionButtonPq> {
                   widget.direction == 'inyuma'
                       ? 'assets/images/backward.svg'
                       : 'assets/images/forward.svg',
-                  width: MediaQuery.of(context).size.width * 0.05,
+                  width: MediaQuery.of(context).size.width * 0.03,
                 ),
               ),
             ),
@@ -90,7 +96,7 @@ class _DirectionButtonPqState extends State<DirectionButtonPq> {
               widget.buttonText,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: MediaQuery.of(context).size.width * 0.035,
+                  fontSize: MediaQuery.of(context).size.width * 0.024,
                   color: Colors.black),
             ), // ICON
             Visibility(
@@ -101,7 +107,7 @@ class _DirectionButtonPqState extends State<DirectionButtonPq> {
                   widget.direction == 'inyuma'
                       ? 'assets/images/backward.svg'
                       : 'assets/images/forward.svg',
-                  width: MediaQuery.of(context).size.width * 0.05,
+                  width: MediaQuery.of(context).size.width * 0.032,
                 ),
               ),
             ),

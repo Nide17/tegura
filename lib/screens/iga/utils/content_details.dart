@@ -133,12 +133,6 @@ class _ContentDetailsState extends State<ContentDetails> {
                           if (index == 0 && currProgress == totalIngs)
                             ElevatedButton(
                               onPressed: () {
-                                // // RESET THE COURSE PROGRESS
-                                // print('RESET THE COURSE PROGRESS');
-                                // print('USER ID: ${widget.userID}');
-                                // print('COURSE ID: ${widget.isomo.id}');
-                                // print('TOTAL INGINGOS: $totalIngs');
-                                // print('NEW INGINGO: 0');
                                 CourseProgressService()
                                     .updateUserCourseProgress(
                                   courseProgress != null

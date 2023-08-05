@@ -1,3 +1,4 @@
+
 class OptionPopQn {
   int id = 0;
   bool isCorrect = false;
@@ -44,8 +45,9 @@ class OptionPopQn {
 
 // MODEL TO REPRESENT THE INGINGO
 class PopQuestionModel {
-  int id = 0;
-  String ingingoID = '';
+  String id = '';
+  int ingingoID = 0;
+  int isomoID = 0;
   String title = '';
   dynamic options = '';
 
@@ -53,6 +55,7 @@ class PopQuestionModel {
   PopQuestionModel({
     required this.id,
     required this.ingingoID,
+    required this.isomoID,
     required this.title,
     required this.options,
   });
@@ -61,8 +64,19 @@ class PopQuestionModel {
   PopQuestionModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     ingingoID = json['ingingoID'];
+    isomoID = json['isomoID'];
     title = json['title'];
     options = json['options'];
+  }
+  
+  int getCorrectOptionId () {
+    int correctOptionId = -1;
+    for (var i = 0; i < options.length; i++) {
+      if (options[i]['isCorrect'] == true) {
+        correctOptionId = options[i]['id'];
+      }
+    }
+    return correctOptionId;
   }
 
   // TO JSON
@@ -70,6 +84,7 @@ class PopQuestionModel {
     return {
       'id': id,
       'ingingoID': ingingoID,
+      'isomoID': isomoID,
       'title': title,
       'options': options,
     };
@@ -78,7 +93,7 @@ class PopQuestionModel {
   // TO STRING
   @override
   String toString() {
-    return 'PopQuestionModel(id: $id, ingingoID: $ingingoID, title: $title, options: $options)';
+    return 'PopQuestionModel(id: $id, ingingoID: $ingingoID, isomoID: $isomoID, title: $title, options: $options)';
   }
 
   // TO OBJECT
@@ -86,6 +101,7 @@ class PopQuestionModel {
     return PopQuestionModel(
       id: map['id'],
       ingingoID: map['ingingoID'],
+      isomoID: map['isomoID'],
       title: map['title'],
       options: map['options'],
     );

@@ -31,6 +31,9 @@ class _IgaContentState extends State<IgaContent> {
   int _skip =
       0; // MOVED TO INSTANCE VARIABLES TO MAKE CHANGES BE RETAINED ON REBUILDS
 
+  // VALUE TO ADD TO THE LIST OF INGINGOS - ON NEXT OR PREV BUTTON CLICK
+  int _addToGetNextQuestions = 0;
+
   // SET THE SKIP TO THE CURRENT INGINGO IF IT IS NOT NULL
   @override
   void initState() {
@@ -51,6 +54,13 @@ class _IgaContentState extends State<IgaContent> {
         // GO BACK TO THE PREVIOUS PAGE IF NO MORE PREV CONTENT
         Navigator.pop(context);
       }
+
+      // SET THE ADD VALUE DEPENDING ON THE DIRECTION
+      if (val > 0) {
+        _addToGetNextQuestions = 5;
+      } else {
+        _addToGetNextQuestions = -5;
+      }
     });
   }
 
@@ -63,11 +73,8 @@ class _IgaContentState extends State<IgaContent> {
     // GET THE USER
     final usr = Provider.of<UserModel?>(context);
 
-    // print("usr?.uid, widget.isomo.id: ${usr?.uid}, ${widget.isomo.id}");
-
     // RETURN THE WIDGETS
     const int limit = 5;
-    // print("Ingingos ids in iga content: ${ingingosState?.map((e) => e!.id)}");
 
     return MultiProvider(
       providers: [
@@ -135,7 +142,9 @@ class _IgaContentState extends State<IgaContent> {
         StreamProvider<List<PopQuestionModel>?>.value(
           // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value: PopQuestionService().getPopQuestionsByIngingoIDs(
-              List<int>.from(ingingosState!.map((ing) => ing!.id + _skip))),
+              widget.isomo.id,
+              List<int>.from(ingingosState!
+                  .map((ing) => ing!.id + _addToGetNextQuestions))),
           initialData: null,
 
           // CATCH ERRORS
@@ -144,7 +153,7 @@ class _IgaContentState extends State<IgaContent> {
             if (kDebugMode) {
               print("Error iga content pq: $error");
               print(
-                  "The err: ${PopQuestionService().getPopQuestionsByIngingoIDs(List<int>.from(ingingosState!.map((e) => e!.id + _skip)))}");
+                  "The err: ${PopQuestionService().getPopQuestionsByIngingoIDs(widget.isomo.id, List<int>.from(ingingosState!.map((e) => e!.id + _addToGetNextQuestions)))}");
             }
             // RETURN NULL
             return null;
@@ -155,7 +164,6 @@ class _IgaContentState extends State<IgaContent> {
       // COURSE PROGRESS CONSUMER
       child: Consumer<CourseProgressModel?>(
         builder: (context, progress, _) {
-          // print("Progress in iga content: $progress");
           // LIST OF INGINGOS CONSUMER
           return Consumer<List<IngingoModel>?>(
             builder: (context, ingingos, _) {
@@ -165,9 +173,14 @@ class _IgaContentState extends State<IgaContent> {
               // LIST OF POP QUESTIONS CONSUMER
               return Consumer<List<PopQuestionModel>?>(
                 builder: (context, popQuestions, _) {
-                  // IF THERE ARE POP QUESTIONS, SET HAS QUIZ TO TRUE
-                  print("Pop questions IN IGA: $popQuestions");
-
+                  // PRINT ID FOR EACH OF POP QUESTIONS
+                  if (kDebugMode) {
+                    if (popQuestions != null) {
+                      popQuestions.forEach((pq) {
+                        print("Pop question id: ${pq.id}");
+                      });
+                    }
+                  }
                   // RETURN THE WIDGETS
                   return Scaffold(
                     backgroundColor: const Color.fromARGB(255, 255, 255, 255),

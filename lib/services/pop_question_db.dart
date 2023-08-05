@@ -21,17 +21,21 @@ class PopQuestionService {
       // GET THE DATA FROM THE SNAPSHOT
       final data = doc.data() as Map<String, dynamic>;
 
+      // document id - pop_question id
+      final id = doc.id;
+
       // CHECK IF THE FIELDS EXISTS BEFORE ASSIGNING TO THE VARIABLE
-      final id = data.containsKey('id') ? data['id'] : '';
       final ingingoID = data.containsKey('ingingoID') ? data['ingingoID'] : '';
+      final isomoID = data.containsKey('isomoID') ? data['isomoID'] : '';
       final title = data.containsKey('title') ? data['title'] : '';
       final options = data.containsKey('options') ? data['options'] : '';
 
       // RETURN A LIST OF POP QUESTIONS FROM THE SNAPSHOT
       return PopQuestionModel(
         // POP QUESTIONS DATA
-        id: id is int ? id : id is String ? int.parse(id) : 0,
+        id: id,
         ingingoID: ingingoID,
+        isomoID: isomoID,
         title: title,
         options: options,
       );
@@ -45,16 +49,18 @@ class PopQuestionService {
     final data = documentSnapshot.data() as Map<String, dynamic>;
 
     // CHECK IF THE FIELDS EXIST BEFORE ASSIGNING TO THE VARIABLE
-    final id = data.containsKey('id') ? data['id'] : '';
+    final id = documentSnapshot.id;
     final ingingoID = data.containsKey('ingingoID') ? data['ingingoID'] : '';
+    final isomoID = data.containsKey('isomoID') ? data['isomoID'] : '';
     final title = data.containsKey('title') ? data['title'] : '';
     final options = data.containsKey('options') ? data['options'] : '';
 
     // RETURN A LIST OF POP QUESTIONS FROM THE SNAPSHOT
     return PopQuestionModel(
       // POP QUESTIONS DATA
-      id: id is int ? id : id is String ? int.parse(id) : 0,
+      id: id,
       ingingoID: ingingoID,
+      isomoID: isomoID,
       title: title,
       options: options,
     );
@@ -89,22 +95,31 @@ class PopQuestionService {
 
 // GET A LIST OF pop questions FOR A LIST OF ingingoID, ORDERED BY ITS DOCUMENT ID
   Stream<List<PopQuestionModel>> getPopQuestionsByIngingoIDs(
-      List<int> ingingoIDs) {
-    // Convert ingingoIDs from List<int> to List<String>
-List<String> ingingoIDsString =
-        ingingoIDs.map((id) => id.toString()).toList();
-
-        // IF THE LIST IS EMPTY, RETURN AN EMPTY STREAM
-    if (ingingoIDsString.isEmpty) {
+      int isomoID, List<int> ingingoIDs) {
+    print('getPopQuestionsByIngingoIDs: $isomoID, $ingingoIDs');
+    // IF THE LIST IS EMPTY, RETURN AN EMPTY STREAM
+    if (ingingoIDs.isEmpty) {
       return const Stream.empty();
     }
 
-    print("\n\n$ingingoIDsString\n");
-
     // Retrieve the stream of documents from Firestore
     final documentsStream = popQuestionCollection
-        .where('ingingoID', whereIn: ingingoIDsString)
+        .where(
+          'isomoID',
+          isEqualTo: isomoID,
+        )
+        .where('ingingoID', whereIn: ingingoIDs)
         .snapshots();
+
+    // Map the stream to a list of pop questions
+    return documentsStream.map((event) => _popQuestionsFromSnapshot(event));
+  }
+
+// GET A LIST OF pop questions FOR A GIVEN isomoID, ORDERED BY ITS DOCUMENT ID
+  Stream<List<PopQuestionModel>> getPopQuestionsByIsomoID(int isomoID) {
+    // Retrieve the stream of documents from Firestore
+    final documentsStream =
+        popQuestionCollection.where('isomoID', isEqualTo: isomoID).snapshots();
 
     // Map the stream to a list of pop questions
     return documentsStream.map((event) => _popQuestionsFromSnapshot(event));
@@ -115,9 +130,9 @@ List<String> ingingoIDsString =
 // #############################################################################
   // CREATE ONE pop_question
   Future createPopQuestion(PopQuestionModel popQn) async {
-    return await popQuestionCollection.doc(popQn.id as String?).set({
-      'id': popQn.id,
+    return await popQuestionCollection.doc().set({
       'ingingoID': popQn.ingingoID,
+      'isomoID': popQn.isomoID,
       'title': popQn.title,
       'options': popQn.options,
     });
@@ -127,10 +142,10 @@ List<String> ingingoIDsString =
 // UPDATE DATA
 // #############################################################################
   // UPDATE ONE pop_question
-  Future updatePopQuestion(PopQuestionModel popQn) async {
-    return await popQuestionCollection.doc(popQn.id as String?).update({
-      'id': popQn.id,
+  Future updatePopQuestion(PopQuestionModel popQn, String id) async {
+    return await popQuestionCollection.doc(id).update({
       'ingingoID': popQn.ingingoID,
+      'isomoID': popQn.isomoID,
       'title': popQn.title,
       'options': popQn.options,
     });

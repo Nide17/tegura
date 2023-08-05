@@ -10,8 +10,13 @@ import 'package:tegura/utilities/direction_button_pq.dart';
 class PopQuiz extends StatefulWidget {
   final List<PopQuestionModel> popQuestions;
   final IsomoModel isomo;
+  final ValueChanged<int> courseChangeSkip;
 
-  const PopQuiz({super.key, required this.popQuestions, required this.isomo});
+  const PopQuiz(
+      {super.key,
+      required this.popQuestions,
+      required this.isomo,
+      required this.courseChangeSkip});
 
   @override
   State<PopQuiz> createState() => _PopQuizState();
@@ -26,14 +31,9 @@ class _PopQuizState extends State<PopQuiz> {
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    // print("\n\nNumber of questions on pop quiz: ${widget.popQuestions.length}");
-    // print("Current question ID: $currQnID");
-    // print("Current question on pop quiz: ${widget.popQuestions[currQnID]}\n\n");
-
     // CALLBACK FOR FORWARD BUTTON
     void forward() {
       if (currQnID >= widget.popQuestions.length - 1) {
-        Navigator.pop(context);
       } else {
         setState(() {
           currQnID = currQnID + 1;
@@ -43,18 +43,18 @@ class _PopQuizState extends State<PopQuiz> {
 
           // RESET THE CORRECTNESS OF THE ANSWER
           isCurrentCorrect = false;
-        });
 
-        print("\n\nCurrent question ID: $currQnID");
-        // print("Current question: ${widget.popQuestions[currQnID]}");
-        print("Current length: ${widget.popQuestions.length}\n\n");
+          // UPDATE THE SKIP VALUE IN THE PARENT WIDGET (IGA_CONTENT) IF THE USER IS ON THE LAST QUESTION
+          if (currQnID == widget.popQuestions.length - 1) {
+            widget.courseChangeSkip(5);
+          }
+        });
       }
     }
 
     // CALLBACK FOR BACKWARD BUTTON
     void backward() {
       if (currQnID < 1) {
-        Navigator.pop(context);
       } else {
         setState(() {
           currQnID = currQnID - 1;
@@ -65,9 +65,6 @@ class _PopQuizState extends State<PopQuiz> {
           // RESET THE CORRECTNESS OF THE ANSWER
           isCurrentCorrect = false;
         });
-        // print("\n\nCurrent question ID: $currQnID");
-        // print("Current question: ${widget.popQuestions[currQnID]}");
-        // print("Current length: ${widget.popQuestions.length}\n\n");
       }
     }
 
@@ -114,12 +111,13 @@ class _PopQuizState extends State<PopQuiz> {
                         Column(
                           children: widget.popQuestions[currQnID].options
                               .map<Widget>((option) {
-                            final isSelected = option['id'] == selectedOption;
                             return CustomRadioButton(
-                              text: option['text'],
-                              description: option['description'] ?? '',
-                              isSelected: isSelected,
+                              // PROPERTIES
+                              option: option,
+                              isSelected: option['id'] == selectedOption,
                               isThisCorrect: isCurrentCorrect,
+
+                              // ON CHANGE
                               onChanged: (value) {
                                 setState(() {
                                   selectedOption = option['id'];
