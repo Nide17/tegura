@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tegura/screens/iga/utils/quiz_score_provider.dart';
+import 'package:tegura/providers/quiz_score_provider.dart';
 
 class IsuzumeResults extends StatefulWidget {
   // INSTANCE VARIABLES

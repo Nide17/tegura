@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/pop_question.dart';
-import 'package:tegura/screens/iga/utils/quiz_score_provider.dart';
+import 'package:tegura/providers/quiz_score_provider.dart';
 
 typedef ShowQnCallback = void Function(int index);
 

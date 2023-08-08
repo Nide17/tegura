@@ -7,7 +7,7 @@ import 'package:tegura/models/pop_question.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/iga/utils/isuzume_details.dart';
 import 'package:tegura/screens/iga/utils/isuzume_results.dart';
-import 'package:tegura/screens/iga/utils/quiz_score_provider.dart';
+import 'package:tegura/providers/quiz_score_provider.dart';
 import 'package:tegura/services/pop_question_db.dart';
 import 'package:tegura/utilities/appbar.dart';
 import 'package:tegura/utilities/direction_button_isuzume.dart';

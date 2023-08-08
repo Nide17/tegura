@@ -4,7 +4,7 @@ import 'package:tegura/models/course_progress.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/screens/iga/utils/custom_radio_button.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
-import 'package:tegura/screens/iga/utils/quiz_score_provider.dart';
+import 'package:tegura/providers/quiz_score_provider.dart';
 import 'package:tegura/services/isomo_progress.dart';
 import 'package:tegura/utilities/ikibazo_button.dart';
 
