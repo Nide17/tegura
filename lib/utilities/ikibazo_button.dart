@@ -9,7 +9,6 @@ class IkibazoButton extends StatefulWidget {
   // INSTANCE VARIABLES
   final String buttonText;
   final ShowQnCallback showQn;
-  final PopQuestionModel popQuestion;
   final int index;
   final bool isActive;
 
@@ -17,7 +16,6 @@ class IkibazoButton extends StatefulWidget {
     Key? key,
     required this.buttonText,
     required this.showQn,
-    required this.popQuestion,
     required this.index,
     required this.isActive,
   }) : super(key: key);

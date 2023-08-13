@@ -9,6 +9,9 @@
  - One score for each quiz per user. ✅
  - The user should be able to see the questions they got wrong and the correct answers at the end of the quiz. ✅
  - Scores, if no score - ntago urayikora; else show previous score. ✅
- - Attempt the isuzuma on tap, save once per user per isuzuma, next attempt updates the score.
+ - Make the score questions type List<ScoreQuestion> and options List<ScoreOption> ✅
+ - On answer click,  ✅
+ - Attempt the isuzuma on tap, save once per user per isuzuma, next attempt updates the score. ✅
+ - On submit, show the score on another screen.
 
  4. Add a timer to the quiz.

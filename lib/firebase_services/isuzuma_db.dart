@@ -14,23 +14,21 @@ class IsuzumaService {
 // #############################################################################
   // GET AMASUZUMA FROM A SNAPSHOT USING THE Isuzuma MODEL - _amasuzumaFromSnapshot
   List<IsuzumaModel> _amasuzumaFromSnapshot(QuerySnapshot querySnapshot) {
-    // GET THE DATA FROM THE SNAPSHOT
     return querySnapshot.docs.map((doc) {
-      // GET THE DATA FROM THE SNAPSHOT
       final data = doc.data() as Map<String, dynamic>;
 
-      // document id - Isuzuma id
       final id = doc.id;
-
-      // CHECK IF THE FIELDS EXISTS BEFORE ASSIGNING TO THE VARIABLE
       final title = data.containsKey('title') ? data['title'] : '';
       final description =
           data.containsKey('description') ? data['description'] : '';
-      final questions = data.containsKey('questions') ? data['questions'] : [];
 
-      // RETURN A LIST OF AMASUZUMA FROM THE SNAPSHOT
+      // Convert raw data for questions into List<IsuzumaQuestion>
+      final questionsData =
+          data.containsKey('questions') ? data['questions'] : [];
+      final questions = List<IsuzumaQuestion>.from(
+          questionsData.map((qnData) => IsuzumaQuestion.fromJson(qnData)));
+
       return IsuzumaModel(
-        // AMASUZUMA DATA
         id: id,
         title: title,
         description: description,
@@ -66,7 +64,6 @@ class IsuzumaService {
 // #############################################################################
   // GET ALL AMASUZUMA
   Stream<List<IsuzumaModel>> get amasuzumabumenyi {
-
     // // PRINT THE DATA _amasuzumaFromSnapshot TO THE CONSOLE
     // isuzumaCollection.snapshots().listen((event) {
     //   print(_amasuzumaFromSnapshot(event));

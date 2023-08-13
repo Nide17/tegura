@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/isuzuma.dart';
-import 'package:tegura/models/score.dart';
+import 'package:tegura/models/isuzuma_score.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/iga/amasuzuma/amasuzuma_card.dart';
-import 'package:tegura/services/isuzuma_db.dart';
-import 'package:tegura/services/isuzuma_score_db.dart';
+import 'package:tegura/firebase_services/isuzuma_db.dart';
+import 'package:tegura/firebase_services/isuzuma_score_db.dart';
 import 'package:tegura/utilities/description.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
@@ -36,7 +36,7 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
           catchError: (context, error) {
             // PRINT THE ERROR
             if (kDebugMode) {
-              print("Error amasuzumabumenyi: $error");
+              print("Error amasuzumabumenyi all: $error");
               print("The err: ${IsuzumaService().amasuzumabumenyi}");
             }
             // RETURN NULL
@@ -65,11 +65,15 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
       ],
       child: Consumer<List<IsuzumaModel>?>(
           builder: (context, amasuzumabumenyi, _) {
-        print("The amasuzumabumenyi: $amasuzumabumenyi");
+        // print("The amasuzumabumenyi: $amasuzumabumenyi");
 
         return Consumer<List<IsuzumaScoreModel>?>(
-            builder: (context, amasuzumabumenyiScores, _) {
-          print("The Isuzuma scores: $amasuzumabumenyiScores");
+            builder: (context, amaUserScores, _) {
+          // print("The Isuzuma scores: $amaUserScores");
+
+          if (amaUserScores == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
           return Scaffold(
               backgroundColor: const Color(0xFF5B8BDF),
 
@@ -123,9 +127,8 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
                 // 3. FOR EACH AMASUZUMABUMENYI, CREATE A CARD
                 for (var i = 0; i < amasuzumabumenyi!.length; i++)
                   AmasuzumaCard(
-                    title: amasuzumabumenyi[i].title,
-                    isuzumaID: amasuzumabumenyi[i].id,
-                    amasuzumabumenyiScores: amasuzumabumenyiScores,
+                    isuzuma: amasuzumabumenyi[i],
+                    amaUserScores: amaUserScores,
                   ),
               ]),
 

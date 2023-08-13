@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tegura/models/score.dart';
+import 'package:tegura/models/isuzuma_score.dart';
 
 class IsuzumaScoreService {
   // COLLECTIONS REFERENCE - FIRESTORE
@@ -29,8 +29,27 @@ class IsuzumaScoreService {
       final marks = data.containsKey('marks') ? data['marks'] : 0;
       final totalMarks =
           data.containsKey('totalMarks') ? data['totalMarks'] : 0;
-      final dateTaken = data.containsKey('dateTaken') ? data['dateTaken'] : '';
-      final questions = data.containsKey('questions') ? data['questions'] : [];
+      final dateTaken = data.containsKey('dateTaken')
+          ? (data['dateTaken'] as Timestamp).toDate()
+          : DateTime.now();
+      final isuzumaTitle =
+          data.containsKey('isuzumaTitle') ? data['isuzumaTitle'] : '';
+
+      // type 'List<dynamic>' is not a subtype of type 'List<ScoreQuestionI>'
+      // CONVERT THE QUESTIONS LIST TO A LIST OF ScoreQuestionI OBJECTS
+      final questionsJson = data.containsKey('questions')
+          ? data['questions'] as List<dynamic>
+          : [];
+      final questions = questionsJson
+          .map<ScoreQuestionI>(
+              (questionJson) => ScoreQuestionI.fromJson(questionJson))
+          .toList();
+
+      // CONVERT THE AMASOMO LIST TO A LIST OF STRINGS
+      final amasomoJson =
+          data.containsKey('amasomo') ? data['amasomo'] as List<dynamic> : [];
+      final amasomo =
+          amasomoJson.map<String>((amasomo) => amasomo.toString()).toList();
 
       // RETURN A LIST OF AMASUZUMA SCORES FROM THE SNAPSHOT
       return IsuzumaScoreModel(
@@ -42,6 +61,8 @@ class IsuzumaScoreService {
         totalMarks: totalMarks,
         dateTaken: dateTaken,
         questions: questions,
+        amasomo: amasomo,
+        isuzumaTitle: isuzumaTitle,
       );
     }).toList();
   }
@@ -59,8 +80,21 @@ class IsuzumaScoreService {
     final takerID = data.containsKey('takerID') ? data['takerID'] : '';
     final marks = data.containsKey('marks') ? data['marks'] : 0;
     final totalMarks = data.containsKey('totalMarks') ? data['totalMarks'] : 0;
-    final dateTaken = data.containsKey('dateTaken') ? data['dateTaken'] : '';
-    final questions = data.containsKey('questions') ? data['questions'] : [];
+    final dateTaken = data.containsKey('dateTaken')
+        ? (data['dateTaken'] as Timestamp).toDate()
+        : DateTime.now();
+    final questionsJson =
+        data.containsKey('questions') ? data['questions'] as List<dynamic> : [];
+    final questions = questionsJson
+        .map<ScoreQuestionI>(
+            (questionJson) => ScoreQuestionI.fromJson(questionJson))
+        .toList();
+    final amasomoJson =
+        data.containsKey('amasomo') ? data['amasomo'] as List<dynamic> : [];
+    final amasomo =
+        amasomoJson.map<String>((amasomo) => amasomo.toString()).toList();
+    final isuzumaTitle =
+        data.containsKey('isuzumaTitle') ? data['isuzumaTitle'] : '';
 
     // RETURN A LIST OF AMASUZUMA SCORES FROM THE SNAPSHOT
     return IsuzumaScoreModel(
@@ -72,6 +106,8 @@ class IsuzumaScoreService {
       totalMarks: totalMarks,
       dateTaken: dateTaken,
       questions: questions,
+      amasomo: amasomo,
+      isuzumaTitle: isuzumaTitle,
     );
   }
 
@@ -99,24 +135,44 @@ class IsuzumaScoreService {
         .map(_amasuzumaScoreFromSnapshot);
   }
 
+  // GET SCORE BY ITS ID
+  Stream<IsuzumaScoreModel> getScoreByID(String id) {
+    return isuzumaScoresCollection
+        .doc(id)
+        .snapshots()
+        .map(_isuzumaScoreFromSnapshot);
+  }
+
   // CREATE OR UPDATE THE SCORE - ADD OR UPDATE - ONE SCORE PER TAKER PER ISUZUMA
-  Future<void> createOrUpdateIsuzumaScore(
-      String id,
-      String isuzumaID,
-      String takerID,
-      int marks,
-      int totalMarks,
-      String dateTaken,
-      List<dynamic> questions) async {
+  Future<bool> createOrUpdateIsuzumaScore(IsuzumaScoreModel scoreModel) async {
+    String isuzumaID = scoreModel.isuzumaID;
+    String takerID = scoreModel.takerID;
+    int marks = scoreModel.calculateMarks();
+    int totalMarks = scoreModel.totalMarks;
+    DateTime dateTaken = scoreModel.dateTaken;
+    List<ScoreQuestionI> questions = scoreModel.questions;
+    List<String>? amasomo = scoreModel.amasomo;
+
     // CREATE OR UPDATE THE SCORE
-    return await isuzumaScoresCollection.doc(id).set({
-      'isuzumaID': isuzumaID,
-      'takerID': takerID,
-      'marks': marks,
-      'totalMarks': totalMarks,
-      'dateTaken': dateTaken,
-      'questions': questions,
-    });
+    try {
+      await isuzumaScoresCollection.doc('${takerID}_$isuzumaID').set({
+        'id': '${takerID}_$isuzumaID',
+        'isuzumaID': isuzumaID,
+        'takerID': takerID,
+        'marks': marks,
+        'totalMarks': totalMarks,
+        'dateTaken': dateTaken,
+        // QUESTIONS IN FIRESTORE ARE STORED AS A LIST OF MAPS WITH OPTIONS ALSO STORED AS A LIST OF MAPS
+        // SO WE NEED TO CONVERT THE QUESTIONS LIST TO A LIST OF MAPS USING SERIALIZER AND DESERIALIZER
+        'questions': questions.map((question) => question.toJson()).toList(),
+        'amasomo': amasomo
+      });
+      return true;
+    } catch (e) {
+      print('Error creating or updating score');
+      print(e.toString());
+      return false;
+    }
   }
 }
 // #############################################################################

@@ -2,8 +2,7 @@ class IsuzumaModel {
   String id;
   String title;
   String? description;
-  // List<IsuzumaQuestion> questions;
-  dynamic questions;
+  List<IsuzumaQuestion> questions;
 
   IsuzumaModel({
     required this.id,
@@ -12,12 +11,25 @@ class IsuzumaModel {
     required this.questions,
   });
 
+  // GET UNIQUE ISOMO IDS FROM ALL QUESTIONS
+  List<String> getIsomoIDs() {
+    List<String> isomoIDs = [];
+    for (var question in questions) {
+      if (!isomoIDs.contains(question.isomoID)) {
+        isomoIDs.add(question.isomoID);
+      }
+    }
+    return isomoIDs;
+  }
+
   // FROM JSON
   IsuzumaModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         title = json['title'],
         description = json['description'],
-        questions = json['questions'];
+        questions = (json['questions'] as List<dynamic>)
+            .map((questionJson) => IsuzumaQuestion.fromJson(questionJson))
+            .toList();
 
   // TO JSON
   Map<String, dynamic> toJson() {
@@ -52,8 +64,7 @@ class IsuzumaQuestion {
   String isomoID;
   String? title;
   String? image;
-  // List<IsuzumaOption> options;
-  dynamic options;
+  List<IsuzumaOption> options;
 
   IsuzumaQuestion({
     required this.id,
@@ -71,7 +82,9 @@ class IsuzumaQuestion {
         isomoID = json['isomoID'],
         title = json['title'],
         image = json['image'],
-        options = json['options'];
+        options = (json['options'] as List<dynamic>)
+            .map((optionJson) => IsuzumaOption.fromJson(optionJson))
+            .toList();
 
   // TO JSON
   Map<String, dynamic> toJson() {
@@ -109,12 +122,14 @@ class IsuzumaOption {
   String? text;
   String? image;
   bool isCorrect;
+  String? explanation;
 
   IsuzumaOption({
     required this.id,
     this.text,
     this.image,
     required this.isCorrect,
+    this.explanation,
   });
 
   // FROM JSON
@@ -122,7 +137,8 @@ class IsuzumaOption {
       : id = json['id'],
         text = json['text'],
         image = json['image'],
-        isCorrect = json['isCorrect'];
+        isCorrect = json['isCorrect'],
+        explanation = json['explanation'];
 
   // TO JSON
   Map<String, dynamic> toJson() {
@@ -131,13 +147,14 @@ class IsuzumaOption {
       'text': text,
       'image': image,
       'isCorrect': isCorrect,
+      'explanation': explanation,
     };
   }
 
   // TO STRING
   @override
   String toString() {
-    return 'Option(id: $id, text: $text, image: $image, isCorrect: $isCorrect)';
+    return 'Option(id: $id, text: $text, image: $image, isCorrect: $isCorrect, explanation: $explanation)';
   }
 
   // TO OBJECT
@@ -147,6 +164,7 @@ class IsuzumaOption {
       text: map['text'],
       image: map['image'],
       isCorrect: map['isCorrect'],
+      explanation: map['explanation'],
     );
   }
 }
