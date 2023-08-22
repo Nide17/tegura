@@ -35,6 +35,7 @@ class TeguraApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     // RETURN THE APP
     return MultiProvider(
       providers: [

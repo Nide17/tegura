@@ -20,7 +20,6 @@ class _IgaLandingState extends State<IgaLanding> {
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
       providers: [
         // PROVIDE FIREBASE FIRESTORE INSTANCE - DB REFERENCE TO PROFILES COLLECTION
@@ -43,14 +42,14 @@ class _IgaLandingState extends State<IgaLanding> {
         ),
       ],
       child: Scaffold(
-          backgroundColor: const Color(0xFF5B8BDF),
+          backgroundColor: const Color.fromARGB(255, 71, 103, 158),
 
           // APP BAR
           appBar: const PreferredSize(
             preferredSize: Size.fromHeight(58.0),
             child: AppBarTegura(),
           ),
-          
+
           // PAGE BODY
           body: ListView(
             // CHILDREN OF THE COLUMN WIDGET
