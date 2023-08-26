@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/firebase_services/ifatabuguzi_db.dart';
+import 'package:tegura/main.dart';
 import 'package:tegura/models/ifatabuguzi.dart';
 import 'package:tegura/models/profile.dart';
 import 'package:tegura/screens/ibiciro/ifatabuguzi.dart';
@@ -20,8 +21,54 @@ class Ibiciro extends StatefulWidget {
 
 class _IbiciroState extends State<Ibiciro> {
   // BUILD METHOD TO BUILD THE UI OF THE APP
+
   @override
   Widget build(BuildContext context) {
+    final conn = Provider.of<ConnectionStatus>(context);
+    print("conn in ibiciro ${conn.isOnline}");
+    bool everDisconnected = false;
+
+    // WHEN CONNECTION IS LOST, NOTIFY USER. IF IT COMES BACK AFTER BEING LOST NOTIFY USER TOO
+    if (conn.isOnline == false) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              textAlign: TextAlign.center,
+              'Nta internet mufite!.',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            backgroundColor: Color.fromARGB(255, 255, 8, 0),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      });
+      everDisconnected = true;
+    }
+
+    // WHEN CONNECTION IS BACK, NOTIFY USER
+    if (conn.isOnline == true && everDisconnected == true) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Internet yagarutse!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            backgroundColor: Color.fromARGB(255, 0, 255, 85),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      });
+    }
+
     return MultiProvider(
       providers: [
         // GET THE AMASOMO

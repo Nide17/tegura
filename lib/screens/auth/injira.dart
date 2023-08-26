@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:tegura/firebase_services/profiledb.dart';
+import 'package:tegura/main.dart';
 import 'package:tegura/models/profile.dart';
 import 'package:tegura/utilities/cta_button.dart';
 import 'package:tegura/utilities/cta_link.dart';
@@ -13,7 +14,8 @@ import 'package:tegura/firebase_services/auth.dart';
 
 class Injira extends StatefulWidget {
   final String? message;
-  const Injira({Key? key, this.message}) : super(key: key);
+  final ConnectionStatus? connectionStatus;
+  const Injira({Key? key, this.message, this.connectionStatus}) : super(key: key);
 
   @override
   State<Injira> createState() => _InjiraState();
@@ -56,9 +58,7 @@ class _InjiraState extends State<Injira> {
             // APP BAR
             appBar: const PreferredSize(
               preferredSize: Size.fromHeight(58.0),
-              child: AppBarTegura(
-                  // profile: profile,
-                  ),
+              child: AppBarTegura(),
             ),
 
             // PAGE BODY

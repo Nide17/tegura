@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/firebase_services/payment_db.dart';
 import 'package:tegura/firebase_services/profiledb.dart';
+import 'package:tegura/main.dart';
 import 'package:tegura/models/payment.dart';
 import 'package:tegura/models/profile.dart';
 import 'package:tegura/models/user.dart';
@@ -21,6 +22,8 @@ class _AppBarTeguraState extends State<AppBarTegura> {
   Widget build(BuildContext context) {
     // GET PROVIDER USER
     final usr = Provider.of<UserModel?>(context);
+    final conn = Provider.of<ConnectionStatus>(context);
+    print("Conn in app bar build: ${conn.isOnline}");
 
     return MultiProvider(
       providers: [
@@ -64,7 +67,6 @@ class _AppBarTeguraState extends State<AppBarTegura> {
       ],
       child: Consumer<PaymentModel?>(builder: (context, payment, _) {
         return Consumer<ProfileModel?>(builder: (context, profile, _) {
-          print(profile);
           String username = profile != null
               ? profile.username!
               : usr != null
@@ -270,7 +272,6 @@ class _AppBarTeguraState extends State<AppBarTegura> {
         capitalizedWords.add(word);
       }
     }
-
     return capitalizedWords.join(' ');
   }
 }
