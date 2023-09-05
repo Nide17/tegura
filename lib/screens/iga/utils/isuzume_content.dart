@@ -57,7 +57,7 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                   "The err: ${PopQuestionService().getPopQuestionsByIsomoID(widget.isomo.id)}");
             }
             // RETURN NULL
-            return null;
+            return [];
           },
         ),
       ],

@@ -40,7 +40,7 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
               print("The err: ${IsuzumaService().amasuzumabumenyi}");
             }
             // RETURN NULL
-            return null;
+            return [];
           },
         ),
 
@@ -62,7 +62,7 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
                   "The err: ${IsuzumaScoreService().getScoresByTakerID(usr!.uid)}");
             }
             // RETURN NULL
-            return null;
+            return [];
           },
         ),
       ],
@@ -70,9 +70,6 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
           builder: (context, amasuzumabumenyi, _) {
         return Consumer<List<IsuzumaScoreModel>?>(
             builder: (context, amaUserScores, _) {
-          if (amaUserScores == null) {
-            return const Center(child: CircularProgressIndicator());
-          }
           return Scaffold(
               backgroundColor: const Color.fromARGB(255, 71, 103, 158),
 
@@ -123,12 +120,16 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
                   ],
                 ),
 
-                // 3. FOR EACH AMASUZUMABUMENYI, CREATE A CARD
-                for (var i = 0; i < amasuzumabumenyi!.length; i++)
-                  AmasuzumaCard(
-                    isuzuma: amasuzumabumenyi[i],
-                    amaUserScores: amaUserScores,
-                  ),
+                // 3. AMASUZUMABUMENYI CARDS
+                if (amasuzumabumenyi != null && amasuzumabumenyi.isNotEmpty)
+                  for (var i = 0; i < amasuzumabumenyi.length; i++)
+                    AmasuzumaCard(
+                      isuzuma: amasuzumabumenyi[i],
+                      userScore:
+                          amaUserScores != null && amaUserScores.isNotEmpty
+                              ? amaUserScores[i]
+                              : null,
+                    ),
               ]),
 
               // BOTTOM NAVIGATION BAR

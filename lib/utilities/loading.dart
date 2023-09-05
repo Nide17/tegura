@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tegura/main.dart';
 import 'package:tegura/screens/home/home.dart';
 import 'dart:math';
+import 'package:provider/provider.dart';
+import 'package:tegura/utilities/no_internet.dart';
 
 class LoadingLightning extends StatefulWidget {
   const LoadingLightning({Key? key}) : super(key: key);
@@ -51,8 +54,15 @@ class _LoadingLightningState extends State<LoadingLightning>
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
+    // final conn = Provider.of<ConnectionStatus>(context);
+    // print("conn in loading ${conn.isOnline}");
+
     return Scaffold(
-        body: Container(
+        body:
+            // // IF THERE IS NO INTERNET - SHOW "No internet" and BUTTON UNDER IT TO REFRESH BOTH CENTERED HOR. AND VERT.
+            // conn.isOnline == false
+            //     ? const NoInternet():
+            Container(
       width: double.infinity, // FULL WIDTH
 
       // BACKGROUND IMAGE OF THE APP
@@ -65,7 +75,7 @@ class _LoadingLightningState extends State<LoadingLightning>
 
       // COLUMN WIDGET TO HOLD THE CHILDREN
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.24),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.24),
         const Text(
           "TEGURA",
           style: TextStyle(

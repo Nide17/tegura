@@ -96,7 +96,7 @@ class _IgaContentState extends State<IgaContent> {
                   "The err: ${IngingoService().getIngingosByIsomoIdPaginated(widget.isomo.id, limit, _skip)}");
             }
             // RETURN NULL
-            return null;
+            return [];
           },
         ),
 
@@ -156,7 +156,7 @@ class _IgaContentState extends State<IgaContent> {
                   "The err: ${PopQuestionService().getPopQuestionsByIngingoIDs(widget.isomo.id, List<int>.from(ingingosState!.map((e) => e!.id + _addToGetNextQuestions)))}");
             }
             // RETURN NULL
-            return null;
+            return [];
           },
         ),
       ],

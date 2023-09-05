@@ -238,7 +238,7 @@ class _AppBarTeguraState extends State<AppBarTegura> {
                                     ),
                                   ),
                                   const Text(
-                                    'Logout',
+                                    'Sohoka',
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.bold,

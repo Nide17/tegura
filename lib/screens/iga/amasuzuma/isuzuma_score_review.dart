@@ -119,7 +119,7 @@ class _IsuzumaScoreReviewState extends State<IsuzumaScoreReview> {
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
                 Expanded(
-                    child: Column(
+                    child: ListView(
                   children: [
                     // IKIBAZO NUMBER BUTTONS
                     Align(

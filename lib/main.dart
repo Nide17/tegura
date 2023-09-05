@@ -98,7 +98,6 @@ class _TeguraAppState extends State<TeguraApp> {
   // BUILD METHOD
   @override
   Widget build(BuildContext context) {
-    // print("_isOnline: $_isOnline");
     // RETURN THE APP
     return MultiProvider(
       providers: [
@@ -162,7 +161,7 @@ class _TeguraAppState extends State<TeguraApp> {
                   "The err: ${IsomoService().getAllAmasomo(FirebaseAuth.instance.currentUser?.uid)}");
             }
             // RETURN NULL
-            return null;
+            return [];
           },
         ),
 
@@ -181,7 +180,7 @@ class _TeguraAppState extends State<TeguraApp> {
                   "The err: ${CourseProgressService().getUserProgresses(FirebaseAuth.instance.currentUser?.uid)}");
             }
             // RETURN NULL
-            return null;
+            return [];
           },
         ),
       ],
