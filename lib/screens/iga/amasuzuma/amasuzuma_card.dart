@@ -18,7 +18,7 @@ class AmasuzumaCard extends StatefulWidget {
   const AmasuzumaCard({
     Key? key,
     required this.isuzuma,
-    required this.userScore,
+    this.userScore,
   }) : super(key: key);
 
   @override

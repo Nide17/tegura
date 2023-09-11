@@ -50,7 +50,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                   .map((e) => ScoreOptionI(
                         id: e.id,
                         text: e.text,
-                        image: e.image,
+                        imageUrl: e.imageUrl,
                         isCorrect: e.isCorrect,
                         isChoosen: false,
                       ))
@@ -62,7 +62,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                 isomoID: qn.isomoID,
                 ingingoID: qn.ingingoID,
                 title: qn.title,
-                image: qn.image,
+                imageUrl: qn.imageUrl,
                 options: scoreOptions,
                 isAnswered: false,
               );
@@ -231,6 +231,10 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                             // SAVE THE SCORE
                             IsuzumaScoreService()
                                 .createOrUpdateIsuzumaScore(scorePrModel);
+
+                            // REMOVE THE CURRENT SCREEN FROM THE STACK
+                            Navigator.pop(context);
+                            
                             // GO TO THE SCORE PAGE
                             Navigator.push(
                               context,

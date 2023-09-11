@@ -164,28 +164,51 @@ class _IsuzumaViewsState extends State<IsuzumaViews> {
                         Text(
                           currentQn.title!,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 17.0,
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.032,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 0, 0, 0),
+                            color: const Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
 
                         // DISPLAY NETWORK IMAGE IF ANY
-                        currentQn.image == null
+                        currentQn.imageUrl == null
                             ? const SizedBox.shrink()
                             : SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.13,
-                                child: Image.network(
-                                  currentQn.image!,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.001,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.16,
+                                child: Container(
+                                  padding: const EdgeInsets.all(4.0),
+                                  margin: const EdgeInsets.only(top: 10.0),
+                                  decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    border: Border.fromBorderSide(
+                                      BorderSide(
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        width: 1,
+                                        style: BorderStyle.solid,
+                                      ),
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        offset: Offset(0, 1),
+                                        blurRadius: 1,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Image.network(
+                                    currentQn.imageUrl!,
+                                    width:
+                                        MediaQuery.of(context).size.width * 1,
+                                  ),
                                 ),
                               ),
 
-                        const SizedBox(height: 10.0),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
                         Column(
                           children: currentQn.options.map<Widget>((option) {
                             return IsuzumaCustomRadioButton(

@@ -110,23 +110,35 @@ class _AppBarTeguraState extends State<AppBarTegura> {
             // CHECK IF USER IS LOGGED IN OR NOT BEFORE
             actions: <Widget>[
               // IF USER IS LOGGED IN
-              if (usr != null)
+              if (usr != null && profile != null)
                 IconButton(
                   // USE CUSTOM ICON - SVG
-                  icon: SvgPicture.asset(
-                    'assets/images/avatar.svg',
-                    height: MediaQuery.of(context).size.height * 0.048,
-                  ),
+                  icon: profile.photo == null || profile.photo == ''
+                      ? SvgPicture.asset(
+                          'assets/images/avatar.svg',
+                          height: MediaQuery.of(context).size.height * 0.048,
+                        )
+                      : CircleAvatar(
+                          backgroundImage: NetworkImage(profile.photo!),
+                        ),
                   onPressed: () {
                     // OPEN A DIALOG BOX TO DISPLAY USER DETAILS AND LOGOUT BUTTON
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          icon: SvgPicture.asset(
-                            'assets/images/avatar.svg',
-                            height: MediaQuery.of(context).size.height * 0.048,
-                          ),
+                          icon: profile.photo == null || profile.photo == ''
+                              ? SvgPicture.asset(
+                                  'assets/images/avatar.svg',
+                                  height: MediaQuery.of(context).size.height *
+                                      0.048,
+                                )
+                              : CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                    profile.photo!,
+                                    scale: 2,
+                                  ),
+                                ),
                           title: Align(
                             alignment: Alignment.center,
                             child: Text.rich(

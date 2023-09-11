@@ -177,8 +177,10 @@ class _IgaContentState extends State<IgaContent> {
                   if (kDebugMode) {
                     if (popQuestions != null) {
                       for (var pq in popQuestions) {
-                        print("Pop question id: ${pq.id}");
+                        // print("Pop question id: ${pq.id}");
                       }
+                    } else {
+                      print("Pop questions is null");
                     }
                   }
                   // RETURN THE WIDGETS

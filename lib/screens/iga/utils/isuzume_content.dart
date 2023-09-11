@@ -161,77 +161,87 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                   showQn: showQn,
                 ),
 
-                bottomNavigationBar: Container(
-                  margin: EdgeInsets.zero,
-                  padding: EdgeInsets.zero,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 72, 255, 0),
-                        offset: Offset(0, -1),
-                        blurRadius: 1,
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            // GO TO THE RESULTS PAGE
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => IsuzumeResults(
-                                  scoreProviderModel: scoreProviderModel),
+                bottomNavigationBar: popQuestions.isEmpty ||
+                        scoreProviderModel.quizScore
+                                .getIsAtleastOneAnswered() ==
+                            false
+                    ? const SizedBox.shrink()
+                    : Container(
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 72, 255, 0),
+                              offset: Offset(0, -1),
+                              blurRadius: 1,
                             ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.red,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                          ],
                         ),
-                        child: const Text(
-                          'Soza isuzuma',
-                          style: TextStyle(fontSize: 14),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                // REMOVE THE CURRENT SCREEN FROM THE STACK
+                                Navigator.pop(context);
+
+                                Navigator.push(
+                                  // GO TO THE RESULTS PAGE
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => IsuzumeResults(
+                                        scoreProviderModel: scoreProviderModel),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text(
+                                'Soza isuzuma',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ),
+                            // 2. INYUMA BUTTON
+                            Row(
+                              children: [
+                                DirectionButtonIsuzume(
+                                  buttonText: 'inyuma',
+                                  direction: 'inyuma',
+                                  opacity: 1,
+                                  backward: backward,
+                                  lastQn: popQuestions.length - 1,
+                                  currQnID: qnIndex,
+                                  isDisabled: qnIndex < 1,
+                                ),
+
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.04),
+
+                                // 3. KOMEZA BUTTON
+                                DirectionButtonIsuzume(
+                                  buttonText: 'komeza',
+                                  direction: 'komeza',
+                                  opacity: 1,
+                                  forward: forward,
+                                  lastQn: popQuestions.length - 1,
+                                  currQnID: qnIndex,
+                                  isDisabled:
+                                      qnIndex >= popQuestions.length - 1,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      // 2. INYUMA BUTTON
-                      Row(
-                        children: [
-                          DirectionButtonIsuzume(
-                            buttonText: 'inyuma',
-                            direction: 'inyuma',
-                            opacity: 1,
-                            backward: backward,
-                            lastQn: popQuestions.length - 1,
-                            currQnID: qnIndex,
-                            isDisabled: qnIndex < 1,
-                          ),
-
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.04),
-
-                          // 3. KOMEZA BUTTON
-                          DirectionButtonIsuzume(
-                            buttonText: 'komeza',
-                            direction: 'komeza',
-                            opacity: 1,
-                            forward: forward,
-                            lastQn: popQuestions.length - 1,
-                            currQnID: qnIndex,
-                            isDisabled: qnIndex >= popQuestions.length - 1,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
               );
             },
           );

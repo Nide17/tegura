@@ -36,22 +36,22 @@ class _IsuzumaIkibazoButtonState extends State<IsuzumaIkibazoButton> {
           borderRadius: BorderRadius.circular(10.0),
         ),
         width: MediaQuery.of(context).size.width * 0.22,
+        height: MediaQuery.of(context).size.height * 0.038,
+        margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.004),
         child: ElevatedButton(
           onPressed: () {
             widget.isActive ? null : widget.showQn(widget.qnIndex);
           },
           style: ElevatedButton.styleFrom(
-            fixedSize: Size(
-              MediaQuery.of(context).size.width * 0.3,
-              MediaQuery.of(context).size.height * 0.0,
-            ),
+            // fixedSize: Size(
+            //   MediaQuery.of(context).size.width * 0.12,
+            //   MediaQuery.of(context).size.height * 0.0,
+            // ),
             backgroundColor: calculateBackgroundColor(
                 currentQn, widget.isReviewing, widget.isActive),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(8.0),
             ),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
           ),
           child: SingleChildScrollView(
             child: Row(
@@ -62,7 +62,7 @@ class _IsuzumaIkibazoButtonState extends State<IsuzumaIkibazoButton> {
                   'Ikibazo ${widget.qnIndex}',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                      fontSize: MediaQuery.of(context).size.width * 0.028,
                       color: currentQn.isAnswered || widget.isActive
                           ? Colors.white
                           : Colors.black),

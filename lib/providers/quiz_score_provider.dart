@@ -42,6 +42,15 @@ class QuizScore {
     }
   }
 
+  bool getIsAtleastOneAnswered() {
+    for (var i = 0; i < questions.length; i++) {
+      if (questions[i].isAnswered) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   // TO STRING
   @override
   String toString() {
