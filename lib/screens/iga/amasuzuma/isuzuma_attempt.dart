@@ -51,6 +51,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                         id: e.id,
                         text: e.text,
                         imageUrl: e.imageUrl,
+                        explanation: e.explanation,
                         isCorrect: e.isCorrect,
                         isChoosen: false,
                       ))

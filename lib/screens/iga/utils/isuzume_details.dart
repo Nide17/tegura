@@ -5,7 +5,7 @@ import 'package:tegura/models/isomo.dart';
 import 'package:tegura/screens/iga/utils/custom_radio_button.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/providers/quiz_score_provider.dart';
-// import 'package:tegura/firebase_services/isomo_progress.dart';
+import 'package:tegura/firebase_services/isomo_progress.dart';
 import 'package:tegura/utilities/ikibazo_button.dart';
 
 typedef ShowQnCallback = void Function(int index);
@@ -272,27 +272,27 @@ class _IsuzumeDetailsState extends State<IsuzumeDetails> {
                                       );
                                     }).toList(),
                                   ),
-                                  // ElevatedButton(
-                                  //   onPressed: () {
-                                  //     CourseProgressService()
-                                  //         .updateUserCourseProgress(
-                                  //       widget.courseProgress != null
-                                  //           ? widget.courseProgress!.userId
-                                  //           : widget.userID,
-                                  //       widget.courseProgress != null
-                                  //           ? widget.courseProgress!.courseId
-                                  //           : 0,
-                                  //       widget.courseProgress != null
-                                  //           ? widget
-                                  //               .courseProgress!.totalIngingos
-                                  //           : 1,
-                                  //       0,
-                                  //     );
-                                  //     // GO BACK TO THE COURSE PAGE
-                                  //     Navigator.pop(context);
-                                  //   },
-                                  //   child: const Text('Ongera utangire iri somo!'),
-                                  // ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      CourseProgressService()
+                                          .updateUserCourseProgress(
+                                        widget.courseProgress != null
+                                            ? widget.courseProgress!.userId
+                                            : widget.userID,
+                                        widget.courseProgress != null
+                                            ? widget.courseProgress!.courseId
+                                            : 0,
+                                        widget.courseProgress != null
+                                            ? widget
+                                                .courseProgress!.totalIngingos
+                                            : 1,
+                                        0,
+                                      );
+                                      // GO BACK TO THE COURSE PAGE
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Ongera utangire iri somo!'),
+                                  ),
                                 ],
                               ),
                             ),
