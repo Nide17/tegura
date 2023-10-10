@@ -135,9 +135,9 @@ class _IsuzumaCustomRadioButtonState extends State<IsuzumaCustomRadioButton> {
             ),
 
             // THE DESCRIPTION SUBTITLE IF SELECTED
-            widget.isReviewing == true && widget.option!.isCorrect == true ||
-                    widget.option!.isCorrect == false &&
-                        widget.option!.isChoosen == true
+            widget.isReviewing == true && (widget.option!.isCorrect == true ||
+                    (widget.option!.isCorrect == false &&
+                        widget.option!.isChoosen == true))
                 ? Container(
                     margin: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.01,

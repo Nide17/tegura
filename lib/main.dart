@@ -197,8 +197,6 @@ class _TeguraAppState extends State<TeguraApp> {
         routes: {
           '/iga-landing': (context) => const IgaLanding(),
           '/ibiciro': (context) => const Ibiciro(),
-
-          // '/injira': (context) => AuthService().usr == null ? const Auth() : const Auth(),
           '/injira': (context) => const Injira(),
           '/iyandikishe': (context) => const Iyandikishe(),
           '/ur-student': (context) => const UrStudent(),

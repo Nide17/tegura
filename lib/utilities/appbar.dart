@@ -66,6 +66,7 @@ class _AppBarTeguraState extends State<AppBarTegura> {
         ),
       ],
       child: Consumer<PaymentModel?>(builder: (context, payment, _) {
+        
         return Consumer<ProfileModel?>(builder: (context, profile, _) {
           String username = profile != null
               ? profile.username!
@@ -233,8 +234,8 @@ class _AppBarTeguraState extends State<AppBarTegura> {
                             GestureDetector(
                               onTap: () {
                                 // CLOSE THE DIALOG BOX
-                                Navigator.of(context).pop();
-
+                                Navigator.popUntil(
+                                    context, (route) => route.isFirst);
                                 // LOGOUT THE USER USING THE AUTH SERVICE INSTANCE
                                 AuthService().logOut();
                               },

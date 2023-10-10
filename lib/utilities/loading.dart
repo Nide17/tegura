@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tegura/main.dart';
 import 'package:tegura/screens/home/home.dart';
 import 'dart:math';
-import 'package:provider/provider.dart';
-import 'package:tegura/utilities/no_internet.dart';
 
 class LoadingLightning extends StatefulWidget {
   const LoadingLightning({Key? key}) : super(key: key);
