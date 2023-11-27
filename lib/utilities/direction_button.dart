@@ -18,14 +18,14 @@ class DirectionButton extends StatefulWidget {
   final IsomoModel isomo;
 
   const DirectionButton({
-    Key? key,
+    super.key,
     required this.buttonText,
     required this.direction,
     required this.opacity,
     required this.skip,
     required this.changeSkip,
     required this.isomo,
-  }) : super(key: key);
+  });
 
   @override
   State<DirectionButton> createState() => _DirectionButtonState();

@@ -12,12 +12,12 @@ class IsuzumaIkibazoButton extends StatefulWidget {
   final bool isReviewing;
 
   const IsuzumaIkibazoButton({
-    Key? key,
+    super.key,
     required this.showQn,
     required this.qnIndex,
     required this.isActive,
     required this.isReviewing,
-  }) : super(key: key);
+  });
 
   @override
   State<IsuzumaIkibazoButton> createState() => _IsuzumaIkibazoButtonState();

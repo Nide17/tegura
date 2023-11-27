@@ -11,7 +11,7 @@ import 'package:tegura/models/user.dart';
 import 'package:tegura/firebase_services/auth.dart';
 
 class AppBarTegura extends StatefulWidget {
-  const AppBarTegura({Key? key}) : super(key: key);
+  const AppBarTegura({super.key});
 
   @override
   State<AppBarTegura> createState() => _AppBarTeguraState();

@@ -15,8 +15,7 @@ import 'package:tegura/firebase_services/auth.dart';
 class Injira extends StatefulWidget {
   final String? message;
   final ConnectionStatus? connectionStatus;
-  const Injira({Key? key, this.message, this.connectionStatus})
-      : super(key: key);
+  const Injira({super.key, this.message, this.connectionStatus});
 
   @override
   State<Injira> createState() => _InjiraState();

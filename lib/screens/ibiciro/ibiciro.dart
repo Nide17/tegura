@@ -14,7 +14,7 @@ import 'package:tegura/utilities/no_internet.dart';
 
 class Ibiciro extends StatefulWidget {
   final String? message;
-  const Ibiciro({Key? key, this.message}) : super(key: key);
+  const Ibiciro({super.key, this.message});
 
   @override
   State<Ibiciro> createState() => _IbiciroState();

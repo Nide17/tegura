@@ -7,7 +7,7 @@ import 'package:tegura/utilities/appbar.dart';
 import 'package:tegura/firebase_services/auth.dart';
 
 class UrStudent extends StatefulWidget {
-  const UrStudent({Key? key}) : super(key: key);
+  const UrStudent({super.key});
 
   @override
   State<UrStudent> createState() => _UrStudentState();

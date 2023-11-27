@@ -4,7 +4,7 @@ import 'package:tegura/screens/home/home.dart';
 import 'dart:math';
 
 class LoadingLightning extends StatefulWidget {
-  const LoadingLightning({Key? key}) : super(key: key);
+  const LoadingLightning({super.key});
 
   // CREATE STATE
   @override

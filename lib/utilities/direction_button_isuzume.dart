@@ -13,7 +13,7 @@ class DirectionButtonIsuzume extends StatefulWidget {
   final bool isDisabled;
 
   const DirectionButtonIsuzume({
-    Key? key,
+    super.key,
     required this.buttonText,
     required this.direction,
     required this.opacity,
@@ -22,7 +22,7 @@ class DirectionButtonIsuzume extends StatefulWidget {
     required this.lastQn,
     required this.currQnID,
     required this.isDisabled,
-  }) : super(key: key);
+  });
 
   @override
   State<DirectionButtonIsuzume> createState() => _DirectionButtonIsuzumeState();

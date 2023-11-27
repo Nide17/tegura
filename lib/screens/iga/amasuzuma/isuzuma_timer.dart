@@ -5,10 +5,10 @@ class IsuzumaTimer extends StatefulWidget {
   final VoidCallback onTimerExpired;
 
   const IsuzumaTimer({
-    Key? key,
+    super.key,
     required this.duration,
     required this.onTimerExpired,
-  }) : super(key: key);
+  });
 
   @override
   IsuzumaTimerState createState() => IsuzumaTimerState();

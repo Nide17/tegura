@@ -12,7 +12,7 @@ import 'package:tegura/firebase_services/isomodb.dart';
 import 'package:tegura/utilities/no_internet.dart'; // DATA FOR THE IGA PAGE
 
 class IgaLanding extends StatefulWidget {
-  const IgaLanding({Key? key}) : super(key: key);
+  const IgaLanding({super.key});
 
   @override
   State<IgaLanding> createState() => _IgaLandingState();

@@ -12,12 +12,12 @@ class IkibazoButton extends StatefulWidget {
   final bool isActive;
 
   const IkibazoButton({
-    Key? key,
+    super.key,
     required this.buttonText,
     required this.showQn,
     required this.index,
     required this.isActive,
-  }) : super(key: key);
+  });
 
   @override
   State<IkibazoButton> createState() => _IkibazoButtonState();

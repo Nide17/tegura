@@ -10,7 +10,7 @@ import 'package:tegura/firebase_services/auth.dart';
 class Iyandikishe extends StatefulWidget {
   // INSTANCE VARIABLES
   final String? message;
-  const Iyandikishe({Key? key, this.message}) : super(key: key);
+  const Iyandikishe({super.key, this.message});
 
   @override
   State<Iyandikishe> createState() => _IyandikisheState();

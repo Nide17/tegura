@@ -13,7 +13,7 @@ import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/utilities/appbar.dart';
 
 class Amasuzumabumenyi extends StatefulWidget {
-  const Amasuzumabumenyi({Key? key}) : super(key: key);
+  const Amasuzumabumenyi({super.key});
 
   @override
   State<Amasuzumabumenyi> createState() => _AmasuzumabumenyiState();

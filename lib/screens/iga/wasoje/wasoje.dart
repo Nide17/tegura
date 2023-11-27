@@ -14,7 +14,7 @@ import 'package:tegura/utilities/progress_circle.dart';
 import 'package:tegura/utilities/appbar.dart';
 
 class Wasoje extends StatefulWidget {
-  const Wasoje({Key? key}) : super(key: key);
+  const Wasoje({super.key});
 
   @override
   State<Wasoje> createState() => _WasojeState();

@@ -6,7 +6,7 @@ import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/utilities/appbar.dart';
 
 class Bibaza extends StatefulWidget {
-  const Bibaza({Key? key}) : super(key: key);
+  const Bibaza({super.key});
 
   @override
   State<Bibaza> createState() => _BibazaState();

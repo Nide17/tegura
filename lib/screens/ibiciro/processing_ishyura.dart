@@ -16,8 +16,7 @@ class ProcessingIshyura extends StatefulWidget {
   final IfatabuguziModel ifatabuguzi;
 
   // CONSTRUCTOR
-  const ProcessingIshyura({Key? key, required this.ifatabuguzi})
-      : super(key: key);
+  const ProcessingIshyura({super.key, required this.ifatabuguzi});
 
   @override
   State<ProcessingIshyura> createState() => _ProcessingIshyuraState();

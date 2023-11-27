@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class RebaIbiciro extends StatelessWidget {
   // CONSTRUCTOR
-  const RebaIbiciro({Key? key}) : super(key: key);
+  const RebaIbiciro({super.key});
 
   // BUILD METHOD TO BUILD THE UI OF THE BOTTOM BUTTON
   @override

@@ -8,7 +8,7 @@ import 'package:tegura/utilities/appbar.dart';
 import 'package:tegura/firebase_services/auth.dart';
 
 class Wibagiwe extends StatefulWidget {
-  const Wibagiwe({Key? key}) : super(key: key);
+  const Wibagiwe({super.key});
 
   @override
   State<Wibagiwe> createState() => _WibagiweState();

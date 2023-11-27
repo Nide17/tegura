@@ -15,10 +15,10 @@ class IsuzumaAttempt extends StatefulWidget {
   final IsuzumaModel isuzuma;
   final IsuzumaScoreModel? scoreUserIsuzuma;
   const IsuzumaAttempt({
-    Key? key,
+    super.key,
     required this.isuzuma,
     required this.scoreUserIsuzuma,
-  }) : super(key: key);
+  });
 
   @override
   State<IsuzumaAttempt> createState() => _IsuzumaAttemptState();

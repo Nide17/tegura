@@ -1,11 +1,19 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'firebase_options.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:tegura/models/course_progress.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/profile.dart';
+import 'package:tegura/models/user.dart'; 
 import 'package:tegura/screens/auth/injira.dart';
 import 'package:tegura/screens/auth/iyandikishe.dart';
 import 'package:tegura/screens/auth/ur_student.dart';
@@ -13,14 +21,10 @@ import 'package:tegura/screens/auth/wibagiwe.dart';
 import 'package:tegura/screens/ibiciro/ibiciro.dart';
 import 'package:tegura/screens/iga/iga_landing.dart';
 import 'package:tegura/firebase_services/isomo_progress.dart';
-import 'package:tegura/utilities/loading.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:tegura/firebase_services/auth.dart';
 import 'package:tegura/firebase_services/profiledb.dart';
 import 'package:tegura/firebase_services/isomodb.dart';
-import 'firebase_options.dart';
-import 'package:tegura/models/user.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:tegura/utilities/loading.dart';
 
 // ENTRY POINT OF THE APP - MAIN FUNCTION
 void main() async {
@@ -48,7 +52,7 @@ class ConnectionStatus extends ChangeNotifier {
 
 // MAIN APP WIDGET - STATELESS SINCE IT DOESN'T CHANGE
 class TeguraApp extends StatefulWidget {
-  const TeguraApp({Key? key}) : super(key: key);
+  const TeguraApp({super.key});
   @override
   State<TeguraApp> createState() => _TeguraAppState();
 }

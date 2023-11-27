@@ -7,7 +7,7 @@ import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/utilities/appbar.dart';
 
 class Baza extends StatefulWidget {
-  const Baza({Key? key}) : super(key: key);
+  const Baza({super.key});
 
   @override
   State<Baza> createState() => _BazaState();

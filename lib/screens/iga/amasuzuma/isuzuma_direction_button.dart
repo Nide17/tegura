@@ -10,13 +10,13 @@ class IsuzumaDirectionButton extends StatefulWidget {
   final int qnsLength;
 
   const IsuzumaDirectionButton({
-    Key? key,
+    super.key,
     required this.direction,
     this.forward,
     this.backward,
     required this.currQnID,
     required this.qnsLength,
-  }) : super(key: key);
+  });
 
   @override
   State<IsuzumaDirectionButton> createState() => _IsuzumaDirectionButtonState();

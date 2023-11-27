@@ -14,7 +14,7 @@ import 'package:tegura/utilities/progress_circle.dart';
 import 'package:tegura/utilities/appbar.dart';
 
 class Hagati extends StatefulWidget {
-  const Hagati({Key? key}) : super(key: key);
+  const Hagati({super.key});
 
   @override
   State<Hagati> createState() => _HagatiState();

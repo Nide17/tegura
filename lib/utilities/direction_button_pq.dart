@@ -14,7 +14,7 @@ class DirectionButtonPq extends StatefulWidget {
   final bool isDisabled;
 
   const DirectionButtonPq({
-    Key? key,
+    super.key,
     required this.buttonText,
     required this.direction,
     required this.opacity,
@@ -23,7 +23,7 @@ class DirectionButtonPq extends StatefulWidget {
     required this.popQuestions,
     this.currQnID,
     required this.isDisabled,
-  }) : super(key: key);
+  });
 
   @override
   State<DirectionButtonPq> createState() => _DirectionButtonPqState();
