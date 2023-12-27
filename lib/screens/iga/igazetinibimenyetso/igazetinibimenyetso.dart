@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/inyongera.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/igazeti.dart';
 import 'package:tegura/screens/iga/iga_card.dart';
@@ -78,7 +79,24 @@ class _IgazetiState extends State<Igazeti> {
                 screen: IgazetiIbimurika(),
               ),
             ],
-          )
+          ),
+
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.04,
+          ),
+
+          // CARDS ROW FOR IMIRONGO, AND IBIMURIKA - FLEX 50%
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IgaCard(
+                title: 'IBYAPA NYONGERA N\'IBINTU NGOBOKA',
+                icon: 'assets/images/Ahari ubutabazi.png',
+                screen: IgazetiInyongera(),
+              ),
+            ],
+          ),
         ]),
 
         // BOTTOM NAVIGATION BAR

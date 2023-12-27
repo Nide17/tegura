@@ -22,8 +22,8 @@ class _IgaLandingState extends State<IgaLanding> {
   // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    final conn = Provider.of<ConnectionStatus>(context);
-    print("conn in ibiciro ${conn.isOnline}");
+    final conn = Provider.of<ConnectionStatus>(context); 
+    
     bool everDisconnected = false;
 
     // WHEN CONNECTION IS LOST, NOTIFY USER. IF IT COMES BACK AFTER BEING LOST NOTIFY USER TOO

@@ -26,7 +26,7 @@ class _IbiciroState extends State<Ibiciro> {
   @override
   Widget build(BuildContext context) {
     final conn = Provider.of<ConnectionStatus>(context);
-    print("conn in ibiciro ${conn.isOnline}");
+
     bool everDisconnected = false;
 
     // WHEN CONNECTION IS LOST, NOTIFY USER. IF IT COMES BACK AFTER BEING LOST NOTIFY USER TOO
