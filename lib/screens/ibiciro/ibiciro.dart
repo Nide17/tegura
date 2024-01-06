@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/firebase_services/ifatabuguzi_db.dart';
@@ -78,11 +77,6 @@ class _IbiciroState extends State<Ibiciro> {
           initialData: null,
 
           catchError: (context, error) {
-            if (kDebugMode) {
-              print("Error in ibiciro: $error");
-              print("The err: ${IfatabuguziService().amafatabuguzi}");
-            }
-
             return [];
           },
         ),

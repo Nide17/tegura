@@ -173,7 +173,6 @@ class IsuzumaScoreService {
       });
       return true;
     } catch (e) {
-      print('Error creating or updating score');
       print(e.toString());
       return false;
     }

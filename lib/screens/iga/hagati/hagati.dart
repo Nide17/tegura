@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/firebase_services/isomo_progress.dart';
@@ -35,11 +34,6 @@ class _HagatiState extends State<Hagati> {
             initialData: null,
 
             catchError: (context, error) {
-              if (kDebugMode) {
-                print("Error in main2 isomo: $error");
-                print("The err: ${IsomoService().getAllAmasomo(usr?.uid)}");
-              }
-
               return [];
             },
           ),
@@ -50,12 +44,6 @@ class _HagatiState extends State<Hagati> {
             initialData: null,
 
             catchError: (context, error) {
-              if (kDebugMode) {
-                print("Error in get pro wasoje: $error");
-                print(
-                    "The err: ${CourseProgressService().getUserProgresses(usr?.uid)}");
-              }
-
               return [];
             },
           ),

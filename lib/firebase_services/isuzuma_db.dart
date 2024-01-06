@@ -37,20 +37,21 @@ class IsuzumaService {
     }).toList();
   }
 
-  // GET ONE isuzuma FROM A SNAPSHOT USING THE isuzuma MODEL - _isuzumaFromSnapshot
-  // FUNCTION CALLED EVERY TIME THE AMASUZUMA DATA CHANGES
   IsuzumaModel _isuzumaFromSnapshot(DocumentSnapshot documentSnapshot) {
     // GET THE DATA FROM THE SNAPSHOT
     final data = documentSnapshot.data() as Map<String, dynamic>;
 
     // CHECK IF THE FIELDS EXIST BEFORE ASSIGNING TO THE VARIABLE
     final id = documentSnapshot.id;
-    final title = data.containsKey('title') ? data['title'] : '';
-    final description =
+    final String title = data.containsKey('title') ? data['title'] : '';
+    final String description =
         data.containsKey('description') ? data['description'] : '';
-    final questions = data.containsKey('questions') ? data['questions'] : '';
+          final questionsData =
+        data.containsKey('questions') ? data['questions'] : [];
+    final questions = List<IsuzumaQuestion>.from(
+        questionsData.map((qnData) => IsuzumaQuestion.fromJson(qnData)));
 
-    // RETURN A LIST OF AMASUZUMA FROM THE SNAPSHOT
+    // RETURN A LIST OF amafatabuguzi FROM THE SNAPSHOT
     return IsuzumaModel(
       id: id,
       title: title,
@@ -58,7 +59,6 @@ class IsuzumaService {
       questions: questions,
     );
   }
-
 // #############################################################################
 // GET DATA
 // #############################################################################
@@ -67,33 +67,20 @@ class IsuzumaService {
     return isuzumaCollection.snapshots().map(_amasuzumaFromSnapshot);
   }
 
-  // GET ONE isuzuma
-  Stream<IsuzumaModel> getIsuzuma(String id) {
-    return isuzumaCollection.doc(id).snapshots().map(_isuzumaFromSnapshot);
-  }
-
-  // get it by title
-  Stream<IsuzumaModel> getIsuzumaByTitle(String title) {
-
+    Stream<IsuzumaModel?> getIsuzumaByTitle(String title) {
     final documentsStream = isuzumaCollection
         .where('title', isEqualTo: title)
+        .limit(1)
         .snapshots();
 
     return documentsStream.map((querySnapshot) {
-      final data = querySnapshot.docs.first.data() as Map<String, dynamic>;
+      final documents = querySnapshot.docs;
 
-      final id = querySnapshot.docs.first.id;
-      final title = data.containsKey('title') ? data['title'] : '';
-      final description =
-          data.containsKey('description') ? data['description'] : '';
-      final questions = data.containsKey('questions') ? data['questions'] : '';
-
-      return IsuzumaModel(
-        id: id,
-        title: title,
-        description: description,
-        questions: questions,
-      );
+      if (documents.isEmpty) {
+        return null;
+      } else {
+        return _isuzumaFromSnapshot(documents.first);
+      }
     });
   }
 }

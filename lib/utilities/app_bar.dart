@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -37,12 +36,6 @@ class _AppBarTeguraState extends State<AppBarTegura> {
           initialData: null,
 
           catchError: (context, error) {
-            if (kDebugMode) {
-              print("Error in appbar: $error");
-              print(
-                  "The err: ${PaymentService().getLatestpaymentsByUserId(usr!.uid)}");
-            }
-
             return null;
           },
         ),
@@ -53,11 +46,6 @@ class _AppBarTeguraState extends State<AppBarTegura> {
           initialData: null,
 
           catchError: (context, error) {
-            if (kDebugMode) {
-              print("Error in get appbar: $error");
-              print("The err: ${ProfileService().getCurrentProfile(usr?.uid)}");
-            }
-
             return null;
           },
         ),

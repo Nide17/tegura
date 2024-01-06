@@ -44,46 +44,12 @@ class PopQuestionService {
     }).toList();
   }
 
-  // GET ONE pop_question FROM A SNAPSHOT USING THE pop_question MODEL - _popQuestionFromSnapshot
-  // FUNCTION CALLED EVERY TIME THE POP QUESTIONS DATA CHANGES
-  PopQuestionModel _popQuestionFromSnapshot(DocumentSnapshot documentSnapshot) {
-    // GET THE DATA FROM THE SNAPSHOT
-    final data = documentSnapshot.data() as Map<String, dynamic>;
-
-    // CHECK IF THE FIELDS EXIST BEFORE ASSIGNING TO THE VARIABLE
-    final id = documentSnapshot.id;
-    final ingingoID = data.containsKey('ingingoID') ? data['ingingoID'] : '';
-    final isomoID = data.containsKey('isomoID') ? data['isomoID'] : '';
-    final title = data.containsKey('title') ? data['title'] : '';
-    final imageUrl = data.containsKey('imageUrl') ? data['imageUrl'] : '';
-    final options = data.containsKey('options') ? data['options'] : '';
-
-    // RETURN A LIST OF POP QUESTIONS FROM THE SNAPSHOT
-    return PopQuestionModel(
-      // POP QUESTIONS DATA
-      id: id,
-      ingingoID: ingingoID,
-      isomoID: isomoID,
-      title: title,
-      imageUrl: imageUrl,
-      options: options,
-    );
-  }
-
 // #############################################################################
 // GET DATA
 // #############################################################################
   // GET ALL pop questions
   Stream<List<PopQuestionModel>> get popQuestions {
     return popQuestionCollection.snapshots().map(_popQuestionsFromSnapshot);
-  }
-
-  // GET ONE pop_question
-  Stream<PopQuestionModel> getPopQuestion(String id) {
-    return popQuestionCollection
-        .doc(id)
-        .snapshots()
-        .map(_popQuestionFromSnapshot);
   }
 
 // GET A LIST OF pop questions FOR A GIVEN ingingoID, ORDERED BY ITS DOCUMENT ID

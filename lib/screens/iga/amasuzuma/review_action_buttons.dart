@@ -41,16 +41,19 @@ class _ReviewActionButtonsState extends State<ReviewActionButtons> {
       ),
       child: ElevatedButton(
         onPressed: () {
-          widget.screen != null
-              ? Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => widget.screen,
-                  ),
-                )
-              : widget.action == 'question1'
-                  ? widget.showQn(1)
-                  : Navigator.pop(context);
+          if (widget.action == 'question1') {
+            widget.showQn(1);
+          } else if (widget.screen != null) {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => widget.screen,
+              ),
+            );
+          } else {
+            Navigator.pop(context);
+          }
         },
         style: ElevatedButton.styleFrom(
           fixedSize: Size(

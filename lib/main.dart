@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -124,12 +122,6 @@ class _TeguraAppState extends State<TeguraApp> {
           initialData: null,
 
           catchError: (context, error) {
-            if (kDebugMode) {
-              print("Error in main2 user: $error");
-              print(
-                  "The err: ${FirebaseAuth.instance.currentUser != null ? ProfileService().getCurrentProfile(FirebaseAuth.instance.currentUser!.uid) : null}");
-            }
-
             return null;
           },
         ),

@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/firebase_services/profiledb.dart';
 
@@ -51,9 +52,7 @@ class AuthService {
         return null;
       }
     } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
+      print(e.toString());
 
       // RETURN NULL
       return null;
@@ -76,9 +75,7 @@ class AuthService {
         return null;
       }
     } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
+      print(e.toString());
 
       // RETURN NULL
       return null;
@@ -123,9 +120,7 @@ class AuthService {
         return null;
       }
     } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
+      print(e.toString());
     }
   }
 
@@ -133,16 +128,10 @@ class AuthService {
   Future logOut() async {
     // ASYNC METHOD TO RETURN A FUTURE
     try {
-      if (kDebugMode) {
-        print('logOut');
-      }
-
       // SIGN OUT REQUEST
       return await _authInstance.signOut();
     } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
+      print(e.toString());
 
       // RETURN NULL
       return null;
@@ -159,10 +148,8 @@ class AuthService {
       // RETURN success
       return 'success';
     } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-        return null;
-      }
+      print(e.toString());
+      return null;
     }
   }
 

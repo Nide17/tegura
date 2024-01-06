@@ -92,12 +92,11 @@ class _IsuzumeDetailsState extends State<IsuzumeDetails> {
                                   children: List.generate(
                                     scorePopQnsLength,
                                     (index) => IkibazoButton(
-                                      buttonText: '${index + 1}',
                                       isActive: index == widget.qnIndex
                                           ? true
                                           : false,
                                       showQn: widget.showQn,
-                                      index: index,
+                                      qnIndex: index,
                                     ),
                                   ))),
                         ),

@@ -23,27 +23,36 @@ class IsuzumaOverview extends StatefulWidget {
 class _IsuzumaOverviewState extends State<IsuzumaOverview> {
   List<String> amasomo = [];
   bool isTitlesLoading = true;
+  bool _isMounted = false;
 
   Future<void> fetchAmasomoTitles() async {
     List<String> amasomoTitles = await IsomoService()
         .getAmasomoTitlesByIds(widget.isuzuma.getIsomoIDs());
 
-    setState(() {
-      amasomo = amasomoTitles;
-      isTitlesLoading = false;
-    });
+    if (_isMounted) {
+      setState(() {
+        amasomo = amasomoTitles;
+        isTitlesLoading = false;
+      });
+    }
   }
 
   @override
   void initState() {
     super.initState();
+    _isMounted = true;
     fetchAmasomoTitles();
+  }
+
+  @override
+  void dispose() {
+    _isMounted = false;
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final usr = Provider.of<UserModel?>(context);
-    print(widget.isuzuma);
 
     return MultiProvider(
       providers: [
@@ -211,14 +220,15 @@ class _IsuzumaOverviewState extends State<IsuzumaOverview> {
                         backgroundColor:
                             const Color.fromARGB(255, 187, 201, 221),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.width * 0.05),
                         ),
                       ),
                       child: Text(
                         'Reba uko wakoze',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * 0.036,
+                          fontSize: MediaQuery.of(context).size.width * 0.035,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -247,27 +257,27 @@ class _IsuzumaOverviewState extends State<IsuzumaOverview> {
                   foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                   backgroundColor: const Color(0xFFFFBD59),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50.0),
+                    borderRadius: BorderRadius.circular(
+                        MediaQuery.of(context).size.width * 0.05),
                   ),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // PLAY BUTTON PNG
                     Align(
                       alignment: Alignment.center,
                       child: SvgPicture.asset(
                         'assets/images/play.svg',
-                        height: MediaQuery.of(context).size.height * 0.03,
+                        height: MediaQuery.of(context).size.height * 0.024,
                       ),
                     ),
                     Text(
-                      scoreUserIsuzuma == null
-                          ? '   Tangira ukore'
-                          : '   Subiramo',
+                      scoreUserIsuzuma == null ? 'Tangira ukore' : 'Subiramo',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                        fontSize: MediaQuery.of(context).size.width * 0.036,
                         fontWeight: FontWeight.w700,
                       ),
                     ),

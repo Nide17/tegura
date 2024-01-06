@@ -30,7 +30,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
   @override
   Widget build(BuildContext context) {
     final usr = Provider.of<UserModel?>(context);
-    print("Next isuzuma received from overview in attempt: ${widget.nextIsuzuma}");
+    print("Next isuzuma received from overview in attempt: ${widget.nextIsuzuma?.id}");
 
     return MultiProvider(
       providers: [
@@ -232,6 +232,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                                         .createOrUpdateIsuzumaScore(
                                             scorePrModel);
                                     Navigator.pop(context);
+                                    Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -247,8 +248,8 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white
-                              .withOpacity(unansweredQns.isNotEmpty ? 0.7 : 1),
-                          backgroundColor: const Color(0xFF1B56CB)
+                              .withOpacity(unansweredQns.isNotEmpty ? 0.65 : 1),
+                          backgroundColor: const Color.fromARGB(255, 255, 0, 0)
                               .withOpacity(unansweredQns.isNotEmpty ? 0.6 : 1),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -258,16 +259,20 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                           children: [
                             SvgPicture.asset(
                               'assets/images/tick.svg',
-                              width: 14,
+                              width: MediaQuery.of(context).size.width * 0.03,
                               colorFilter: ColorFilter.mode(
-                                Colors.white.withOpacity(
+                                const Color.fromARGB(255, 255, 255, 255).withOpacity(
                                     unansweredQns.isNotEmpty ? 0.5 : 1),
                                 BlendMode.srcATop,
                               ),
                             ),
-                            const Text(
+                            Text(
                               ' Soza isuzuma',
-                              style: TextStyle(fontSize: 14),
+                              style: TextStyle(
+                                fontSize: MediaQuery.of(context).size.width * 0.03,
+                                color: const Color.fromARGB(255, 255, 255, 255).withOpacity(
+                                    unansweredQns.isNotEmpty ? 0.65 : 1),
+                              ),
                             ),
                           ],
                         ),

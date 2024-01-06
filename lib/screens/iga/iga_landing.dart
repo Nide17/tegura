@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +6,6 @@ import 'package:tegura/models/isomo.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
 import 'package:tegura/utilities/app_bar.dart'; // APP BAR
 import 'package:tegura/screens/iga/iga_data.dart';
-import 'package:tegura/firebase_services/isomodb.dart';
 import 'package:tegura/utilities/no_internet.dart'; // DATA FOR THE IGA PAGE
 
 class IgaLanding extends StatefulWidget {
@@ -75,12 +72,6 @@ class _IgaLandingState extends State<IgaLanding> {
           initialData: null,
 
           catchError: (context, error) {
-            if (kDebugMode) {
-              print("Error in iga landing: $error");
-              print(
-                  "The err: ${IsomoService().getAllAmasomo(FirebaseAuth.instance.currentUser?.uid)}");
-            }
-
             return [];
           },
         ),

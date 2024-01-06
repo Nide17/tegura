@@ -97,6 +97,8 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
                         fontSize: MediaQuery.of(context).size.width * 0.04,
                         color: const Color.fromARGB(255, 255, 255, 255),
                         decoration: TextDecoration.underline,
+                        decorationColor: const Color(0xFFFFBD59),
+                        decorationThickness: 2,
                       ),
                     ),
                   )
@@ -105,9 +107,7 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
 
               // 3. AMASUZUMABUMENYI CARDS
               for (var i = 0; i < amasuzumabumenyi.length; i++)
-                AmasuzumaCard(
-                  isuzuma: amasuzumabumenyi[i]
-                )
+                AmasuzumaCard(isuzuma: amasuzumabumenyi[i])
             ]),
 
             // BOTTOM NAVIGATION BAR

@@ -30,7 +30,7 @@ class _IsuzumaIkibazoButtonState extends State<IsuzumaIkibazoButton> {
 
       return Container(
         decoration: BoxDecoration(
-         borderRadius:
+          borderRadius:
               BorderRadius.circular(MediaQuery.of(context).size.width * 0.02),
         ),
         width: MediaQuery.of(context).size.width * 0.08,
@@ -46,7 +46,8 @@ class _IsuzumaIkibazoButtonState extends State<IsuzumaIkibazoButton> {
             backgroundColor: calculateBackgroundColor(
                 currentQn, widget.isReviewing, widget.isActive),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.02),
+                borderRadius: BorderRadius.circular(
+                    MediaQuery.of(context).size.width * 0.02),
                 side: BorderSide(
                     color: const Color(0xFFFFBD59),
                     width: MediaQuery.of(context).size.width * 0.004,

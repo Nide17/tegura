@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:tegura/utilities/default_input.dart';
 import 'package:mailer/mailer.dart';

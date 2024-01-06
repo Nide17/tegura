@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
@@ -65,12 +64,6 @@ class UserProgress extends StatelessWidget {
           initialData: null,
 
           catchError: (context, error) {
-            if (kDebugMode) {
-              print("Error in get progress: $error");
-              print(
-                  "The err: ${PaymentService().getLatestpaymentsByUserId(usr!.uid)}");
-            }
-
             return null;
           },
         ),
@@ -165,9 +158,7 @@ class UserProgress extends StatelessWidget {
                             : "KOMEZA",
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.03,
-                      color: percent == 1.0
-                          ? const Color(0xFFFFBD59)
-                          : const Color.fromARGB(255, 255, 255, 255),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       fontWeight: FontWeight.bold,
                     ),
                   ),

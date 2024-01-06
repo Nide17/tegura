@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/course_progress.dart';
@@ -136,15 +135,6 @@ class _IgaContentState extends State<IgaContent> {
               // CONSUMER 3: POP QUESTIONS LIST CURRENT INGINGOS
               return Consumer<List<PopQuestionModel>?>(
                 builder: (context, popQuestions, _) {
-                  if (kDebugMode) {
-                    if (popQuestions != null) {
-                      for (var pq in popQuestions) {
-                        print("Pop question id here: ${pq.id}");
-                      }
-                    } else {
-                      print("Pop questions ARE null");
-                    }
-                  }
                   return ingingos == null
                       ? const Scaffold(
                           body: LoadingWidget(),

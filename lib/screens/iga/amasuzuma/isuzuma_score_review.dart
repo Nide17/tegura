@@ -31,7 +31,7 @@ class _IsuzumaScoreReviewState extends State<IsuzumaScoreReview> {
 
   @override
   Widget build(BuildContext context) {
-    String nextIsuzumaID =
+    String nextIsuzumaTitle =
         '${widget.isuzuma.title.split(' ')[0]} ${widget.isuzuma.title.split(' ')[1]} ${int.parse(widget.isuzuma.title.split(' ')[2]) + 1}';
     final usr = Provider.of<UserModel?>(context);
 
@@ -46,7 +46,7 @@ class _IsuzumaScoreReviewState extends State<IsuzumaScoreReview> {
           },
         ),
         StreamProvider<IsuzumaModel?>.value(
-          value: IsuzumaService().getIsuzuma(nextIsuzumaID),
+          value: IsuzumaService().getIsuzumaByTitle(nextIsuzumaTitle),
           initialData: null,
           catchError: (context, error) {
             return null;
