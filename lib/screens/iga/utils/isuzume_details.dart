@@ -12,7 +12,6 @@ typedef ShowQnCallback = void Function(int index);
 typedef SetSetSelectedOption = void Function(Map<String, dynamic>? option);
 
 class IsuzumeDetails extends StatefulWidget {
-  // INSTANCE VARIABLES
   final IsomoModel isomo;
   final String userID;
   final CourseProgressModel? courseProgress;
@@ -41,7 +40,6 @@ class IsuzumeDetails extends StatefulWidget {
 class _IsuzumeDetailsState extends State<IsuzumeDetails> {
   @override
   Widget build(BuildContext context) {
-    // GET THE SCORE PROVIDER MODEL OBJECT
     final QuizScoreProvider scoreProviderModel =
         Provider.of<QuizScoreProvider>(context);
 
@@ -51,8 +49,7 @@ class _IsuzumeDetailsState extends State<IsuzumeDetails> {
 
     // GET THE POP QUESTIONS LENGTH
     final scorePopQnsLength = scoreProviderModel.quizScore.questions.length;
-    
-    // RETURN THE CONTENT
+
     return Consumer<QuizScoreProvider>(
         builder: (context, scoreProviderModel, child) {
       return Container(
@@ -75,33 +72,12 @@ class _IsuzumeDetailsState extends State<IsuzumeDetails> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Center(
-                          child: Text('Nta bibibazo byabonetse!'),
+                          child: Text('Nta bibazo byabonetse!'),
                         ),
-                        // const SizedBox(height: 16.0),
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     CourseProgressService().updateUserCourseProgress(
-                        //       widget.courseProgress != null
-                        //           ? widget.courseProgress!.userId
-                        //           : widget.userID,
-                        //       widget.courseProgress != null
-                        //           ? widget.courseProgress!.courseId
-                        //           : 0,
-                        //       widget.courseProgress != null
-                        //           ? widget.courseProgress!.totalIngingos
-                        //           : 1,
-                        //       0,
-                        //     );
-                        //     // GO BACK TO THE COURSE PAGE
-                        //     Navigator.pop(context);
-                        //   },
-                        //   child: const Text('Ongera utangire iri somo!'),
-                        // ),
                       ],
                     )
                   : Column(
                       children: [
-                        // IKIBAZO NUMBER BUTTONS
                         Align(
                           alignment: Alignment.topCenter,
                           child: Container(
@@ -109,35 +85,13 @@ class _IsuzumeDetailsState extends State<IsuzumeDetails> {
                                 horizontal:
                                     MediaQuery.of(context).size.width * 0.008,
                               ),
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFD9D9D9),
-                                border: Border(
-                                  top: BorderSide(
-                                    color: Color(0xFF00A651),
-                                    width: 2.0,
-                                  ),
-                                  bottom: BorderSide(
-                                    color: Color(0xFF00A651),
-                                    width: 4.0,
-                                  ),
-                                  left: BorderSide(
-                                    color: Color(0xFF00A651),
-                                    width: 2.0,
-                                  ),
-                                  right: BorderSide(
-                                    color: Color(0xFF00A651),
-                                    width: 2.0,
-                                  ),
-                                ),
-                              ),
                               child: Wrap(
                                   spacing: 10.0,
                                   direction: Axis.horizontal,
                                   children: List.generate(
                                     scorePopQnsLength,
                                     (index) => IkibazoButton(
-                                      buttonText: 'Ikibazo ${index + 1}',
-                                      // MAKE THE FIRST QUESTION ACTIVE BY DEFAULT ON PAGE LOAD
+                                      buttonText: '${index + 1}',
                                       isActive: index == widget.qnIndex
                                           ? true
                                           : false,
@@ -272,27 +226,6 @@ class _IsuzumeDetailsState extends State<IsuzumeDetails> {
                                       );
                                     }).toList(),
                                   ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      CourseProgressService()
-                                          .updateUserCourseProgress(
-                                        widget.courseProgress != null
-                                            ? widget.courseProgress!.userId
-                                            : widget.userID,
-                                        widget.courseProgress != null
-                                            ? widget.courseProgress!.courseId
-                                            : 0,
-                                        widget.courseProgress != null
-                                            ? widget
-                                                .courseProgress!.totalIngingos
-                                            : 1,
-                                        0,
-                                      );
-                                      // GO BACK TO THE COURSE PAGE
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('Ongera utangire iri somo!'),
-                                  ),
                                 ],
                               ),
                             ),
@@ -300,6 +233,25 @@ class _IsuzumeDetailsState extends State<IsuzumeDetails> {
                         ),
                       ],
                     )),
+          ElevatedButton(
+            onPressed: () {
+              CourseProgressService().updateUserCourseProgress(
+                widget.courseProgress != null
+                    ? widget.courseProgress!.userId
+                    : widget.userID,
+                widget.courseProgress != null
+                    ? widget.courseProgress!.courseId
+                    : 0,
+                0,
+                widget.courseProgress != null
+                    ? widget.courseProgress!.totalIngingos
+                    : 1,
+              );
+              // GO BACK TO THE COURSE PAGE
+              Navigator.pop(context);
+            },
+            child: const Text('Ongera utangire iri somo!'),
+          ),
         ]),
       );
     });

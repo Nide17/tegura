@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CtaAuthLink extends StatelessWidget {
-// INSTANCE VARIABLES
   final String text1;
   final String text2;
   final String route;
@@ -28,13 +27,17 @@ class CtaAuthLink extends StatelessWidget {
           children: [
             Text(
               text1,
-              style: TextStyle(color: color1),
+              style: TextStyle(
+                color: color1,
+                fontSize: MediaQuery.of(context).size.width * 0.035,
+              ),
             ),
 
             // INK WELL
             InkWell(
               onTap: () {
-                FirebaseAuth.instance.currentUser != null && (route == 'injira' || route == 'iyandikishe')
+                FirebaseAuth.instance.currentUser != null &&
+                        (route == 'injira' || route == 'iyandikishe')
                     ? Navigator.pop(context)
                     : Navigator.pushNamed(context, route);
               },
@@ -42,6 +45,7 @@ class CtaAuthLink extends StatelessWidget {
                 text2,
                 style: TextStyle(
                   color: color2,
+                  fontSize: MediaQuery.of(context).size.width * 0.035,
                   decoration: TextDecoration.underline,
                 ),
               ),

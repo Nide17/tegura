@@ -9,7 +9,8 @@ import 'package:tegura/screens/ibiciro/ifatabuguzi.dart';
 import 'package:tegura/screens/ibiciro/subscription.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/utilities/description.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/app_bar.dart';
+import 'package:tegura/utilities/loading_widget.dart';
 import 'package:tegura/utilities/no_internet.dart';
 
 class Ibiciro extends StatefulWidget {
@@ -21,13 +22,11 @@ class Ibiciro extends StatefulWidget {
 }
 
 class _IbiciroState extends State<Ibiciro> {
-  // BUILD METHOD TO BUILD THE UI OF THE APP
-
   @override
   Widget build(BuildContext context) {
     final conn = Provider.of<ConnectionStatus>(context);
-
     bool everDisconnected = false;
+    List<IfatabuguziModel?> subscriptionsToUse = [];
 
     // WHEN CONNECTION IS LOST, NOTIFY USER. IF IT COMES BACK AFTER BEING LOST NOTIFY USER TOO
     if (conn.isOnline == false) {
@@ -78,14 +77,12 @@ class _IbiciroState extends State<Ibiciro> {
           value: IfatabuguziService().amafatabuguzi,
           initialData: null,
 
-          // CATCH ERRORS
           catchError: (context, error) {
-            // PRINT THE ERROR
             if (kDebugMode) {
               print("Error in ibiciro: $error");
               print("The err: ${IfatabuguziService().amafatabuguzi}");
             }
-            // RETURN NULL
+
             return [];
           },
         ),
@@ -93,12 +90,7 @@ class _IbiciroState extends State<Ibiciro> {
       child: Consumer<ProfileModel?>(builder: (context, profile, _) {
         return Consumer<List<IfatabuguziModel?>?>(
             builder: (context, amafatabuguzi, child) {
-          if (amafatabuguzi == null) {
-            // Handle the case when amafatabuguzi is null
-            return const CircularProgressIndicator(); // Or any other placeholder widget
-          } else {
-            List<IfatabuguziModel?> subscriptionsToUse = [];
-
+          if (amafatabuguzi != null) {
             // GET THE SUBSCRIPTIONS TO USE IN THE IBICIRO ACC. TO PROFILE urStudent?
             if (profile != null && profile.urStudent == true) {
               // GET THE SUBSCRIPTIONS
@@ -111,7 +103,11 @@ class _IbiciroState extends State<Ibiciro> {
                   .where((element) => element!.type == 'standard')
                   .toList();
             }
+          }
 
+          if (amafatabuguzi == null) {
+            return const LoadingWidget();
+          } else {
             return Scaffold(
                 backgroundColor: const Color.fromARGB(255, 71, 103, 158),
 

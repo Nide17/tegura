@@ -1,14 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:tegura/screens/iga/utils/error_alert.dart';
 import 'package:tegura/utilities/cta_button.dart';
 import 'package:tegura/utilities/cta_link.dart';
 import 'package:tegura/utilities/default_input.dart';
 import 'package:tegura/utilities/description.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/firebase_services/auth.dart';
 
 class Iyandikishe extends StatefulWidget {
-  // INSTANCE VARIABLES
   final String? message;
   const Iyandikishe({super.key, this.message});
 
@@ -28,10 +29,8 @@ class _IyandikisheState extends State<Iyandikishe> {
   String password = '';
   String error = '';
 
-  // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    
     // IF THE USER IS LOGGED IN, POP THE CURRENT PAGE
     if (_authInstance.currentUser() != null) {
       Navigator.pop(context);
@@ -108,7 +107,7 @@ class _IyandikisheState extends State<Iyandikishe> {
               // 2. DESCRIPTION
               const Description(
                   text:
-                      'Iyandikishe ubundi, wige, umenye ndetse utsindire provisoire!'),
+                      'Iyandikishe ubundi, wige, umenye utsindire provisoire!'),
 
               // CENTERED IMAGE
               Row(
@@ -176,31 +175,41 @@ class _IyandikisheState extends State<Iyandikishe> {
                           // VALIDATE FORM
                           if (_formKey.currentState!.validate()) {
                             // REGISTER USER
-                            dynamic resSignUp = await _authInstance
-                                .registerWithEmailAndPassword(
-                                    username, email, password, false, '', '');
+                            dynamic resSignUp;
+
+                            // REGISTER USER
+                            try {
+                              resSignUp = await FirebaseAuth.instance
+                                  .createUserWithEmailAndPassword(
+                                email: email,
+                                password: password,
+                              );
+                            } on FirebaseAuthException catch (e) {
+                              if (e.code == 'weak-password') {
+                                print('Ijambobanga ntiryujuje ibisabwa.');
+                              } else if (e.code == 'email-already-in-use') {
+                                setState(() {
+                                  error = 'Iyi imeyili yarakoreshejwe!';
+                                });
+                              }
+                            } catch (e) {
+                              print(e);
+
+                              setState(() {
+                                error = e.toString();
+                              });
+                            }
 
                             // CHECK IF USER IS REGISTERED
                             if (resSignUp == null) {
                               setState(() {
-                                error =
-                                    'Please supply a valid email and password';
-
                                 // SHOW ERROR DIALOG
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text('Error'),
-                                      content: Text(error),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
+                                    return ErrorAlert(
+                                      errorTitle: 'Kwiyandikisha ntibikunze!',
+                                      errorMsg: error,
                                     );
                                   },
                                 );
@@ -231,24 +240,25 @@ class _IyandikisheState extends State<Iyandikishe> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            // width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF2C64C6),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  )),
-                              onPressed: () {
-                                Navigator.pushReplacementNamed(
-                                    context, '/ur-student');
-                              },
-                              child: const Text(
-                                'Register as UR student',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF2C64C6),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24.0),
+                                  side: const BorderSide(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    width: 3.0,
+                                  ),
+                                )),
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                  context, '/ur-student');
+                            },
+                            child: const Text(
+                              'Register as UR student',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 255, 255, 255),
                               ),
                             ),
                           ),

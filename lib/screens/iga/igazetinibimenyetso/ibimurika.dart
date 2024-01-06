@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/ibimurika_row.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbAppBar.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbAppFooter.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbtitle.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_app_bar.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_app_footer.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_title.dart';
 
 class IgazetiIbimurika extends StatefulWidget {
   const IgazetiIbimurika({super.key});

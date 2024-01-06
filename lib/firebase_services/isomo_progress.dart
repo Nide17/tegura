@@ -25,10 +25,10 @@ class CourseProgressService {
       final id = data.containsKey('id') ? data['id'] : '';
       final userId = data.containsKey('userId') ? data['userId'] : '';
       final courseId = data.containsKey('courseId') ? data['courseId'] : 0;
-      final totalIngingos =
-          data.containsKey('totalIngingos') ? data['totalIngingos'] : 0;
       final currentIngingo =
           data.containsKey('currentIngingo') ? data['currentIngingo'] : 0;
+      final totalIngingos =
+          data.containsKey('totalIngingos') ? data['totalIngingos'] : 0;
 
       // RETURN A LIST OF progresses FROM THE SNAPSHOT
       return CourseProgressModel(
@@ -36,8 +36,8 @@ class CourseProgressService {
         id: id,
         userId: userId,
         courseId: courseId,
-        totalIngingos: totalIngingos,
         currentIngingo: currentIngingo,
+        totalIngingos: totalIngingos,
       );
     }).toList();
   }
@@ -52,10 +52,10 @@ class CourseProgressService {
     final id = data.containsKey('id') ? data['id'] : '';
     final userId = data.containsKey('userId') ? data['userId'] : '';
     final courseId = data.containsKey('courseId') ? data['courseId'] : 0;
-    final totalIngingos =
-        data.containsKey('totalIngingos') ? data['totalIngingos'] : 0;
     final currentIngingo =
         data.containsKey('currentIngingo') ? data['currentIngingo'] : 0;
+    final totalIngingos =
+        data.containsKey('totalIngingos') ? data['totalIngingos'] : 0;
 
     // RETURN A LIST OF progresses FROM THE SNAPSHOT
     return CourseProgressModel(
@@ -63,8 +63,8 @@ class CourseProgressService {
       id: id,
       userId: userId,
       courseId: courseId,
-      totalIngingos: totalIngingos,
       currentIngingo: currentIngingo,
+      totalIngingos: totalIngingos,
     );
   }
 
@@ -110,8 +110,8 @@ class CourseProgressService {
   Future updateUserCourseProgress(
     String uid,
     int courseId,
-    int totalIngingos,
     int currentIngingo,
+    int totalIngingos,
   ) async {
     
     // RETURN THE USER DATA - IF THE DOC DOESN'T EXIST,
@@ -121,8 +121,8 @@ class CourseProgressService {
       'id': '${courseId}_$uid',
       'userId': uid,
       'courseId': courseId,
+      'currentIngingo': currentIngingo > totalIngingos ? totalIngingos : currentIngingo,
       'totalIngingos': totalIngingos,
-      'currentIngingo': currentIngingo,
     });
   }
 }

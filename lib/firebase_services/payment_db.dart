@@ -1,5 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tegura/models/payment.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class PaymentService {
   // COLLECTIONS REFERENCE - FIRESTORE
@@ -27,9 +32,10 @@ class PaymentService {
       final userId = data.containsKey('userId') ? data['userId'] : '';
       final ifatabuguziID =
           data.containsKey('ifatabuguziID') ? data['ifatabuguziID'] : '';
+      final igiciro = data.containsKey('igiciro') ? data['igiciro'] : 0;
       final isApproved =
           data.containsKey('isApproved') ? data['isApproved'] : false;
-          final phone = data.containsKey('phone') ? data['phone'] : '';
+      final phone = data.containsKey('phone') ? data['phone'] : '';
 
       return PaymentModel(
         id: id,
@@ -37,6 +43,7 @@ class PaymentService {
         endAt: endAt,
         userId: userId,
         ifatabuguziID: ifatabuguziID,
+        igiciro: igiciro,
         isApproved: isApproved,
         phone: phone,
       );
@@ -60,6 +67,7 @@ class PaymentService {
     final userId = data.containsKey('userId') ? data['userId'] : '';
     final ifatabuguziID =
         data.containsKey('ifatabuguziID') ? data['ifatabuguziID'] : '';
+    final igiciro = data.containsKey('igiciro') ? data['igiciro'] : 0;
     final isApproved =
         data.containsKey('isApproved') ? data['isApproved'] : false;
     final phone = data.containsKey('phone') ? data['phone'] : '';
@@ -70,6 +78,7 @@ class PaymentService {
       endAt: endAt,
       userId: userId,
       ifatabuguziID: ifatabuguziID,
+      igiciro: igiciro,
       isApproved: isApproved,
       phone: phone,
     );
@@ -139,8 +148,38 @@ class PaymentService {
 
   // CREATE PAYMENT
   Future<bool> createPayment(PaymentModel payment) async {
+    print(payment.toJson());
+
     try {
-      await paymentsCollection.add(payment.toJson());
+      // CREATE PAYMENT IN FIRESTORE AND SET THE ID AS THE PHONE NUMBER
+      await paymentsCollection.doc(payment.phone).set(payment.toJson());
+
+      String username = dotenv.env['GMAIL_EMAIL']!;
+      String password = dotenv.env['GMAIL_PASSWORD']!;
+
+      // CREATE THE SMTP SERVER
+      final smtpServer = gmail(username, password);
+
+      // CREATE THE MESSAGE
+      final message = Message()
+        ..from = Address(username, 'Tegura')
+        ..recipients.add(username)
+        ..ccRecipients.addAll(['brucendati@gmail.com'])
+        ..subject = 'Tegura Payment'
+        ..html =
+            "<h1>Payment</h1>\n<p>Payment ${payment.phone} has been made by user ID: ${payment.userId!}</p>\n<p>Payment Phone: ${payment.phone!}</p>\n<p>Payment amount: ${payment.igiciro!}</p>\n<p>Payment Created At: ${payment.createdAt}</p>\n<p>Payment End At: ${payment.endAt}</p>\n<p>Payment isApproved: ${payment.isApproved}</p>";
+
+      // SEND THE MESSAGE
+      try {
+        final sendReport = await send(message, smtpServer);
+        print('Message sent: $sendReport');
+      } on MailerException catch (e) {
+        print('Message not sent.');
+        for (var p in e.problems) {
+          print('Problem: ${p.code}: ${p.msg}');
+        }
+      }
+
       return true;
     } catch (e) {
       print(e);

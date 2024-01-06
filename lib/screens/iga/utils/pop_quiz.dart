@@ -4,37 +4,34 @@ import 'package:tegura/models/pop_question.dart';
 import 'package:tegura/screens/iga/utils/circle_progress_pq.dart';
 import 'package:tegura/screens/iga/utils/custom_radio_button.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/utilities/direction_button_pq.dart';
 
 class PopQuiz extends StatefulWidget {
   final List<PopQuestionModel> popQuestions;
   final IsomoModel isomo;
-  final ValueChanged<int> courseChangeSkip;
+  final ValueChanged<int> coursechangeSkipNumber;
 
   const PopQuiz(
       {super.key,
       required this.popQuestions,
       required this.isomo,
-      required this.courseChangeSkip});
+      required this.coursechangeSkipNumber,});
 
   @override
   State<PopQuiz> createState() => _PopQuizState();
 }
 
 class _PopQuizState extends State<PopQuiz> {
-  // STATE VARIABLES
   int selectedOption = 0;
   bool isCurrentCorrect = false;
   int currQnID = 0;
 
-  // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
     // CALLBACK FOR FORWARD BUTTON
     void forward() {
       setState(() {
-
         // INCREASE THE CURRENT QUESTION ID BY 1 IF NOT THE LAST QUESTION
         if (currQnID < widget.popQuestions.length) {
           currQnID = currQnID + 1;
@@ -48,7 +45,7 @@ class _PopQuizState extends State<PopQuiz> {
 
         // UPDATE THE SKIP VALUE IN THE PARENT WIDGET (IGA_CONTENT) IF THE USER IS ON THE LAST QUESTION
         if (currQnID == widget.popQuestions.length) {
-          widget.courseChangeSkip(5);
+          widget.coursechangeSkipNumber(5);
         }
       });
     }

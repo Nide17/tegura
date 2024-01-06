@@ -13,19 +13,19 @@ List<Map<String, dynamic>> ibyapaBiburira = [
   },
   {
     'txt':
-        'Iki cyapa kiravuga ngo “Amakoni abiri cyangwa uruhererekane ry’amakoni arenga abiri, irya mbere riri ibumoso.”',
+        'Iki cyapa kiravuga ngo “Amakoni abiri cyangwa uruhererekane ry\'amakoni arenga abiri, irya mbere riri ibumoso.” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2FIfungana%20(Ibumoso).png?alt=media&token=3441f3f0-9b46-4696-8321-e4d17b9485e4'
   },
   {
     'txt':
-        'Iki cyapa kiravuga ngo “Amakoni abiri cyangwa uruhererekane rw’amakoni arenga abiri, irya mbere riri iburyo.”',
+        'Iki cyapa kiravuga ngo “Amakoni abiri cyangwa uruhererekane rw’amakoni arenga abiri, irya mbere riri iburyo.” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2FUruhererekane%20(Iburyo).png?alt=media&token=7206da90-46c8-4f98-9189-a1568c0126af'
   },
   {
     'txt':
-        '📝 Iki cyapa kiravuga ngo “Akamanuko cg Agacuri gashobora gutera ibyago” (ikigereranyo gishobora kuzuzwa n’iyerekana ry’ingano y’agacuri kw’ijana).”',
+        '📝 Iki cyapa kiravuga ngo “Akamanuko cg Agacuri gashobora gutera ibyago” (ikigereranyo gishobora kuzuzwa n’iyerekana ry’ingano y’agacuri kw’ijana).” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2FAkamanuko.png?alt=media&token=ace94425-acc4-4212-8560-360dc5a4eed9'
   },
@@ -43,13 +43,13 @@ List<Map<String, dynamic>> ibyapaBiburira = [
   },
   {
     'txt':
-        '📝 Iki cyapa kiravuga ngo “Ifungana ry’umuhanda n’akayira gasatira umuhanda ibumoso”.',
+        '📝 Iki cyapa kiravuga ngo “Ifungana ry’umuhanda n’akayira gasatira umuhanda ibumoso.” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2FIfungana%20(Ibumoso).png?alt=media&token=3441f3f0-9b46-4696-8321-e4d17b9485e4'
   },
   {
     'txt':
-        '📝 Iki cyapa kiravuga ngo “Ifungana ry’umuhanda n’akayira gasatira umuhanda iburyo”.',
+        '📝 Iki cyapa kiravuga ngo “Ifungana ry\'umuhanda n\'akayira gasatira umuhanda iburyo” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2FIfungana%20(Iburyo).png?alt=media&token=6a37735c-baf1-429a-8e43-f5ff5228662c'
   },
@@ -157,7 +157,7 @@ List<Map<String, dynamic>> ibyapaBiburira = [
   },
   {
     'txt':
-        'Iki cyapa kiravuga ngo ”Inkomane aho umuhanda umwe urasukira ibumoso, mu mfuruka ifunganye” (gutambuka mbere hakurikijwe amategeko rusange yo gutambuka mbere).',
+        'Iki cyapa kiravuga ngo “Inkomane aho umuhanda umwe urasukira ibumoso, mu mfuruka ifunganye” (gutambuka mbere hakurikijwe amategeko rusange yo gutambuka mbere).',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2FInkomane%2030%20ibumoso.png?alt=media&token=7de74dff-c293-4a09-a988-aff78eab6cc9'
   },
@@ -187,13 +187,13 @@ List<Map<String, dynamic>> ibyapaBiburira = [
   },
   {
     'txt':
-        'Iki cyapa kiravuga ngo “Imihanda yiyunga kumuhanda munini umuyobozi arimo”',
+        'Iki cyapa kiravuga ngo “Imihanda yiyunga kumuhanda munini umuyobozi arimo” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2FImihanda%20yiyunga%201.png?alt=media&token=7867e6e0-52cc-4a18-a9c1-5efcfaf62328'
   },
   {
     'txt':
-        'Iki cyapa kiravuga ngo “Agahanda kiyunga ibumoso kumuhanda munini umuyobozi arimo”.',
+        'Iki cyapa kiravuga ngo “Agahanda kiyunga ibumoso kumuhanda munini umuyobozi arimo” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2FAgahanda%20kiyunga%20ibumoso%201.png?alt=media&token=9f7659b8-7319-46ff-abc1-dd6e0bf9cbfc'
   },
@@ -205,13 +205,13 @@ List<Map<String, dynamic>> ibyapaBiburira = [
   },
   {
     'txt':
-        '📝 Iki cyapa kiravuga ngo “Ahegereye amasangano y’inzira nyabagendwa n’inzira ya gari ya moshi ibambiye”.',
+        '📝 Iki cyapa kiravuga ngo “Ahegereye amasangano y’inzira nyabagendwa n’inzira ya gari ya moshi ibambiye” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2FHabambiye.png?alt=media&token=74d1595a-365b-4bf2-9e11-5cf9ed334715'
   },
   {
     'txt':
-        '📝 Iki cyapa kiravuga ngo “Ahegereye amasangano y’inzira nyabagendwa n’inzira ya gari ya moshi hatabambiye”.',
+        '📝 Iki cyapa kiravuga ngo “Ahegereye amasangano y’inzira nyabagendwa n’inzira ya gari ya moshi hatabambiye” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2FHatabambiye.png?alt=media&token=fa68b419-5aaa-4b91-9ab0-b4297dc978c7'
   },

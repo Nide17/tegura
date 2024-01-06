@@ -130,7 +130,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                 SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                 Expanded(
                   child: Text(
-                    widget.option != null ? widget.option!['text'] : '',
+                    widget.option == null ? '' : widget.option!['text'],
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.height * 0.017,
                       fontWeight: FontWeight.bold,
@@ -166,16 +166,19 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                           ),
                     SizedBox(
                         height: MediaQuery.of(context).size.height * 0.025),
-                    Text(
-                      isThisCorrect == true &&
-                              widget.option != null &&
-                              widget.option!['description'] != null
-                          ? widget.option!['description']
-                          : '',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.014,
-                        color: Colors.black.withOpacity(0.9),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.01),
+                      child: Text(
+                        isThisCorrect == true &&
+                                widget.option != null &&
+                                widget.option!['description'] != null
+                            ? widget.option!['description']
+                            : '',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.014,
+                          color: Colors.black.withOpacity(0.9),
+                        ),
                       ),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),

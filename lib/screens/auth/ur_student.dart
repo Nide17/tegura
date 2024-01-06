@@ -1,9 +1,10 @@
 import "package:flutter/material.dart";
+import 'package:tegura/screens/iga/utils/error_alert.dart';
 import 'package:tegura/utilities/cta_button.dart';
 import 'package:tegura/utilities/default_input.dart';
 import 'package:tegura/utilities/description.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/firebase_services/auth.dart';
 
 class UrStudent extends StatefulWidget {
@@ -24,18 +25,26 @@ class _UrStudentState extends State<UrStudent> {
   String password = '';
   String error = '';
   String regNbr = '';
-  final List<String> _items = ['CST', 'CBE', 'CMHS', 'CE', 'CAVM'];
+  final List<String> _items = [
+    'REMERA',
+    'GIKONDO',
+    'HUYE',
+    'RWAMAGANA',
+    'NYAGATARE',
+    'BUSOGO',
+    'RUSIZI',
+    'NYARUGENGE',
+    'RUKARA'
+  ];
   String _selectedCampus = '';
 
-  // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    
     // IF THE USER IS LOGGED IN, POP THE CURRENT PAGE
     if (_authInstance.currentUser() != null) {
       Navigator.pop(context);
     }
-    
+
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 71, 103, 158),
 
@@ -165,8 +174,8 @@ class _UrStudentState extends State<UrStudent> {
 
                       // EMAIL
                       DefaultInput(
-                        placeholder: 'Imeyili',
-                        validation: 'Injiza imeyili yawe!',
+                        placeholder: 'E-mail',
+                        validation: 'Please enter your e-mail!',
 
                         // ON CHANGED
                         onChanged: (val) {
@@ -208,17 +217,9 @@ class _UrStudentState extends State<UrStudent> {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text('Error'),
-                                      content: Text(error),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
+                                    return ErrorAlert(
+                                      errorTitle: 'Error signing up!',
+                                      errorMsg: error,
                                     );
                                   },
                                 );

@@ -71,6 +71,31 @@ class IsuzumaService {
   Stream<IsuzumaModel> getIsuzuma(String id) {
     return isuzumaCollection.doc(id).snapshots().map(_isuzumaFromSnapshot);
   }
+
+  // get it by title
+  Stream<IsuzumaModel> getIsuzumaByTitle(String title) {
+
+    final documentsStream = isuzumaCollection
+        .where('title', isEqualTo: title)
+        .snapshots();
+
+    return documentsStream.map((querySnapshot) {
+      final data = querySnapshot.docs.first.data() as Map<String, dynamic>;
+
+      final id = querySnapshot.docs.first.id;
+      final title = data.containsKey('title') ? data['title'] : '';
+      final description =
+          data.containsKey('description') ? data['description'] : '';
+      final questions = data.containsKey('questions') ? data['questions'] : '';
+
+      return IsuzumaModel(
+        id: id,
+        title: title,
+        description: description,
+        questions: questions,
+      );
+    });
+  }
 }
 // #############################################################################
 // END OF FILE

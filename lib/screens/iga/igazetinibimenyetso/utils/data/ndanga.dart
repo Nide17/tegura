@@ -18,36 +18,36 @@ List<Map<String, dynamic>> ibyapaNdanga = [
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2FIcyerekezo%20cy%E2%80%99akarere%201.png?alt=media&token=795d8d92-0fee-43d7-b224-f04fa1ea3c7d',
   },
   {
-    'txt': 'Iki cyapa kirerekana “Icyerekezo cy’akarere”.',
+    'txt': 'Iki cyapa kirerekana “Icyerekezo cy’akarere” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2FUmwanya%20mu%20muhanda%201.png?alt=media&token=0a14d7fd-131f-4d0f-8142-08595b328930',
   },
   {
     'txt':
-        '“Kuyobya umuhanda” (cyerekana icyerekezo baganamo iyo inzira umugenzi arimo yahindutse bitewe n’uko hari imirimo).',
+        ' “Kuyobya umuhanda” (cyerekana icyerekezo baganamo iyo inzira umugenzi arimo yahindutse bitewe n’uko hari imirimo).',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2FKuyobya%20umuhanda%201.png?alt=media&token=f791ca60-f330-40c2-81de-e46b111c1908',
   },
   {
-    'txt': '“Ikibuga cy’indege” (kirerekana aho ikibuga k’indege giherereye).',
+    'txt': ' “Ikibuga cy’indege” (kirerekana aho ikibuga k’indege giherereye).',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2FIkibuga%20cy%E2%80%99indege%201.png?alt=media&token=715b50ea-d4e7-40b8-9798-afa718451789',
   },
   {
     'txt':
-        '“Kwinjira mu mudugudu” (Iki cyapa kimenyesha ko winjiye mu mudugudu).',
+        ' “Kwinjira mu mudugudu” (Iki cyapa kimenyesha ko winjiye mu mudugudu).',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2FKwinjira%20mu%20mudugugu%201.png?alt=media&token=00135111-555b-4a56-8784-ebd8b41eaa6e',
   },
   {
     'txt':
-        '“Iherezo ry’umudugudu” (Iki cyapa kimenyesha ko ugeze kw’iherezo ry’umudugudu).',
+        ' “Iherezo ry’umudugudu” (Iki cyapa kimenyesha ko ugeze kw’iherezo ry’umudugudu).',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2FIherezo%20ry%E2%80%99umudugudu%201.png?alt=media&token=9fc6b7da-ec0f-4e61-991e-9fe6d7e56132',
   },
   {
     'txt':
-        '“Inzira y’abanyamaguru” (cyereka abanyamaguru n’abayobozi aho inzira y’abanyamaguru itangirira).',
+        ' “Inzira y’abanyamaguru” (cyereka abanyamaguru n’abayobozi aho inzira y’abanyamaguru itangirira).',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2FInzira%20y%E2%80%99abanyamaguru.png?alt=media&token=c4920ec0-9016-4fe6-91c8-e8bc81fa5b7f',
   },
@@ -82,12 +82,12 @@ List<Map<String, dynamic>> ibyapaNdanga = [
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2FIherezo%20ry%E2%80%99umuhanda%20urombeje%20w%E2%80%99ibice%20byinshi.png?alt=media&token=e395a160-0efa-4b98-9327-6ab778a312ca',
   },
   {
-    'txt': '“Umuhanda ugenewe imodoka.” ',
+    'txt': ' “Umuhanda ugenewe imodoka.” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2FUmuhanda%20ugenewe%20imodoka.png?alt=media&token=8aa7f98b-856e-494d-8f68-4c568069ce9d',
   },
   {
-    'txt': '“Iherezo ry’umuhanda ugenewe imodoka.” ',
+    'txt': ' “Iherezo ry’umuhanda ugenewe imodoka.” ',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2Fherezo%20ry%E2%80%99umuhanda%20ugenewe%20imodoka.png?alt=media&token=9981e262-df6c-4260-ada1-4f462dc39d62',
   },
@@ -99,7 +99,7 @@ List<Map<String, dynamic>> ibyapaNdanga = [
   },
   {
     'txt':
-        '“Parikingi” (cyerekana ahantu ibinyabiziga byemewe guhagarara umwanya munini).',
+        ' “Parikingi” (cyerekana ahantu ibinyabiziga byemewe guhagarara umwanya munini).',
     'imgUrl':
         'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fndanga%2FParikingi.png?alt=media&token=868d78dd-3c4c-4955-93cf-db8168880037',
   },

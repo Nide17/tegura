@@ -37,7 +37,11 @@ class IngingoService {
       // RETURN A LIST OF ingingos FROM THE SNAPSHOT
       return IngingoModel(
         // INGINGOS DATA
-        id: id is int ? id : id is String ? int.parse(id) : 0,
+        id: id is int
+            ? id
+            : id is String
+                ? int.parse(id)
+                : 0,
         isomoId: isomoId,
         title: title,
         text: text,
@@ -73,7 +77,11 @@ class IngingoService {
     // RETURN A LIST OF ingingos FROM THE SNAPSHOT
     return IngingoModel(
       // INGINGOS DATA
-      id: id is int ? id : id is String ? int.parse(id) : 0,
+      id: id is int
+          ? id
+          : id is String
+              ? int.parse(id)
+              : 0,
       isomoId: isomoId,
       title: title,
       text: text,
@@ -100,15 +108,15 @@ class IngingoService {
   }
 
 // GET TOTAL ingingos FOR A GIVEN isomoId
-  Stream<IngingoSum> getTotalIsomoIngingos(int isomoId) {
+  Stream<int> getTotalIsomoIngingos(int isomoId) {
     // Retrieve the stream of documents from Firestore
     final documentsStream =
         ingingoCollection.where('isomoID', isEqualTo: isomoId).snapshots();
 
     // Map the stream to the length of the documents and return it
     return documentsStream.map((event) => event.docs.isNotEmpty
-        ? IngingoSum(sum: event.docs.length)
-        : IngingoSum(sum: 0));
+        ? event.docs.length
+        : 0); // Return 0 if there are no documents
   }
 
 // GET A LIST OF ingingos FOR A GIVEN isomoId, ORDERED BY ITS DOCUMENT ID

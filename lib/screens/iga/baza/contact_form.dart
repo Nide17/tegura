@@ -137,11 +137,12 @@ class _ContactFormState extends State<ContactForm> {
                     });
                   }
                 },
-                child: const Text(
+                child: Text(
                   'Ohereza',
                   textAlign: TextAlign.right,
                   style: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0),
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
                   ),
                 ),
               ),

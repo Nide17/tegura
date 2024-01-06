@@ -1,18 +1,18 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/course_progress.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/pop_question.dart';
 import 'package:tegura/models/user.dart';
+import 'package:tegura/screens/iga/utils/error_alert.dart';
 import 'package:tegura/screens/iga/utils/isuzume_details.dart';
 import 'package:tegura/providers/quiz_score_provider.dart';
 import 'package:tegura/firebase_services/pop_question_db.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/utilities/direction_button_isuzume.dart';
+import 'package:tegura/utilities/loading_widget.dart';
 
 class IsuzumeContent extends StatefulWidget {
-  // INSTANCE VARIABLES
   final IsomoModel isomo;
   final CourseProgressModel? courseProgress;
   const IsuzumeContent({super.key, required this.isomo, this.courseProgress});
@@ -22,21 +22,16 @@ class IsuzumeContent extends StatefulWidget {
 }
 
 class _IsuzumeContentState extends State<IsuzumeContent> {
-  // STATE VARIABLES
   int qnIndex = 0;
   bool isCurrentCorrect = false;
   int selectedOption = -1;
 
-  // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    // GET THE USER
     final usr = Provider.of<UserModel?>(context);
 
-    // RETURN THE CONTENT
     return MultiProvider(
       providers: [
-        // CHANGE NOTIFIER PROVIDER FOR QUIZ SCORE
         ChangeNotifierProvider(
           create: (context) => QuizScoreProvider(),
         ),
@@ -47,15 +42,7 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
               widget.isomo.id), // GET THE POP QUESTIONS
           initialData: null,
 
-          // CATCH ERRORS
           catchError: (context, error) {
-            // PRINT THE ERROR
-            if (kDebugMode) {
-              print("Error iga content pq: $error");
-              print(
-                  "The err: ${PopQuestionService().getPopQuestionsByIsomoID(widget.isomo.id)}");
-            }
-            // RETURN NULL
             return [];
           },
         ),
@@ -65,9 +52,7 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
           return Consumer<List<PopQuestionModel>?>(
             builder: (context, popQuestions, _) {
               if (popQuestions == null) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return const LoadingWidget();
               }
 
               // SET Total Marks, Marks, User ID, Isomo ID
@@ -97,18 +82,9 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
               void forward() {
                 if (qnIndex >=
                     scoreProviderModel.quizScore.questions.length - 1) {
-                  // ALERT DIALOG FOR LAST QUESTION
-                  AlertDialog(
-                    title: const Text('Last Question'),
-                    content: const Text('This is the last question'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
+                  const ErrorAlert(
+                    errorTitle: 'Ikibazo cyanyuma!',
+                    errorMsg: 'Ibibazo byose byasubije!',
                   );
                 } else {
                   setState(() {
@@ -142,43 +118,23 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
               // RETURN THE WIDGETS
               return WillPopScope(
                 onWillPop: () async {
-                  // IF ALL QUESTIONS ARE NOT ANSWERED, ALERT THE USER TO CONFIRM
                   if (!scoreProviderModel.quizScore.isAllAnswered() ||
                       isCurrentCorrect == false) {
-                    // SHOW THE ALERT DIALOG
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return AlertDialog(
-                          title: const Text(''),
-                          content: Text(
-                              'Ushaka gusohoka udasubije ibibazo byose?',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.05,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                          backgroundColor:
-                              const Color.fromARGB(255, 201, 222, 255),
-                          elevation: 10.0,
-                          shadowColor: const Color(0xFFFFF59D),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('OYA'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                // REMOVE THE CURRENT SCREEN FROM THE STACK
-                                Navigator.pop(context);
-                              },
-                              child: const Text('YEGO'),
-                            ),
-                          ],
+                        return ErrorAlert(
+                          errorTitle: 'Subiza byose',
+                          errorMsg: 'Ushaka gusohoka udasubije ibibazo byose?',
+                          firstButtonTitle: 'OYA',
+                          secondButtonTitle: 'YEGO',
+                          firstButtonFunction: () {
+                            Navigator.of(context).pop();
+                          },
+                          secondButtonFunction: () {
+                            Navigator.of(context).pop();
+                            Navigator.pop(context);
+                          },
                         );
                       },
                     );
@@ -236,43 +192,22 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                                   if (!scoreProviderModel.quizScore
                                           .isAllAnswered() ||
                                       isCurrentCorrect == false) {
-                                    // SHOW THE ALERT DIALOG
                                     showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text(''),
-                                          content: Text(
-                                              'Ushaka gusohoka udasubije neza ibibazo byose?',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.05,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black)),
-                                          backgroundColor: const Color.fromARGB(
-                                              255, 201, 222, 255),
-                                          elevation: 10.0,
-                                          shadowColor: const Color(0xFFFFF59D),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text('OYA'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                // REMOVE THE CURRENT SCREEN FROM THE STACK
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('YEGO'),
-                                            ),
-                                          ],
+                                        return ErrorAlert(
+                                          errorTitle: 'Subiza byose',
+                                          errorMsg:
+                                              'Ushaka gusohoka udasubije ibibazo byose?',
+                                          firstButtonTitle: 'OYA',
+                                          secondButtonTitle: 'YEGO',
+                                          firstButtonFunction: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          secondButtonFunction: () {
+                                            Navigator.of(context).pop();
+                                            Navigator.pop(context);
+                                          },
                                         );
                                       },
                                     );
@@ -282,31 +217,15 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text(''),
-                                          content: Text('Wasoje kwisuzuma!',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.05,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black)),
-                                          backgroundColor: const Color.fromARGB(
-                                              255, 201, 222, 255),
-                                          elevation: 10.0,
-                                          shadowColor: const Color(0xFFFFF59D),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
+                                        return ErrorAlert(
+                                          errorTitle: 'Isuzumabumenyi',
+                                          errorMsg:
+                                              'Wasoje kwisuzuma!',
+                                          firstButtonTitle: 'Inyuma',
+                                          firstButtonFunction: () {
+                                                    Navigator.of(context).pop();
+                                                    Navigator.pop(context);
+                                          },
                                         );
                                       });
                                 },

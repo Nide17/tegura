@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Description extends StatelessWidget {
-  // INSTANCE VARIABLES
   final String text;
 
   // CONSTRUCTOR

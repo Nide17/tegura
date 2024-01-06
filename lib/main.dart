@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'firebase_options.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -13,25 +13,30 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:tegura/models/course_progress.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/profile.dart';
-import 'package:tegura/models/user.dart'; 
+import 'package:tegura/models/user.dart';
+
 import 'package:tegura/screens/auth/injira.dart';
 import 'package:tegura/screens/auth/iyandikishe.dart';
 import 'package:tegura/screens/auth/ur_student.dart';
 import 'package:tegura/screens/auth/wibagiwe.dart';
 import 'package:tegura/screens/ibiciro/ibiciro.dart';
 import 'package:tegura/screens/iga/iga_landing.dart';
+
 import 'package:tegura/firebase_services/isomo_progress.dart';
 import 'package:tegura/firebase_services/auth.dart';
 import 'package:tegura/firebase_services/profiledb.dart';
 import 'package:tegura/firebase_services/isomodb.dart';
-import 'package:tegura/utilities/loading.dart';
+import 'package:tegura/utilities/loading_lightning.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // ENTRY POINT OF THE APP - MAIN FUNCTION
-void main() async {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(ChangeNotifierProvider<ConnectionStatus>(
       create: (_) => ConnectionStatus(), child: const TeguraApp()));
 }
@@ -118,15 +123,13 @@ class _TeguraAppState extends State<TeguraApp> {
 
           initialData: null,
 
-          // CATCH ERRORS
           catchError: (context, error) {
-            // PRINT THE ERROR
             if (kDebugMode) {
               print("Error in main2 user: $error");
               print(
                   "The err: ${FirebaseAuth.instance.currentUser != null ? ProfileService().getCurrentProfile(FirebaseAuth.instance.currentUser!.uid) : null}");
             }
-            // RETURN NULL
+
             return null;
           },
         ),
@@ -137,14 +140,7 @@ class _TeguraAppState extends State<TeguraApp> {
           value: AuthService().getUser,
           initialData: null,
 
-          // CATCH ERRORS
           catchError: (context, error) {
-            // PRINT THE ERROR
-            if (kDebugMode) {
-              print("Error in main: $error");
-            }
-
-            // RETURN NULL
             return null;
           },
         ),
@@ -155,15 +151,7 @@ class _TeguraAppState extends State<TeguraApp> {
               .getAllAmasomo(FirebaseAuth.instance.currentUser?.uid),
           initialData: null,
 
-          // CATCH ERRORS
           catchError: (context, error) {
-            // PRINT THE ERROR
-            if (kDebugMode) {
-              print("Error in main2 isomo: $error");
-              print(
-                  "The err: ${IsomoService().getAllAmasomo(FirebaseAuth.instance.currentUser?.uid)}");
-            }
-            // RETURN NULL
             return [];
           },
         ),
@@ -174,15 +162,7 @@ class _TeguraAppState extends State<TeguraApp> {
               .getUserProgresses(FirebaseAuth.instance.currentUser?.uid),
           initialData: null,
 
-          // CATCH ERRORS
           catchError: (context, error) {
-            // PRINT THE ERROR
-            if (kDebugMode) {
-              print("Error in get progress: $error");
-              print(
-                  "The err: ${CourseProgressService().getUserProgresses(FirebaseAuth.instance.currentUser?.uid)}");
-            }
-            // RETURN NULL
             return [];
           },
         ),
@@ -195,7 +175,9 @@ class _TeguraAppState extends State<TeguraApp> {
         theme: ThemeData(primarySwatch: Colors.blue),
 
         // HOME PAGE - LOADING FIRST
-        home: const LoadingLightning(),
+        home: const LoadingLightning(
+          duration: 4,
+        ),
 
         // ROUTES
         routes: {

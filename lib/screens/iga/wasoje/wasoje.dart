@@ -11,7 +11,7 @@ import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/utilities/amasomo_progress.dart';
 import 'package:tegura/utilities/view_not_logged_in.dart';
 import 'package:tegura/utilities/progress_circle.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/app_bar.dart';
 
 class Wasoje extends StatefulWidget {
   const Wasoje({super.key});
@@ -21,10 +21,8 @@ class Wasoje extends StatefulWidget {
 }
 
 class _WasojeState extends State<Wasoje> {
-  // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    // GET THE USER
     final usr = Provider.of<UserModel?>(context);
 
     // RETURN THE WIDGETS
@@ -36,14 +34,12 @@ class _WasojeState extends State<Wasoje> {
             value: IsomoService().getAllAmasomo(usr?.uid),
             initialData: null,
 
-            // CATCH ERRORS
             catchError: (context, error) {
-              // PRINT THE ERROR
               if (kDebugMode) {
                 print("Error in main2 isomo: $error");
                 print("The err: ${IsomoService().getAllAmasomo(usr?.uid)}");
               }
-              // RETURN NULL
+
               return [];
             },
           ),
@@ -53,15 +49,13 @@ class _WasojeState extends State<Wasoje> {
             value: CourseProgressService().getUserProgresses(usr?.uid),
             initialData: null,
 
-            // CATCH ERRORS
             catchError: (context, error) {
-              // PRINT THE ERROR
               if (kDebugMode) {
                 print("Error in get pro wasoje: $error");
                 print(
                     "The err: ${CourseProgressService().getUserProgresses(usr?.uid)}");
               }
-              // RETURN NULL
+
               return [];
             },
           ),

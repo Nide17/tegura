@@ -12,47 +12,47 @@ List<Map<String, dynamic>> ibyapaBibuza = [
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FEXCEPTE%20CIRCULATION%20LOCALE%201.png?alt=media&token=56a1fff1-6c72-4536-a3cc-1bc9b0ac44aa',
   },
   {
-    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa n’ikinyabiziga icyo aricyo cyose gifite moteri keretse amapikipiki adafite akanyabiziga ko kuruhande kimwe na za velomoteri”.',
+    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa n’ikinyabiziga icyo aricyo cyose gifite moteri keretse amapikipiki adafite akanyabiziga ko kuruhande kimwe na za velomoteri” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FNtihanyurwa%20n\'imodoka.png?alt=media&token=cb77d78d-eb13-4ac0-81d6-821a18221ab4',
   },
   {
-    'txt': '📝 Iki cyapa kiravuga ngo “Ntihanyurwa n’amapikipiki”.',
+    'txt': '📝 Iki cyapa kiravuga ngo “Ntihanyurwa n’amapikipiki” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FNtihanyurwa%20n%E2%80%99amapikipiki.png?alt=media&token=5cd17b93-ef8c-44a3-91d5-4acd8c10e3e0',
   },
   {
-    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa n’ibinyamitende”.',
+    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa n’ibinyamitende” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FNtihanyurwa%20n%E2%80%99iminyamitende.png?alt=media&token=a6012d30-5ddb-4aec-9710-7850bc682130',
   },
   {
-    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa na za velomoteri”.',
+    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa na za velomoteri” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FNtihanyurwa%20na%20za%20velomoteri.png?alt=media&token=999ab263-6fb0-4e2c-be07-3b0134bbd780',
   },
   {
-    'txt': '📝 Iki cyapa kiravuga ngo “Ntihanyurwa n’ibinyabiziga bigenewe gutwara ibicuruzwa”.',
+    'txt': '📝 Iki cyapa kiravuga ngo “Ntihanyurwa n’ibinyabiziga bigenewe gutwara ibicuruzwa” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FNtihanyurwa%20n%E2%80%99ibinyabiziga%20bifite%20uburemere%20ku%20mutambiko.png?alt=media&token=cdff05bc-8653-4611-a114-5a49fda68adc',
   },
   {
-    'txt': '📝 Iki cyapa kiravuga ngo “Ntihanyurwa n’ikinyabiziga icyari cyo cyose gikurura remoruki itari makuzungu cyangwa remoruki ifite umutambiko umwe”.',
+    'txt': '📝 Iki cyapa kiravuga ngo “Ntihanyurwa n’ikinyabiziga icyari cyo cyose gikurura remoruki itari makuzungu cyangwa remoruki ifite umutambiko umwe” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FHabujijwe%20rumoroki%201.png?alt=media&token=be89a1d4-aa0a-4af0-ad51-41dd28e7074e',
   },
   {
-    'txt': '📝 Iki cyapa kiravuga ngo “Ntihanyurwa n’abanyamaguru”.',
+    'txt': '📝 Iki cyapa kiravuga ngo “Ntihanyurwa n’abanyamaguru” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FNtihanyurwa%20n%E2%80%99abanyamaguru.png?alt=media&token=b3c8bfb3-bad0-4aee-a073-038f71b68e69',
   },
   {
-    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa n’ibinyabiziga bikururwa n’inyamaswa”.',
+    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa n’ibinyabiziga bikururwa n’inyamaswa” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FNtihanyurwa%20n%E2%80%99ibinyabiziga%20bihinga%20%20bifite%20moteri..png?alt=media&token=693838d6-d76f-4e98-8b35-52db5e4b1d14',
   },
   {
-    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa n’utunyamitwaro dusunikwa”.',
+    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa n’utunyamitwaro dusunikwa” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FNtihanyurwa%20n%E2%80%99utunyamitwaro%20dusunikwa.png?alt=media&token=baae4f4a-ccb4-4679-8856-64f6978dc123',
   },
   {
-    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa n’ibinyabiziga bihinga bifite moteri”.',
+    'txt': 'Iki cyapa kiravuga ngo “Ntihanyurwa n’ibinyabiziga bihinga bifite moteri” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FNtihanyurwa%20n%E2%80%99ibinyabiziga%20bihinga%20%20bifite%20moteri..png?alt=media&token=693838d6-d76f-4e98-8b35-52db5e4b1d14',
   },
   {
-    'txt': ' 📝 Iki cyapa kiravuga ngo “Ntihanyurwa n’amoko y’ibinyabiziga bifite moteri bishushanyijwe”.',
+    'txt': ' 📝 Iki cyapa kiravuga ngo “Ntihanyurwa n’amoko y’ibinyabiziga bifite moteri bishushanyijwe” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FNtihanyurwa%20n%E2%80%99ibinyabiziga%20bifite%20moteri..png?alt=media&token=e16c9885-1f07-4626-89f3-4e5db2232b05',
   },
   {
@@ -80,19 +80,19 @@ List<Map<String, dynamic>> ibyapaBibuza = [
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FBirabujijwe%20kugenda%20bidasize%20hagati%20yabyo%20umwanya.png?alt=media&token=90be970b-771d-42c1-aa93-f76118ef0661',
   },
   {
-    'txt': '📝 Iki cyapa kiravuga ngo “Birabujijwe gukata ibumoso”.',
+    'txt': '📝 Iki cyapa kiravuga ngo “Birabujijwe gukata ibumoso” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FBirabujijwe%20gukata%20ibumoso.png?alt=media&token=e47a4eab-16f4-46a6-8b8e-dfbecae691e2',
   },
   {
-    'txt': '📝 Iki cyapa kiravuga ngo “Birabujijwe gukata iburyo”.',
+    'txt': '📝 Iki cyapa kiravuga ngo “Birabujijwe gukata iburyo” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FBirabujijwe%20gukata%20iburyo.png?alt=media&token=f5bbcbfd-f35f-446c-918a-b9d4de26685d',
   },
   {
-    'txt': '📝 Iki cyapa kiravuga ngo “Birabujijwe guhindukira”.',
+    'txt': '📝 Iki cyapa kiravuga ngo “Birabujijwe guhindukira” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FBirabujijwe%20Guhindukira%201.png?alt=media&token=f56462b2-4798-4144-a820-28b675195fac',
   },
   {
-    'txt': '📝 Iki cyapa kiravuga ngo “Birabujijwe kunyura ku binyabiziga byose uretse ibinyamitende ibiri n’amapikipiki adafite akanyabiziga ko kuruhande”.',
+    'txt': '📝 Iki cyapa kiravuga ngo “Birabujijwe kunyura ku binyabiziga byose uretse ibinyamitende ibiri n’amapikipiki adafite akanyabiziga ko kuruhande” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2Fimage%20155.png?alt=media&token=a2dcce34-546f-4c76-9edf-cfd3797fcb27',
   },
   {
@@ -140,7 +140,7 @@ List<Map<String, dynamic>> ibyapaBibuza = [
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2Fbirabijijwe%20guhagarara%20umwanya%20munini%202.png?alt=media&token=f111f154-05ed-4a86-8b7d-48ca5c703ced',
   },
   {
-    'txt': 'Iki cyapa kiravuga ngo “Birabujijwe guhagarara umwanya munini”.',
+    'txt': 'Iki cyapa kiravuga ngo “Birabujijwe guhagarara umwanya munini” ',
     'imgUrl': 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibyapa%2Fbibuza%2FBirabijijwe%20guhagarara%20umwanya%20munin%20P%201.png?alt=media&token=328a051f-e8d7-4180-a21f-9374472cbb41',
   },
 ];

@@ -8,12 +8,12 @@ import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/payment.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/ibiciro/ibiciro.dart';
+import 'package:tegura/screens/iga/utils/error_alert.dart';
 import 'package:tegura/screens/iga/utils/iga_content.dart';
 import 'package:tegura/screens/iga/utils/isuzume_content.dart';
 import 'package:tegura/firebase_services/isomo_progress.dart';
 
 class UserProgress extends StatelessWidget {
-  // INSTANCE VARIABLES
   final IsomoModel isomo;
   final String userId;
   final int totalIngingos;
@@ -64,15 +64,13 @@ class UserProgress extends StatelessWidget {
               : null,
           initialData: null,
 
-          // CATCH ERRORS
           catchError: (context, error) {
-            // PRINT THE ERROR
             if (kDebugMode) {
               print("Error in get progress: $error");
               print(
                   "The err: ${PaymentService().getLatestpaymentsByUserId(usr!.uid)}");
             }
-            // RETURN NULL
+
             return null;
           },
         ),
@@ -109,12 +107,11 @@ class UserProgress extends StatelessWidget {
               onTap: () {
                 // IF THE USER HAS NOT STARTED THE COURSE, CREATE A NEW PROGRESS
                 if (courseProgress?.totalIngingos != totalIngingos) {
-                  // CREATE OR UPDATE USER PROGRESS
                   CourseProgressService().updateUserCourseProgress(
                     userId,
                     isomo.id,
-                    totalIngingos,
                     curCourseIngingo,
+                    totalIngingos,
                   );
                 }
 
@@ -123,21 +120,11 @@ class UserProgress extends StatelessWidget {
                     ? showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text(
-                              'Ntibyagenze neza',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                            content: Text(payment.isApproved == false
+                          return ErrorAlert(
+                            errorTitle: 'Ntibyagenze neza',
+                            errorMsg: payment.isApproved == false
                                 ? 'Ifatabuguzi ryawe ntiriremezwa'
-                                : 'Ongera ugerageze!'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('OK'))
-                            ],
+                                : 'Ongera ugerageze!',
                           );
                         })
                     : Navigator.push(
@@ -162,7 +149,12 @@ class UserProgress extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.033,
                 decoration: BoxDecoration(
                   color: const Color(0XFF00CCE5),
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(
+                      MediaQuery.of(context).size.width * 0.3),
+                  border: Border.all(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    width: MediaQuery.of(context).size.width * 0.004,
+                  ),
                 ),
                 child: Center(
                   child: Text(
@@ -173,7 +165,9 @@ class UserProgress extends StatelessWidget {
                             : "KOMEZA",
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.03,
-                      color: percent == 1.0 ? Colors.white : Colors.black,
+                      color: percent == 1.0
+                          ? const Color(0xFFFFBD59)
+                          : const Color.fromARGB(255, 255, 255, 255),
                       fontWeight: FontWeight.bold,
                     ),
                   ),

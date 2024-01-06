@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/profile.dart';
 import 'package:tegura/models/user.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/app_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

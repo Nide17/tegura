@@ -4,7 +4,7 @@ import 'package:tegura/utilities/cta_link.dart';
 import 'package:tegura/utilities/default_input.dart';
 import 'package:tegura/utilities/description.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/firebase_services/auth.dart';
 
 class Wibagiwe extends StatefulWidget {
@@ -22,10 +22,8 @@ class _WibagiweState extends State<Wibagiwe> {
   String email = '';
   String output = '';
 
-  // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-
     // IF THE USER IS LOGGED IN, POP THE CURRENT PAGE
     if (_authInstance.currentUser() != null) {
       Navigator.popUntil(context, (route) => route.isFirst);
@@ -106,7 +104,8 @@ class _WibagiweState extends State<Wibagiwe> {
 
                             if (resetResult == null) {
                               setState(() {
-                                output = 'Ntibigenze neza, rebako imeyili ariyo!';
+                                output =
+                                    'Ntibigenze neza, rebako imeyili ariyo!';
                               });
                             } else {
                               setState(() {

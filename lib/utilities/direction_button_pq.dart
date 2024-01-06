@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tegura/models/pop_question.dart';
 
 class DirectionButtonPq extends StatefulWidget {
-  // INSTANCE VARIABLES
   final String buttonText;
   final String direction;
   final double opacity;

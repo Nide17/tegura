@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:tegura/main.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
-import 'package:tegura/utilities/appbar.dart'; // APP BAR
+import 'package:tegura/utilities/app_bar.dart'; // APP BAR
 import 'package:tegura/screens/iga/iga_data.dart';
 import 'package:tegura/firebase_services/isomodb.dart';
 import 'package:tegura/utilities/no_internet.dart'; // DATA FOR THE IGA PAGE
@@ -19,11 +19,10 @@ class IgaLanding extends StatefulWidget {
 }
 
 class _IgaLandingState extends State<IgaLanding> {
-  // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    final conn = Provider.of<ConnectionStatus>(context); 
-    
+    final conn = Provider.of<ConnectionStatus>(context);
+
     bool everDisconnected = false;
 
     // WHEN CONNECTION IS LOST, NOTIFY USER. IF IT COMES BACK AFTER BEING LOST NOTIFY USER TOO
@@ -75,15 +74,13 @@ class _IgaLandingState extends State<IgaLanding> {
           value: null,
           initialData: null,
 
-          // CATCH ERRORS
           catchError: (context, error) {
-            // PRINT THE ERROR
             if (kDebugMode) {
               print("Error in iga landing: $error");
               print(
                   "The err: ${IsomoService().getAllAmasomo(FirebaseAuth.instance.currentUser?.uid)}");
             }
-            // RETURN NULL
+
             return [];
           },
         ),
@@ -129,6 +126,19 @@ class _IgaLandingState extends State<IgaLanding> {
                               decoration: BoxDecoration(
                                 color: const Color(0xFF00CCE5),
                                 borderRadius: BorderRadius.circular(30.0),
+                                border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                  width: 2.0,
+                                ),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color.fromARGB(255, 54, 54, 54),
+                                    offset: Offset(1, 3),
+                                    blurRadius: 1,
+                                    spreadRadius: 1,
+                                  ),
+                                ],
                               ),
 
                               // GestureDetector WIDGET, ROW WITH ICON AND TEXT - BUTTON

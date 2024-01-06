@@ -136,19 +136,3 @@ class IngingoModel {
     );
   }
 }
-
-// REPRESENTS THE SUM OF THE INGINGOS
-class IngingoSum {
-  int sum = 0;
-
-  IngingoSum({required this.sum});
-
-  @override
-  String toString() {
-    return '$sum';
-  }
-
-  int toObject(Map<String, dynamic> map) {
-    return map['sum'];
-  }
-}

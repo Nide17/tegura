@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ReviewActionButtons extends StatefulWidget {
-  // INSTANCE VARIABLES
   final String icon;
   final String text;
   final int bgColor;

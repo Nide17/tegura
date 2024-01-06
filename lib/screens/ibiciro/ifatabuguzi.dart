@@ -6,7 +6,6 @@ import 'package:tegura/screens/auth/iyandikishe.dart';
 import 'package:tegura/screens/ibiciro/processing_ishyura.dart';
 
 class Ifatabuguzi extends StatelessWidget {
-  // INSTANCE VARIABLES
   final String title;
   final IfatabuguziModel ifatabuguzi;
   final String curWidget;
@@ -233,12 +232,11 @@ class Ifatabuguzi extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.02,
+                      vertical: MediaQuery.of(context).size.height * 0.02,
                       horizontal: MediaQuery.of(context).size.width * 0.08,
                     ),
-                    child: ListView(
+                    child: Column(
                       children: [
-                        // ORDERED LIST OF IBIRIMO
                         ifatabuguzi.ibirimo.isNotEmpty
                             ? Column(
                                 children: ifatabuguzi.ibirimo
@@ -263,7 +261,6 @@ class Ifatabuguzi extends StatelessWidget {
                                     .toList(),
                               )
                             : const Text(''),
-
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tegura/models/ingingo.dart';
 
 class OptionContent extends StatelessWidget {
-  // INSTANCE VARIABLES
   final Option? option;
 
-  // CONSTRUCTOR
   const OptionContent({super.key, this.option});
 
   @override

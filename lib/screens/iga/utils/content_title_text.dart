@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ContentTitlenText extends StatefulWidget {
-  // INSTANCE VARIABLES
   final String? title;
   final String? text;
 
@@ -13,11 +12,8 @@ class ContentTitlenText extends StatefulWidget {
 }
 
 class _ContentTitlenTextState extends State<ContentTitlenText> {
-  
-  // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-
     // SPLIT THE TEXT INTO PARTS AND CREATE A LIST OF TEXT SPANS TO BE RETURNED
     final parts = widget.text?.split('*');
     final spans = <TextSpan>[];

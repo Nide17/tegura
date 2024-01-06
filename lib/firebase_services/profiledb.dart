@@ -41,28 +41,6 @@ class ProfileService {
     });
   }
 
-  // // GET A LIST OF PROFILES FROM A SNAPSHOT USING THE PROFILE MODEL
-  // // FUNCTION CALLED EVERY TIME THE PROFILES DATA CHANGES
-  // List<ProfileModel> _profilesListFromSnapshot(QuerySnapshot querySnapshot) {
-  //   // RETURN A LIST OF USERS FROM THE SNAPSHOT
-  //   return querySnapshot.docs.map((doc) {
-  //     return ProfileModel(
-  //       // USER DATA - FIELDS
-  //       uid: doc.id,
-  //       username: doc['username'] ?? '',
-  //       email: doc['email'] ?? '',
-  //       phone: doc['phone'] ?? '',
-  //       photo: doc['photo'] ?? '',
-  //       gender: doc['gender'] ?? '',
-  //       dob: doc['dob'] ?? '',
-  //       urStudent: doc['urStudent'] ?? false,
-  //       regNumber: doc['regNumber'] ?? '',
-  //       campus: doc['campus'] ?? '',
-  //       roleId: doc['roleId'] ?? 1,
-  //     );
-  //   }).toList();
-  // }
-
   // GET A SINGLE PROFILE FROM A SNAPSHOT USING THE PROFILE MODEL - _profileFromSnapshot
   // FUNCTION CALLED EVERY TIME THE PROFILE DATA CHANGES
   ProfileModel _profileFromSnapshot(DocumentSnapshot documentSnapshot) {

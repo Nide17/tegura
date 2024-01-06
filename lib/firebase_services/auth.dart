@@ -6,7 +6,6 @@ import 'package:tegura/firebase_services/profiledb.dart';
 
 // CLASS FOR HANDLING AUTH SERVICES
 class AuthService {
-  
   // INSTANCE OF THE FIREBASE AUTHENTICATION
   final FirebaseAuth _authInstance = FirebaseAuth.instance;
 
@@ -52,7 +51,6 @@ class AuthService {
         return null;
       }
     } catch (e) {
-      // PRINT THE ERROR
       if (kDebugMode) {
         print(e.toString());
       }
@@ -88,8 +86,8 @@ class AuthService {
   }
 
   // REGISTER WITH EMAIL AND PASSWORD METHOD
-  Future registerWithEmailAndPassword(
-      String username, String email, String password, bool? urStudent, String? regNbr, String? campus) async {
+  Future registerWithEmailAndPassword(String username, String email,
+      String password, bool? urStudent, String? regNbr, String? campus) async {
     try {
       // REGISTER WITH EMAIL AND PASSWORD REQUEST - RETURN AUTH RESULT FUTURE
       UserCredential result =
@@ -125,7 +123,6 @@ class AuthService {
         return null;
       }
     } catch (e) {
-      // PRINT THE ERROR
       if (kDebugMode) {
         print(e.toString());
       }
@@ -143,7 +140,6 @@ class AuthService {
       // SIGN OUT REQUEST
       return await _authInstance.signOut();
     } catch (e) {
-      // PRINT THE ERROR
       if (kDebugMode) {
         print(e.toString());
       }
@@ -162,9 +158,7 @@ class AuthService {
 
       // RETURN success
       return 'success';
-      
     } catch (e) {
-      // PRINT THE ERROR
       if (kDebugMode) {
         print(e.toString());
         return null;

@@ -1,7 +1,7 @@
 // DATA FOR THE LIST VIEW
 import 'package:tegura/screens/iga/amasuzuma/amasuzuma.dart';
 import 'package:tegura/screens/iga/hagati/hagati.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/igazetinibimenyetso.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/igazeti_n_ibimenyetso.dart';
 import 'package:tegura/screens/iga/wasoje/wasoje.dart';
 import 'package:tegura/screens/iga/bibaza/bibaza.dart';
 import 'package:tegura/screens/iga/baza/baza.dart';

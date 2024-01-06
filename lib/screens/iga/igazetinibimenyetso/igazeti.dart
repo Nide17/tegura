@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:advance_pdf_viewer2/advance_pdf_viewer.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/app_bar.dart';
+import 'package:tegura/utilities/loading_widget.dart';
 
 class IgazetiBook extends StatefulWidget {
   const IgazetiBook({super.key});
@@ -27,11 +28,9 @@ class _IgazetiBookState extends State<IgazetiBook> {
 
   @override
   Widget build(BuildContext context) {
-    print("IgazetiBook _isLoading: $_isLoading");
+
     if (_isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const LoadingWidget();
     }
 
     return Scaffold(
@@ -45,7 +44,7 @@ class _IgazetiBookState extends State<IgazetiBook> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: _isLoading
-            ? const Center(child: CircularProgressIndicator())
+            ? const LoadingWidget()
             : PDFViewer(
                 document: document,
                 zoomSteps: 8,

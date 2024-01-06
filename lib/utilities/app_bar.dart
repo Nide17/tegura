@@ -9,6 +9,7 @@ import 'package:tegura/models/payment.dart';
 import 'package:tegura/models/profile.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/firebase_services/auth.dart';
+import 'package:tegura/screens/iga/utils/error_alert.dart';
 
 class AppBarTegura extends StatefulWidget {
   const AppBarTegura({super.key});
@@ -35,15 +36,13 @@ class _AppBarTeguraState extends State<AppBarTegura> {
               : null,
           initialData: null,
 
-          // CATCH ERRORS
           catchError: (context, error) {
-            // PRINT THE ERROR
             if (kDebugMode) {
-              print("Error in get progress: $error");
+              print("Error in appbar: $error");
               print(
                   "The err: ${PaymentService().getLatestpaymentsByUserId(usr!.uid)}");
             }
-            // RETURN NULL
+
             return null;
           },
         ),
@@ -53,20 +52,17 @@ class _AppBarTeguraState extends State<AppBarTegura> {
               usr != null ? ProfileService().getCurrentProfile(usr.uid) : null,
           initialData: null,
 
-          // CATCH ERRORS
           catchError: (context, error) {
-            // PRINT THE ERROR
             if (kDebugMode) {
-              print("Error in get progress: $error");
+              print("Error in get appbar: $error");
               print("The err: ${ProfileService().getCurrentProfile(usr?.uid)}");
             }
-            // RETURN NULL
+
             return null;
           },
         ),
       ],
       child: Consumer<PaymentModel?>(builder: (context, payment, _) {
-        
         return Consumer<ProfileModel?>(builder: (context, profile, _) {
           String username = profile != null
               ? profile.username!
@@ -98,6 +94,7 @@ class _AppBarTeguraState extends State<AppBarTegura> {
                 SizedBox(
                   width: MediaQuery.of(context).size.height * 0.012,
                 ),
+
                 Text('Tegura.rw', // TEXT WIDGET
                     style: TextStyle(
                       color: const Color.fromARGB(255, 0, 0, 0),
@@ -233,11 +230,27 @@ class _AppBarTeguraState extends State<AppBarTegura> {
                             // LOGOUT BUTTON WITH logout.svg ICON
                             GestureDetector(
                               onTap: () {
-                                // CLOSE THE DIALOG BOX
-                                Navigator.popUntil(
-                                    context, (route) => route.isFirst);
-                                // LOGOUT THE USER USING THE AUTH SERVICE INSTANCE
-                                AuthService().logOut();
+                                // OPEN A CONFIRMATION DIALOG BOX
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ErrorAlert(
+                                      errorTitle: 'Gusohoka',
+                                      errorMsg: 'Ushaka gusohoka?',
+                                      firstButtonTitle: 'YEGO',
+                                      firstButtonFunction: () {
+                                        Navigator.popUntil(
+                                            context, (route) => route.isFirst);
+                                        AuthService().logOut();
+                                      },
+                                      secondButtonTitle: 'OYA',
+                                      secondButtonFunction: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  },
+                                );
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

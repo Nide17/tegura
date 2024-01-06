@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tegura/firebase_services/ibibazo_bibaza_db.dart';
+import 'package:tegura/models/ibibazo_bibaza.dart';
 import 'package:tegura/utilities/description.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
 import 'package:tegura/screens/iga/bibaza/faq.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/utilities/app_bar.dart';
+import 'package:tegura/utilities/loading_widget.dart';
 
 class Bibaza extends StatefulWidget {
   const Bibaza({super.key});
@@ -13,8 +17,9 @@ class Bibaza extends StatefulWidget {
 }
 
 class _BibazaState extends State<Bibaza> {
+  bool loading = false;
   // STATE
-  final List<Map<String, dynamic>> ibibazoBibaza = [
+  final List<Map<String, dynamic>> ibibazoBibaza1 = [
     {
       'question': 'Ese iyi App yagufasha gutsinda?',
       'answer':
@@ -31,39 +36,55 @@ class _BibazaState extends State<Bibaza> {
     }
   ];
 
-  // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-        // APP BAR
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(58.0),
-          child: AppBarTegura(),
+    return MultiProvider(
+      providers: [
+        // STREAM PROVIDER FOR ibibazoBibaza
+        StreamProvider<List<IbibazoBibazaModel>>.value(
+          value: IbibazoBibazaService().ibibazoBibaza,
+          initialData: const [],
         ),
+      ],
+      child: Consumer<List<IbibazoBibazaModel>>(
+          builder: (context, ibibazoBibaza, child) {
+        print(ibibazoBibaza);
+        return Scaffold(
+            backgroundColor: const Color.fromARGB(255, 71, 103, 158),
 
-        // PAGE BODY
-        body: ListView(children: <Widget>[
-          // 1. GRADIENT TITLE
-          const GradientTitle(
-              title: 'IBIBAZO ABANYESHURI BIBAZA',
-              icon: 'assets/images/ibibazo_bibaza.svg'),
+            // APP BAR
+            appBar: const PreferredSize(
+              preferredSize: Size.fromHeight(58.0),
+              child: AppBarTegura(),
+            ),
 
-          // 2. DESCRIPTION
-          const Description(
-              text:
-                  'Ibi ni ibibazo abanyeshuli bibaza ndetse n\'ibyo batubaza cyane.'),
-          // FAQS
-          for (var i = 0; i < ibibazoBibaza.length; i++)
-            Faq(
-                question: ibibazoBibaza[i]['question'],
-                answer: ibibazoBibaza[i]['answer'],
-                qIcon: ibibazoBibaza[i]['qIcon'],
-                aIcon: ibibazoBibaza[i]['aIcon']),
-        ]),
+            // PAGE BODY
+            body: ListView(children: <Widget>[
+              // 1. GRADIENT TITLE
+              const GradientTitle(
+                  title: 'IBIBAZO ABANYESHURI BIBAZA',
+                  icon: 'assets/images/ibibazo_bibaza.svg'),
 
-        // BOTTOM NAVIGATION BAR
-        bottomNavigationBar: const RebaIbiciro());
+              // 2. DESCRIPTION
+              const Description(
+                  text:
+                      'Ibi ni ibibazo abanyeshuli bibaza ndetse n\'ibyo batubaza cyane.'),
+              // FAQS
+              if (ibibazoBibaza.isEmpty)
+                // LOADING
+                const LoadingWidget()
+              else
+                for (var i = 0; i < ibibazoBibaza.length; i++)
+                  Faq(
+                      question: ibibazoBibaza[i].question ?? '',
+                      answer: ibibazoBibaza[i].answer ?? '',
+                      qIcon: 'assets/images/question.svg',
+                      aIcon: 'assets/images/answer.svg'),
+            ]),
+
+            // BOTTOM NAVIGATION BAR
+            bottomNavigationBar: const RebaIbiciro());
+      }),
+    );
   }
 }

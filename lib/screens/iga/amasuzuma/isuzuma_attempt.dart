@@ -7,17 +7,17 @@ import 'package:tegura/models/isuzuma_score.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_score_review.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_views.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_direction_button.dart';
 
 class IsuzumaAttempt extends StatefulWidget {
-  // INSTANCE VARIABLES
   final IsuzumaModel isuzuma;
-  final IsuzumaScoreModel? scoreUserIsuzuma;
+  final IsuzumaModel? nextIsuzuma;
   const IsuzumaAttempt({
     super.key,
     required this.isuzuma,
-    required this.scoreUserIsuzuma,
+    this.nextIsuzuma,
   });
 
   @override
@@ -25,27 +25,22 @@ class IsuzumaAttempt extends StatefulWidget {
 }
 
 class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
-  // STATE VARIABLES
   int qnIndex = 1;
 
-  // BUILD METHOD TO BUILD THE UI OF THE APP
   @override
   Widget build(BuildContext context) {
-    // GET THE USER
     final usr = Provider.of<UserModel?>(context);
+    print("Next isuzuma received from overview in attempt: ${widget.nextIsuzuma}");
 
-    // RETURN THE CONTENT
     return MultiProvider(
       providers: [
         // CHANGE NOTIFIER PROVIDER FOR ISUZUMA SCORE
         ChangeNotifierProvider(
           create: (context) {
-            // ADD isAnswered PROPERTY TO EACH QUESTIONS OF widget.isuzuma!.questionswidget.isuzuma!.questions
             List<ScoreQuestionI> scoreQns = [];
 
             // LOOP THROUGH THE QUESTIONS TO MAKE A NEW LIST OF QUESTIONS FOR THE SCORE
             for (var qn in widget.isuzuma.questions) {
-              // Create ScoreOptionI objects from IsuzumaOption objects
               List<ScoreOptionI> scoreOptions = qn.options
                   .map((e) => ScoreOptionI(
                         id: e.id,
@@ -68,7 +63,6 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                 isAnswered: false,
               );
 
-              // Add the ScoreQuestionI object to the list
               scoreQns.add(scoreQuestion);
             }
 
@@ -89,33 +83,18 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
       ],
       child: Consumer<IsuzumaScoreModel>(
         builder: (context, scorePrModel, child) {
-          // LENGTH OF THE QUESTIONS
           int qnsLength = scorePrModel.questions.length;
-          ScoreQuestionI currentQn = scorePrModel.questions[qnIndex - 1];
-          String scoreID = '${scorePrModel.takerID}_${scorePrModel.isuzumaID}';
+
+          // UNANSWERED QUESTIONS
+          List<ScoreQuestionI> unansweredQns = scorePrModel.questions
+              .where((element) => !element.isAnswered)
+              .toList();
 
           // CALLBACK FOR FORWARD BUTTON
           void forward() {
-            if (qnIndex >= qnsLength) {
-              // ALERT DIALOG FOR LAST QUESTION
-              AlertDialog(
-                title: const Text('Last Question'),
-                content: const Text('This is the last question'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('OK'),
-                  ),
-                ],
-              );
-            } else {
-              setState(() {
-                // GO TO NEXT QUESTION
-                qnIndex = qnIndex + 1;
-              });
-            }
+            setState(() {
+              qnIndex = qnIndex + 1;
+            });
           }
 
           // CALLBACK FOR BACKWARD BUTTON
@@ -123,7 +102,6 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
             if (qnIndex <= 1) {
             } else {
               setState(() {
-                // GO TO PREVIOUS QUESTION
                 qnIndex = qnIndex - 1;
               });
             }
@@ -131,32 +109,23 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
 
           // RETURN THE WIDGETS
           return WillPopScope(
-            // ON WILL POP
             onWillPop: () async {
-              // SHOW DIALOG
               showDialog(
                 context: context,
                 builder: (context) {
-                  return AlertDialog(
-                    title: const Text('Ugiye gusohoka udasoje?'),
-                    content: const Text(
-                        'Ushaka gusohoka udasoje kwisuzuma? Ibyo wahisemo birasibama.'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('OYA'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          // REMOVE THE CURRENT SCREEN FROM THE STACK
-                          Navigator.pop(context);
-                        },
-                        child: const Text('YEGO'),
-                      ),
-                    ],
+                  return ErrorAlert(
+                    errorTitle: 'Ugiye gusohoka udasoje?',
+                    errorMsg:
+                        'Ushaka gusohoka udasoje kwisuzuma? Ibyo wahisemo birasibama.',
+                    firstButtonTitle: 'OYA',
+                    firstButtonFunction: () {
+                      Navigator.of(context).pop();
+                    },
+                    secondButtonTitle: 'YEGO',
+                    secondButtonFunction: () {
+                      Navigator.of(context).pop();
+                      Navigator.pop(context);
+                    },
                   );
                 },
               );
@@ -180,8 +149,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                 qnIndex: qnIndex,
                 showQn: showQn,
                 isuzuma: widget.isuzuma,
-                scorePrModel: scorePrModel,
-                scoreID: scoreID,
+                scorePrModel: scorePrModel
               ),
 
               bottomNavigationBar: Container(
@@ -208,86 +176,80 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                       ),
                       child: ElevatedButton(
                         onPressed: () {
-                          // FIND UNANSWERED QUESTIONS
-                          List<ScoreQuestionI> unansweredQns = scorePrModel
-                              .questions
-                              .where((element) => !element.isAnswered)
-                              .toList();
-
                           // IF THERE ARE UNANSWERED QUESTIONS
                           if (unansweredQns.isNotEmpty) {
-                            // ALERT DIALOG FOR UNANSWERED QUESTIONS
                             showDialog(
                               context: context,
                               builder: (context) {
-                                return AlertDialog(
-                                  title: const Text('Unanswered Questions'),
-                                  content: const Text(
-                                      'You have unanswered questions. Do you want to submit?'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('Cancel'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        // SET THE UNANSWERED QUESTIONS TO ANSWERED IN THE OBJECT TO SAVE (scorePrModel)
-                                        for (var qn in scorePrModel.questions) {
-                                          if (!qn.isAnswered) {
-                                            qn.isAnswered = true;
-                                          }
-                                        }
+                                return ErrorAlert(
+                                  errorTitle: 'Hari ibidasubije!',
+                                  errorMsg:
+                                      'Hari ibibazo utasubije. Ushaka gusoza?',
+                                  firstButtonTitle: 'OYA',
+                                  firstButtonFunction: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  secondButtonTitle: 'SOZA',
+                                  secondButtonFunction: () {
+                                    // SET THE UNANSWERED QUESTIONS TO ANSWERED IN THE OBJECT TO SAVE (scorePrModel)
+                                    for (var qn in scorePrModel.questions) {
+                                      if (!qn.isAnswered) {
+                                        qn.isAnswered = true;
+                                      }
+                                    }
 
-                                        // SAVE THE SCORE
-                                        IsuzumaScoreService()
-                                            .createOrUpdateIsuzumaScore(
-                                                scorePrModel);
-                                        // GO TO THE SCORE PAGE
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                IsuzumaScoreReview(
-                                                    scoreId: scoreID,
-                                                    isuzuma: widget.isuzuma),
-                                          ),
-                                        );
-                                      },
-                                      child: const Text('Submit'),
-                                    ),
-                                  ],
+                                    // SAVE THE SCORE
+                                    IsuzumaScoreService()
+                                        .createOrUpdateIsuzumaScore(
+                                            scorePrModel);
+                                    // GO TO THE SCORE PAGE
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            IsuzumaScoreReview(isuzuma: widget.isuzuma,),
+                                      ),
+                                    );
+                                  },
                                 );
                               },
                             );
                           } else {
-                            // SAVE THE SCORE IF ON LAST QUESTION AND ANSWERED
-                            if (qnIndex == qnsLength && currentQn.isAnswered) {
-                              // SAVE THE SCORE
-                              IsuzumaScoreService()
-                                  .createOrUpdateIsuzumaScore(scorePrModel);
-
-                              // REMOVE THE CURRENT SCREEN FROM THE STACK
-                              Navigator.pop(context);
-
-                              // GO TO THE SCORE PAGE
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => IsuzumaScoreReview(
-                                      scoreId: scoreID,
-                                      isuzuma: widget.isuzuma),
-                                ),
-                              );
-                            }
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return ErrorAlert(
+                                  errorTitle: 'Gusoza isuzuma!',
+                                  errorMsg:
+                                      'Wasubije ibibazo byose. Ese ushaka gusoza nonaha?',
+                                  firstButtonTitle: 'OYA',
+                                  firstButtonFunction: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  secondButtonTitle: 'YEGO',
+                                  secondButtonFunction: () {
+                                    IsuzumaScoreService()
+                                        .createOrUpdateIsuzumaScore(
+                                            scorePrModel);
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                             IsuzumaScoreReview(isuzuma: widget.isuzuma,),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            );
                           }
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white
-                              .withOpacity((qnsLength != qnIndex) ? 0.7 : 1),
+                              .withOpacity(unansweredQns.isNotEmpty ? 0.7 : 1),
                           backgroundColor: const Color(0xFF1B56CB)
-                              .withOpacity((qnsLength != qnIndex) ? 0.6 : 1),
+                              .withOpacity(unansweredQns.isNotEmpty ? 0.6 : 1),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -299,7 +261,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                               width: 14,
                               colorFilter: ColorFilter.mode(
                                 Colors.white.withOpacity(
-                                    (qnsLength != qnIndex) ? 0.5 : 1),
+                                    unansweredQns.isNotEmpty ? 0.5 : 1),
                                 BlendMode.srcATop,
                               ),
                             ),

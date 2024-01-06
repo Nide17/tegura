@@ -67,13 +67,13 @@ class _IsuzumaCustomRadioButtonState extends State<IsuzumaCustomRadioButton> {
                 color: widget.isReviewing == true
                     ? getReviewChoosenColor()
                     : Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.02),
                 border: Border.all(
                   color: widget.isReviewing == true
                       ? getDisplayColor(
                           widget.option!.isCorrect, widget.isReviewing)
-                      : Colors.grey,
-                  width: 1.0,
+                      : const Color(0xFFFFBD59),
+                  width: MediaQuery.of(context).size.width * 0.004,
                 ),
               ),
 

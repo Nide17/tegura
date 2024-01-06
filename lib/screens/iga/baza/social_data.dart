@@ -17,22 +17,22 @@ List<Map<String, dynamic>> socialData = [
   {
     'title': 'Twitter',
     'icon': 'assets/images/twitter.svg',
-    'details': 'tegura.rw'
+    'details': 'TeguraRw'
   },
   {
     'title': 'Instagram',
     'icon': 'assets/images/instagram.svg',
-    'details': 'tegura.rw'
+    'details': 'tegurarw'
   },
   {
     'title': 'LinkedIn',
     'icon': 'assets/images/linkedin.svg',
-    'details': 'tegura.rw'
+    'details': 'tegurarw'
   },
   {
     'title': 'Facebook',
     'icon': 'assets/images/facebook.svg',
-    'details': 'tegura.rw'
+    'details': 'TeguraRw'
   },
 ];
 

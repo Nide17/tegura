@@ -13,7 +13,8 @@ class CourseProgressModel {
       required this.userId,
       required this.courseId,
       required this.currentIngingo,
-      required this.totalIngingos});
+      required this.totalIngingos,
+      });
 
 // GET THE PROGRESS PERCENTAGE
 get progressPercentage => currentIngingo / totalIngingos;

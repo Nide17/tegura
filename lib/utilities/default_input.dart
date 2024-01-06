@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class DefaultInput extends StatelessWidget {
-  // INSTANCE VARIABLES
   final String? placeholder;
   final String? validation;
   final int maxLines;
@@ -54,6 +53,22 @@ class DefaultInput extends StatelessWidget {
     return null;
   }
 
+  // VALIDATE MTN NUMBER - 078 OR 079 FOLLOWED BY 7 DIGITS
+  static final RegExp _mtnRegExp = RegExp(
+    r'^07[89][0-9]{7}$',
+  );
+
+  // VALIDATION - MTN NUMBER
+  static String? _validateMtnNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Injiza numero yawe ya MTN!';
+    }
+    if (!_mtnRegExp.hasMatch(value)) {
+      return 'Injiza numero yawe ya MTN nyayo!';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,12 +93,17 @@ class DefaultInput extends StatelessWidget {
             // BACKGROUND COLOR
             filled: true,
             fillColor: const Color.fromARGB(255, 255, 255, 255),
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(20.0),
-              ),
-            ),
 
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 139, 145, 155), width: 3.0),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 139, 145, 155), width: 3.0),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
             // HEIGHT
             contentPadding: const EdgeInsets.symmetric(
               vertical: 16.0,
@@ -96,7 +116,9 @@ class DefaultInput extends StatelessWidget {
               ? _validateEmail
               : placeholder == 'Ijambobanga'
                   ? _validatePassword
-                  : _validateEmpty,
+                  : placeholder == 'Nimero yawe ya MTN'
+                      ? _validateMtnNumber
+                      : _validateEmpty,
 
           // ON SAVED VALIDATION
           onSaved: (value) {},

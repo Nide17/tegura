@@ -4,7 +4,6 @@ import 'package:tegura/models/isomo.dart';
 import 'package:tegura/utilities/user_progress.dart';
 
 class AmasomoProgress extends StatefulWidget {
-  // INSTANCE VARIABLES
   final String userId;
   final List<CourseProgressModel?>? progressesToShow;
   final List<IsomoModel?>? amasomo;

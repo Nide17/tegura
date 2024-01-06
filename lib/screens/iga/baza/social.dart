@@ -19,6 +19,23 @@ class Social extends StatelessWidget {
           width: 4.0,
           color: const Color(0xFFFFBD59),
         ),
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromARGB(255, 43, 43, 43),
+            offset: Offset(
+              5.0,
+              5.0,
+            ),
+            blurRadius: 10.0,
+            spreadRadius: 2.0,
+          ), //BoxShadow
+          BoxShadow(
+            color: Color.fromARGB(255, 71, 103, 158),
+            offset: Offset(0.0, 0.0),
+            blurRadius: 0.0,
+            spreadRadius: 0.0,
+          ), //BoxShadow
+        ],
       ),
       child: Column(
         children: [
@@ -39,6 +56,8 @@ class Social extends StatelessWidget {
                   SvgPicture.asset(
                     socialData[i]['icon'] ?? '',
                     height: MediaQuery.of(context).size.height * 0.05,
+                    colorFilter: const ColorFilter.mode(
+                        Color.fromARGB(255, 255, 255, 255), BlendMode.srcIn),
                   ),
 
                   // HORIZONTAL SPACE
@@ -51,7 +70,7 @@ class Social extends StatelessWidget {
                   Text('  ${socialData[i]['details']}',
                       style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.045,
-                        color: const Color.fromARGB(255, 0, 0, 0),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         fontWeight: FontWeight.bold,
                       )),
                 ],

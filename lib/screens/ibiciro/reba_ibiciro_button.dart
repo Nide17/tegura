@@ -23,6 +23,8 @@ class RebaIbiciro extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
             ),
+            elevation: 5.0,
+            shadowColor: const Color.fromARGB(255, 0, 0, 0),
           ),
 
           child: Text(

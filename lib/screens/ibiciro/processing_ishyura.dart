@@ -7,12 +7,12 @@ import 'package:tegura/models/payment.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/ibiciro/ifatabuguzi.dart';
 import 'package:tegura/screens/ibiciro/subscription.dart';
-import 'package:tegura/utilities/appbar.dart';
+import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/utilities/default_input.dart';
 import 'package:tegura/utilities/spinner.dart';
 
 class ProcessingIshyura extends StatefulWidget {
-  // INSTANCE VARIABLES
   final IfatabuguziModel ifatabuguzi;
 
   // CONSTRUCTOR
@@ -115,10 +115,13 @@ class _ProcessingIshyuraState extends State<ProcessingIshyura> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // IJAMBOBANGA
+                        // TELEPHONE NUMBER
                         DefaultInput(
-                          placeholder: 'Telefone yawe',
-                          validation: 'Injiza numero ya telefone yawe!',
+                          placeholder: widget.ifatabuguzi.type == 'ur'
+                              ? 'Your Phone Number'
+                              : 'Nimero yawe ya MTN',
+                          validation: widget.ifatabuguzi.type ==
+                              'ur' ? 'Please provide your MTN number' : 'Injiza numero ya MTN telefone yawe!',
 
                           // ON CHANGED
                           onChanged: (value) {
@@ -138,6 +141,7 @@ class _ProcessingIshyuraState extends State<ProcessingIshyura> {
                                 endAt: widget.ifatabuguzi.getEndDate(),
                                 userId: usr != null ? usr.uid : '',
                                 ifatabuguziID: widget.ifatabuguzi.id,
+                                igiciro: '${widget.ifatabuguzi.igiciro} RWF',
                                 isApproved: false,
                                 phone: phone);
 
@@ -162,17 +166,9 @@ class _ProcessingIshyuraState extends State<ProcessingIshyura> {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text('Error'),
-                                          content: Text(error),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: const Text('OK'))
-                                          ],
-                                        );
+                                        return ErrorAlert(
+                                            errorTitle: 'Error',
+                                            errorMsg: error);
                                       });
                                 });
                               } else {

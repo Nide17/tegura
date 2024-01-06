@@ -3,14 +3,15 @@ import "package:flutter/material.dart";
 import 'package:tegura/firebase_services/profiledb.dart';
 import 'package:tegura/main.dart';
 import 'package:tegura/models/profile.dart';
+import 'package:tegura/screens/iga/utils/error_alert.dart';
 import 'package:tegura/utilities/cta_button.dart';
 import 'package:tegura/utilities/cta_link.dart';
 import 'package:tegura/utilities/default_input.dart';
 import 'package:tegura/utilities/description.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
-import 'package:tegura/utilities/appbar.dart';
-import 'package:tegura/utilities/spinner.dart';
+import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/firebase_services/auth.dart';
+import 'package:tegura/utilities/loading_widget.dart';
 
 class Injira extends StatefulWidget {
   final String? message;
@@ -47,17 +48,23 @@ class _InjiraState extends State<Injira> {
     }
   }
 
-  // BUILD METHOD TO BUILD THE UI OF THE APP
+  // INITIALLY IF ALREADY LOGGED IN, GO TO THE HOME PAGE
   @override
-  Widget build(BuildContext context) {
-
-    // IF THE USER IS LOGGED IN, POP THE CURRENT PAGE
+  void initState() {
+    super.initState();
     if (_authInstance.currentUser() != null) {
       Navigator.pop(context);
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    // IF THE USER IS LOGGED IN, POP THE CURRENT PAGE
+    if (_authInstance.currentUser() != null) {
+      Navigator.popUntil(context, (route) => route.isFirst);
+    }
     return loading
-        ? const Spinner()
+        ? const LoadingWidget()
         : Scaffold(
             backgroundColor: const Color.fromARGB(255, 71, 103, 158),
 
@@ -199,24 +206,17 @@ class _InjiraState extends State<Injira> {
                                 // CHECK IF LOGIN SUCCESSFUL
                                 if (loginRes == null) {
                                   setState(() {
-                                    error = 'Please supply valid credentials!';
+                                    error = 'Injiza ibisabwa byanyabyo!';
                                     loading = false;
 
                                     // SHOW ALERT DIALOG
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: const Text('Error'),
-                                            content: Text(error),
-                                            actions: [
-                                              TextButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: const Text('OK'))
-                                            ],
-                                          );
+                                          return ErrorAlert(
+                                              errorTitle:
+                                                  'Kwinjira ntibyakunze.',
+                                              errorMsg: error);
                                         });
                                   });
                                 } else {
@@ -229,7 +229,18 @@ class _InjiraState extends State<Injira> {
                                   // NAVIGATE TO THE PREVIOUS PAGE
                                   if (!mounted) return;
 
-                                  Navigator.pop(context);
+                                  // if previous page login or signup, go to home
+                                  if (ModalRoute.of(context)!.settings.name ==
+                                          '/injira' ||
+                                      ModalRoute.of(context)!.settings.name ==
+                                          '/iyandikishe' ||
+                                      ModalRoute.of(context)!.settings.name ==
+                                          '/wibagiwe') {
+                                    Navigator.pushNamed(
+                                        context, '/iga-landing');
+                                  } else {
+                                    Navigator.pop(context);
+                                  }
 
                                   // SHOW SNACKBAR TO SHOW SUCCESSFUL LOGIN
                                   ScaffoldMessenger.of(context)
@@ -242,6 +253,11 @@ class _InjiraState extends State<Injira> {
                                 print('\nSigned in!!\n');
                               }
                             },
+                          ),
+
+                          // SIZED BOX
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02,
                           ),
 
                           // CTA LINK
@@ -270,26 +286,6 @@ class _InjiraState extends State<Injira> {
                       ),
                     ),
                   ),
-
-                  // // ANONYMOUS SIGN IN BUTTON
-                  // Container(
-                  //   padding: const EdgeInsets.all(40.0),
-
-                  //   // RAISED BUTTON
-                  //   child: ElevatedButton(
-                  //     onPressed: () async {
-                  //       // SIGN IN ANONYMOUSLY USING THE AUTH SERVICE INSTANCE - AUTH CLASS
-                  //       dynamic result = await _authInstance
-                  //           .signInAnon(); // DYNAMIC TYPE - CAN BE USER OR NULL
-
-                  //       if (result == null) {
-                  //       } else {
-                  //         print(result.uid);
-                  //       }
-                  //     },
-                  //     child: const Text('Sign In Anonymously'),
-                  //   ),
-                  // ),
                 ],
               ),
             ));

@@ -62,19 +62,20 @@ class QBAppBar extends StatelessWidget {
               ),
             ),
 
+            Text(
+              'In collaboration with',
+              style: TextStyle(
+                color: const Color(0xFF000000),
+                fontSize: MediaQuery.of(context).size.width * 0.028,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
             // THE OTHER CONTENTS OF THE TOP BAR
             Column(
               children: [
                 Row(
                   children: [
-                    Text(
-                      'In collaboration with\t\t\t',
-                      style: TextStyle(
-                        color: const Color(0xFF000000),
-                        fontSize: MediaQuery.of(context).size.width * 0.028,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                     Column(
                       children: [
                         Container(
@@ -120,7 +121,7 @@ class QBAppBar extends StatelessWidget {
                           'Iga, Umenye, Utsinde!',
                           style: TextStyle(
                             color: const Color(0xFF00A1DE),
-                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                            fontSize: MediaQuery.of(context).size.width * 0.028,
                             fontWeight: FontWeight.bold,
                             height: MediaQuery.of(context).size.height * 0.002,
                           ),
@@ -133,28 +134,16 @@ class QBAppBar extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.005,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      'Contact us:\t\t\t',
-                      style: TextStyle(
-                        color: const Color(0xFF000000),
-                        fontSize: MediaQuery.of(context).size.width * 0.035,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                     SvgPicture.asset(
                       'assets/images/phone.svg',
-                      height: MediaQuery.of(context).size.height * 0.028,
-                      //   center the svg image
-                      alignment: Alignment.center,
+                      height: MediaQuery.of(context).size.height * 0.03,
                     ),
                     Text(
-                      '\t+250 788 579 067',
+                      '\t\t+250 780 579 067',
                       style: TextStyle(
                         color: const Color(0xFF000000),
-                        fontSize: MediaQuery.of(context).size.width * 0.035,
+                        fontSize: MediaQuery.of(context).size.width * 0.038,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

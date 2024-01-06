@@ -9,12 +9,12 @@ import 'package:tegura/screens/iga/utils/pop_quiz.dart';
 import 'package:tegura/firebase_services/isomo_progress.dart';
 
 class DirectionButton extends StatefulWidget {
-  // INSTANCE VARIABLES
   final String buttonText;
   final String direction;
   final double opacity;
   final int skip;
-  final ValueChanged<int> changeSkip;
+  final ValueChanged<int> changeSkipNumber;
+  final Function scrollTop;
   final IsomoModel isomo;
 
   const DirectionButton({
@@ -23,7 +23,8 @@ class DirectionButton extends StatefulWidget {
     required this.direction,
     required this.opacity,
     required this.skip,
-    required this.changeSkip,
+    required this.changeSkipNumber,
+    required this.scrollTop,
     required this.isomo,
   });
 
@@ -35,73 +36,61 @@ class _DirectionButtonState extends State<DirectionButton> {
   @override
   Widget build(BuildContext context) {
     // GET THE INGINGOS
-    final ingingos = Provider.of<List<IngingoModel>?>(context) ?? [];
-
-    // GET THE INGINGOS LENGTH
-    final pageIngingos = ingingos.length;
+    final pageIngingos = Provider.of<List<IngingoModel>?>(context) ?? [];
 
     // GET THE COURSE PROGRESS
     final courseProgress = Provider.of<CourseProgressModel?>(context);
-
-    // GET THE TOTAL NUMBER OF INGINGOS IN THE COURSE
-    final totalIngsInProgr =
-        courseProgress != null ? courseProgress.totalIngingos : 0;
 
     // GET THE POP QUESTIONS
     final popQuestions = Provider.of<List<PopQuestionModel>?>(context);
 
     // LIST OF INGINGOS STATE IDS
-    List<int> currentIngingosIds = ingingos.map((e) => e.id).toList();
+    List<int> currentIngingosIds = pageIngingos.map((e) => e.id).toList();
 
     // CHECK IF THE FIRST POP QUESTION ID IS IN THE LIST OF INGINGOS IDS
-    bool isPopQuestionInIngingos = currentIngingosIds.contains(
+    bool isIngingosHavePopQuestions = currentIngingosIds.contains(
         popQuestions != null && popQuestions.isNotEmpty
             ? popQuestions[0].ingingoID
             : 0);
 
     return ElevatedButton(
       onPressed: () {
+        // SCROLL TO THE TOP
+        widget.scrollTop();
+
+        // DECREASE SKIP STATE
         if (widget.direction == 'inyuma') {
-          // DECREASE SKIP STATE
-          widget.changeSkip(-5);
-        } else if (widget.direction == 'komeza') {
-          // IF THIS PAGE HAS POP QUESTIONS, THEN SHOW THEM FIRST BEFORE PROCEEDING TO THE NEXT PAGE
+          widget.changeSkipNumber(-5);
+        }
+        // IF THIS PAGE HAS POP QUESTIONS, THEN SHOW THEM FIRST BEFORE PROCEEDING TO THE NEXT PAGE
+        else if (widget.direction == 'komeza') {
           if (popQuestions != null &&
               popQuestions.isNotEmpty &&
-              isPopQuestionInIngingos) {
-            // PUSH THE POP QUESTIONS TO THE SCREEN
+              isIngingosHavePopQuestions) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => PopQuiz(
                   popQuestions: popQuestions,
                   isomo: widget.isomo,
-                  courseChangeSkip: widget.changeSkip,
+                  coursechangeSkipNumber: widget.changeSkipNumber,
                 ),
               ),
             );
           } else {
-            // INCREASE SKIP STATE
-            widget.changeSkip(5);
+            widget.changeSkipNumber(5);
           }
 
           // UPDATE THE CURRENT INGINGO
-          if (widget.skip >= 0 &&
-              widget.skip < totalIngsInProgr &&
-              pageIngingos + widget.skip > courseProgress!.currentIngingo) {
-            // UPDATE THE CURRENT INGINGO
+          if (widget.skip > 0 &&
+              widget.skip <= courseProgress!.totalIngingos &&
+              pageIngingos.length + widget.skip > courseProgress.currentIngingo) {
             CourseProgressService().updateUserCourseProgress(
               courseProgress.userId,
               widget.isomo.id,
-              courseProgress.totalIngingos < courseProgress.currentIngingo
-                  ? courseProgress.currentIngingo
-                  : courseProgress.totalIngingos,
-              widget.skip + pageIngingos,
+              widget.skip + pageIngingos.length,
+              courseProgress.totalIngingos,
             );
-          }
-          // REMOVE THE CURRENT PAGE FROM THE STACK IF NO MORE NEXT PAGES
-          if (pageIngingos + widget.skip >= totalIngsInProgr) {
-            Navigator.pop(context);
           }
         }
       },
@@ -135,24 +124,16 @@ class _DirectionButtonState extends State<DirectionButton> {
               ),
             ),
             Text(
-              widget.direction == 'komeza' &&
-                      pageIngingos + widget.skip >= totalIngsInProgr
-                  ? 'Soza'
-                  : widget.buttonText,
+              widget.buttonText,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: MediaQuery.of(context).size.width * 0.035,
-                  color: widget.direction == 'komeza' &&
-                          pageIngingos + widget.skip >= totalIngsInProgr
-                      ? Colors.white
-                      : Colors.black),
+                  color: Colors.black),
             ), // ICON
             Visibility(
               visible: widget.direction == 'inyuma' ? false : true,
               child: Opacity(
-                opacity: pageIngingos + widget.skip >= totalIngsInProgr
-                    ? 0.0
-                    : widget.opacity,
+                opacity: widget.opacity,
                 child: SvgPicture.asset(
                   widget.direction == 'inyuma'
                       ? 'assets/images/backward.svg'

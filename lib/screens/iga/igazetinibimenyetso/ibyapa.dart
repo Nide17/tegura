@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/ikimenyetso_row.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbAppBar.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbAppFooter.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbsubtitle.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbtitle.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_app_bar.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_app_footer.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_subtitle.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_title.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/data/biburira.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/data/gutambuka_mbere.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/data/bibuza.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/data/bitegeka.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/data/ndanga.dart';
+
 
 class IgazetiIbyapa extends StatefulWidget {
   const IgazetiIbyapa({super.key});

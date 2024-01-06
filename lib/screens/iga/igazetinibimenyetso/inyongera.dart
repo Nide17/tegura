@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/inyongeraRow.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbAppBar.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbAppFooter.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbsubtitle.dart';
-import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qbtitle.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/inyongera_row.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_app_bar.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_app_footer.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_subtitle.dart';
+import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_title.dart';
 
 class IgazetiInyongera extends StatefulWidget {
   const IgazetiInyongera({super.key});
@@ -94,7 +94,7 @@ List<Map<String, dynamic>> nyongera = [
     'txt':
         '📝 Aka kapa karererekana “uburebure bw’igice cyatera ibyago cyangwa cyangwa bw’ahantu amabwiriza y’icyo cyapa agomba gukurikiza.” ',
     'imgUrl':
-        'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/nyongera_ngoboka%2Fngoboka%2FAhari%20Lisansi%20na%20mazutu.png?alt=media&token=9057d7b3-a197-467a-9385-9afc96dac99e',
+        'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/nyongera_ngoboka%2Fnyongera%2FNyongera%20habujijwe%20%20guhagarara%201.png?alt=media&token=e14f6400-cd5a-4e59-b417-67b503152510',
   },
   {
     'txt':
@@ -120,7 +120,7 @@ List<Map<String, dynamic>> ngoboka = [
   {
     'txt': ' “Ahari Lisansi na mazutu.” (Sitasiyo).',
     'imgUrl':
-        'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/nyongera_ngoboka%2Fnyongera%2FNyongera%20habujijwe%20%20guhagarara%201.png?alt=media&token=e14f6400-cd5a-4e59-b417-67b503152510',
+        'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/nyongera_ngoboka%2Fngoboka%2FAhari%20Lisansi%20na%20mazutu.png?alt=media&token=9057d7b3-a197-467a-9385-9afc96dac99e',
   },
   {
     'txt': ' “Ahari telefoni.” ',
