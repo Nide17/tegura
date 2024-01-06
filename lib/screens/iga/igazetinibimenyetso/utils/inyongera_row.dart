@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class InyongeraRow extends StatelessWidget {
   final String txt;
@@ -27,7 +28,11 @@ class InyongeraRow extends StatelessWidget {
               bottom: MediaQuery.of(context).size.width * 0.02,
             ),
             child: Center(
-                child: Image.network(imgUrl, fit: BoxFit.cover, width: 100)),
+                child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: imgUrl,
+                    fit: BoxFit.cover,
+                    width: 100)),
           ),
           Container(
             margin: EdgeInsets.only(

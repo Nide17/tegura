@@ -9,6 +9,7 @@ import 'package:tegura/screens/iga/amasuzuma/isuzuma_score_review.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_timer.dart';
 import 'package:tegura/screens/iga/utils/error_alert.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 typedef ShowQnCallback = void Function(int index);
 
@@ -185,8 +186,9 @@ class _IsuzumaViewsState extends State<IsuzumaViews> {
                                           ),
                                         ],
                                       ),
-                                      child: Image.network(
-                                        currentQn.imageUrl!,
+                                      child: FadeInImage.memoryNetwork(
+                                        placeholder: kTransparentImage,
+                                        image: currentQn.imageUrl!,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 1,

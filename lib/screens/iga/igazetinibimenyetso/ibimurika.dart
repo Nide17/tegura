@@ -3,6 +3,7 @@ import 'package:tegura/screens/iga/igazetinibimenyetso/utils/ibimurika_row.dart'
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_app_bar.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_app_footer.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/qb_title.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class IgazetiIbimurika extends StatefulWidget {
   const IgazetiIbimurika({super.key});
@@ -35,9 +36,12 @@ class _IgazetiIbimurikaState extends State<IgazetiIbimurika> {
 
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.4,
-                        child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibimurika%2FIbimenyetso%20bimurika.png?alt=media&token=324800c8-f077-47f3-95df-3d6deb3aff21',
-                            fit: BoxFit.cover),
+                        child: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image:
+                              'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/ibimurika%2FIbimenyetso%20bimurika.png?alt=media&token=324800c8-f077-47f3-95df-3d6deb3aff21',
+                          fit: BoxFit.cover,
+                        ),
                       ),
 
                       Container(

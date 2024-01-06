@@ -7,6 +7,7 @@ import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/providers/quiz_score_provider.dart';
 import 'package:tegura/firebase_services/isomo_progress.dart';
 import 'package:tegura/utilities/ikibazo_button.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 typedef ShowQnCallback = void Function(int index);
 typedef SetSetSelectedOption = void Function(Map<String, dynamic>? option);
@@ -167,8 +168,9 @@ class _IsuzumeDetailsState extends State<IsuzumeDetails> {
                                                 ),
                                               ],
                                             ),
-                                            child: Image.network(
-                                              scorePopQns[widget.qnIndex]
+                                            child: FadeInImage.memoryNetwork(
+                                              placeholder: kTransparentImage,
+                                              image: scorePopQns[widget.qnIndex]
                                                   .popQuestion
                                                   .imageUrl!,
                                               width: MediaQuery.of(context)

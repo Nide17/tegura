@@ -9,6 +9,7 @@ import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/iga/utils/content_title_text.dart';
 import 'package:tegura/screens/iga/utils/option_content.dart';
 import 'package:tegura/utilities/loading_widget.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ContentDetails extends StatefulWidget {
   final IsomoModel isomo;
@@ -196,9 +197,10 @@ class _ContentDetailsState extends State<ContentDetails> {
                             // BORDER RADIUS OF THE IMAGE
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(
-                                  10.0), // Set the desired border radius
-                              child: Image.network(
-                                currPageIngingos[index].imageUrl ?? '',
+                                  10.0),
+                              child: FadeInImage.memoryNetwork(
+                                placeholder: kTransparentImage,
+                                image: currPageIngingos[index].imageUrl ?? '',
                                 height:
                                     MediaQuery.of(context).size.height * 0.2,
                                 fit: BoxFit.cover,

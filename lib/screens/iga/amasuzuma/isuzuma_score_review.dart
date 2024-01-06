@@ -15,6 +15,7 @@ import 'package:tegura/screens/iga/utils/error_alert.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/utilities/loading_widget.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class IsuzumaScoreReview extends StatefulWidget {
   final IsuzumaModel isuzuma;
@@ -217,8 +218,10 @@ class _IsuzumaScoreReviewState extends State<IsuzumaScoreReview> {
                                             ),
                                           ],
                                         ),
-                                        child: Image.network(
-                                          currentQn.imageUrl!,
+                                        child: FadeInImage.memoryNetwork(
+                                          placeholder: kTransparentImage,
+                                          image: currentQn.imageUrl!,
+                                          fit: BoxFit.cover,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *

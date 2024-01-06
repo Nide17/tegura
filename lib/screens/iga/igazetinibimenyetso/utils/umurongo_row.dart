@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class UmurongoRow extends StatelessWidget {
   final String title;
@@ -51,10 +52,11 @@ class UmurongoRow extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(
                               10), // Adjust the radius as needed
-                          child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/imirongo%2Ftitle.png?alt=media&token=ea01425f-45fa-4187-a0b6-6a6d168daf4d',
+                          child: FadeInImage.memoryNetwork(
+                            placeholder: kTransparentImage,
+                            image: 'https://firebasestorage.googleapis.com/v0/b/tegura-rw.appspot.com/o/imirongo%2Ftitle.png?alt=media&token=ea01425f-45fa-4187-a0b6-6a6d168daf4d',
                             fit: BoxFit.cover,
-                            width: 24,
+                            width: MediaQuery.of(context).size.width * 0.1,
                           ),
                         ),
                       ),
@@ -113,7 +115,12 @@ class UmurongoRow extends StatelessWidget {
                   margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.width * 0.04,
                   ),
-                  child: Image.network(imgUrl, fit: BoxFit.cover, width: 100),
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: imgUrl,
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                  ),
                 ),
 
           //   umurongo text

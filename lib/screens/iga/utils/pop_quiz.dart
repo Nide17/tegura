@@ -6,17 +6,19 @@ import 'package:tegura/screens/iga/utils/custom_radio_button.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/utilities/direction_button_pq.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class PopQuiz extends StatefulWidget {
   final List<PopQuestionModel> popQuestions;
   final IsomoModel isomo;
   final ValueChanged<int> coursechangeSkipNumber;
 
-  const PopQuiz(
-      {super.key,
-      required this.popQuestions,
-      required this.isomo,
-      required this.coursechangeSkipNumber,});
+  const PopQuiz({
+    super.key,
+    required this.popQuestions,
+    required this.isomo,
+    required this.coursechangeSkipNumber,
+  });
 
   @override
   State<PopQuiz> createState() => _PopQuizState();
@@ -131,10 +133,12 @@ class _PopQuizState extends State<PopQuiz> {
                                       ),
                                     ],
                                   ),
-                                  child: Image.network(
-                                    widget.popQuestions[currQnID].imageUrl!,
+                                  child: FadeInImage.memoryNetwork(
+                                    placeholder: kTransparentImage,
+                                    image:
+                                        widget.popQuestions[currQnID].imageUrl!,
                                     width:
-                                        MediaQuery.of(context).size.width * 1,
+                                        MediaQuery.of(context).size.width * 0.4,
                                   ),
                                 ),
                               ),
