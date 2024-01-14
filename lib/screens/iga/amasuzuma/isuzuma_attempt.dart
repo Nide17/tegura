@@ -30,7 +30,8 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
   @override
   Widget build(BuildContext context) {
     final usr = Provider.of<UserModel?>(context);
-    print("Next isuzuma received from overview in attempt: ${widget.nextIsuzuma?.id}");
+    print(
+        "Next isuzuma received from overview in attempt: ${widget.nextIsuzuma?.id}");
 
     return MultiProvider(
       providers: [
@@ -133,25 +134,18 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
               // RETURN FALSE
               return false;
             },
-
             child: Scaffold(
               backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-
-              // APP BAR
               appBar: const PreferredSize(
                 preferredSize: Size.fromHeight(58.0),
                 child: AppBarTegura(),
               ),
-
-              // PAGE BODY
               body: IsuzumaViews(
-                userID: usr!.uid,
-                qnIndex: qnIndex,
-                showQn: showQn,
-                isuzuma: widget.isuzuma,
-                scorePrModel: scorePrModel
-              ),
-
+                  userID: usr!.uid,
+                  qnIndex: qnIndex,
+                  showQn: showQn,
+                  isuzuma: widget.isuzuma,
+                  scorePrModel: scorePrModel),
               bottomNavigationBar: Container(
                 margin: EdgeInsets.zero,
                 padding: EdgeInsets.zero,
@@ -207,7 +201,9 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            IsuzumaScoreReview(isuzuma: widget.isuzuma,),
+                                            IsuzumaScoreReview(
+                                          isuzuma: widget.isuzuma,
+                                        ),
                                       ),
                                     );
                                   },
@@ -237,7 +233,9 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                             IsuzumaScoreReview(isuzuma: widget.isuzuma,),
+                                            IsuzumaScoreReview(
+                                          isuzuma: widget.isuzuma,
+                                        ),
                                       ),
                                     );
                                   },
@@ -261,17 +259,20 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                               'assets/images/tick.svg',
                               width: MediaQuery.of(context).size.width * 0.03,
                               colorFilter: ColorFilter.mode(
-                                const Color.fromARGB(255, 255, 255, 255).withOpacity(
-                                    unansweredQns.isNotEmpty ? 0.5 : 1),
+                                const Color.fromARGB(255, 255, 255, 255)
+                                    .withOpacity(
+                                        unansweredQns.isNotEmpty ? 0.5 : 1),
                                 BlendMode.srcATop,
                               ),
                             ),
                             Text(
                               ' Soza isuzuma',
                               style: TextStyle(
-                                fontSize: MediaQuery.of(context).size.width * 0.03,
-                                color: const Color.fromARGB(255, 255, 255, 255).withOpacity(
-                                    unansweredQns.isNotEmpty ? 0.65 : 1),
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.03,
+                                color: const Color.fromARGB(255, 255, 255, 255)
+                                    .withOpacity(
+                                        unansweredQns.isNotEmpty ? 0.65 : 1),
                               ),
                             ),
                           ],

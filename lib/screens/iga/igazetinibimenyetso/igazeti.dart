@@ -28,18 +28,15 @@ class _IgazetiBookState extends State<IgazetiBook> {
 
   @override
   Widget build(BuildContext context) {
-
     if (_isLoading) {
       return const LoadingWidget();
     }
 
     return Scaffold(
-      // APP BAR
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(58.0),
         child: AppBarTegura(),
       ),
-
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

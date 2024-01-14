@@ -6,7 +6,6 @@ class CourseProgressService {
   final CollectionReference progressCollection =
       FirebaseFirestore.instance.collection('progresses');
 
-  // CONSTRUCTOR
   CourseProgressService();
 
 // #############################################################################
@@ -113,7 +112,6 @@ class CourseProgressService {
     int currentIngingo,
     int totalIngingos,
   ) async {
-    
     // RETURN THE USER DATA - IF THE DOC DOESN'T EXIST,
     //IT WILL BE CREATED BY FIRESTORE
     return await progressCollection.doc('${courseId}_$uid').set({
@@ -121,7 +119,8 @@ class CourseProgressService {
       'id': '${courseId}_$uid',
       'userId': uid,
       'courseId': courseId,
-      'currentIngingo': currentIngingo > totalIngingos ? totalIngingos : currentIngingo,
+      'currentIngingo':
+          currentIngingo > totalIngingos ? totalIngingos : currentIngingo,
       'totalIngingos': totalIngingos,
     });
   }

@@ -51,16 +51,11 @@ class _BibazaState extends State<Bibaza> {
         print(ibibazoBibaza);
         return Scaffold(
             backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-            // APP BAR
             appBar: const PreferredSize(
               preferredSize: Size.fromHeight(58.0),
               child: AppBarTegura(),
             ),
-
-            // PAGE BODY
             body: ListView(children: <Widget>[
-              // 1. GRADIENT TITLE
               const GradientTitle(
                   title: 'IBIBAZO ABANYESHURI BIBAZA',
                   icon: 'assets/images/ibibazo_bibaza.svg'),
@@ -81,8 +76,6 @@ class _BibazaState extends State<Bibaza> {
                       qIcon: 'assets/images/question.svg',
                       aIcon: 'assets/images/answer.svg'),
             ]),
-
-            // BOTTOM NAVIGATION BAR
             bottomNavigationBar: const RebaIbiciro());
       }),
     );

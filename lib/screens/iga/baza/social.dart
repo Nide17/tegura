@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tegura/screens/iga/baza/social_data.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Social extends StatelessWidget {
   const Social({super.key});
@@ -44,40 +45,72 @@ class Social extends StatelessWidget {
 
             // EACH SOCIAL MEDIA
             Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: Row(
-                children: <Widget>[
-                  // HORIZONTAL SPACE
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.04,
-                  ),
+              padding: const EdgeInsets.all(1.0),
+              child: TextButton(
+                onPressed: () => _handleClick(socialData[i]['url']),
+                child: Row(
+                  children: <Widget>[
+                    // HORIZONTAL SPACE
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.04,
+                    ),
 
-                  // SVG ICON
-                  SvgPicture.asset(
-                    socialData[i]['icon'] ?? '',
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    colorFilter: const ColorFilter.mode(
-                        Color.fromARGB(255, 255, 255, 255), BlendMode.srcIn),
-                  ),
+                    // SVG ICON
+                    SvgPicture.asset(
+                      socialData[i]['icon'] ?? '',
+                      height: MediaQuery.of(context).size.height * 0.045,
+                      colorFilter: const ColorFilter.mode(
+                          Color.fromARGB(255, 255, 255, 255), BlendMode.srcIn),
+                    ),
 
-                  // HORIZONTAL SPACE
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.02,
-                  ),
+                    // HORIZONTAL SPACE
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.02,
+                    ),
 
-                  // TEXT WIDGET
-                  // Text((socialData[i]['title'] ?? '') + ': ' + (socialData[i]['details'] ?? ''),
-                  Text('  ${socialData[i]['details']}',
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.045,
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        fontWeight: FontWeight.bold,
-                      )),
-                ],
+                    // TEXT WIDGET
+                    // Text((socialData[i]['title'] ?? '') + ': ' + (socialData[i]['details'] ?? ''),
+                    Text('  ${socialData[i]['title']}',
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * 0.045,
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ],
+                ),
               ),
             ),
         ],
       ),
     );
+  }
+}
+
+// Handle the click with corresponding link or text
+void _handleClick(String url) async {
+  if (url.contains('0794033360')) {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  // Send email
+  else if (url.contains('mailto:')) {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  // Open url
+  else {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url), mode: LaunchMode.inAppBrowserView);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

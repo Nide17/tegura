@@ -5,7 +5,6 @@ class IgaCard extends StatelessWidget {
   final String icon;
   final Widget screen;
 
-  // CONSTRUCTOR
   const IgaCard(
       {super.key,
       required this.title,

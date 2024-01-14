@@ -2,13 +2,11 @@
 import 'package:flutter/material.dart';
 
 class RebaIbiciro extends StatelessWidget {
-  // CONSTRUCTOR
   const RebaIbiciro({super.key});
 
   // BUILD METHOD TO BUILD THE UI OF THE BOTTOM BUTTON
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
       child: SizedBox(
@@ -26,7 +24,6 @@ class RebaIbiciro extends StatelessWidget {
             elevation: 5.0,
             shadowColor: const Color.fromARGB(255, 0, 0, 0),
           ),
-
           child: Text(
             'Reba ibiciro byo kwiga',
             style: TextStyle(

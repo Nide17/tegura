@@ -47,14 +47,10 @@ class _UrStudentState extends State<UrStudent> {
 
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-        // APP BAR
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(58.0),
           child: AppBarTegura(),
         ),
-
-        // PAGE BODY
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -66,7 +62,6 @@ class _UrStudentState extends State<UrStudent> {
           ),
           child: ListView(
             children: [
-              // 1. GRADIENT TITLE
               const GradientTitle(
                   title: 'REGISTER AS UR STUDENT',
                   icon: 'assets/images/ur_student.svg'),
@@ -238,7 +233,6 @@ class _UrStudentState extends State<UrStudent> {
                         },
                       ),
 
-                      // VERTICAL SPACE
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.002,
                       ),

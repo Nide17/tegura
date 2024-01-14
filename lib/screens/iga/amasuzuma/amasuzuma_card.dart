@@ -32,7 +32,7 @@ class _AmasuzumaCardState extends State<AmasuzumaCard> {
 
     if (FirebaseAuth.instance.currentUser != null) {
       PaymentModel? pymt = await PaymentService()
-          .getUserLatestPaymentData(FirebaseAuth.instance.currentUser!.uid);
+          .getUserLatestPytData(FirebaseAuth.instance.currentUser!.uid);
 
       setState(() {
         payment = pymt;

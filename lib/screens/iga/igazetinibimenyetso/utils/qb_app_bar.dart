@@ -140,7 +140,7 @@ class QBAppBar extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.03,
                     ),
                     Text(
-                      '\t\t+250 780 579 067',
+                      '\t\t+250 794 033 360',
                       style: TextStyle(
                         color: const Color(0xFF000000),
                         fontSize: MediaQuery.of(context).size.width * 0.038,

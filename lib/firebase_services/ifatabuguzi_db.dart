@@ -2,16 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tegura/models/ifatabuguzi.dart';
 
 class IfatabuguziService {
-  // COLLECTIONS REFERENCE - FIRESTORE
+  
   final CollectionReference ifatabuguziCollection =
       FirebaseFirestore.instance.collection('amafatabuguzi');
 
-  // CONSTRUCTOR
   IfatabuguziService();
 
-// #############################################################################
-// MODELING DATA
-// #############################################################################
   // GET amafatabuguzi FROM A SNAPSHOT USING THE ifatabuguzi MODEL - _amafatabuguziFromSnapshot
   List<IfatabuguziModel> _amafatabuguziFromSnapshot(
       QuerySnapshot querySnapshot) {
@@ -39,14 +35,8 @@ class IfatabuguziService {
     }).toList();
   }
 
-// #############################################################################
-// GET DATA
-// #############################################################################
   // GET ALL amafatabuguzi
   Stream<List<IfatabuguziModel>> get amafatabuguzi {
     return ifatabuguziCollection.snapshots().map(_amafatabuguziFromSnapshot);
   }
 }
-// #############################################################################
-// END OF FILE
-// #############################################################################

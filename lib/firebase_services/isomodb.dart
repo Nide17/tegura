@@ -6,15 +6,12 @@ class IsomoService {
   final CollectionReference amasomoCollection =
       FirebaseFirestore.instance.collection('amasomo');
 
-  // CONSTRUCTOR
   IsomoService();
 
   // GET AMASOMO FROM A SNAPSHOT USING THE ISOMO MODEL - _amasomoFromSnapshot
   // FUNCTION CALLED EVERY TIME THE AMASOMO DATA CHANGES
   List<IsomoModel> _amasomoFromSnapshot(QuerySnapshot querySnapshot) {
-    // GET THE DATA FROM THE SNAPSHOT
     return querySnapshot.docs.map((doc) {
-      // GET THE DATA FROM THE SNAPSHOT
       final data = doc.data() as Map<String, dynamic>;
 
       // CHECK IF THE FIELDS EXISTS BEFORE ASSIGNING IT TO THE VARIABLE
@@ -28,7 +25,6 @@ class IsomoService {
 
       // RETURN A LIST OF AMASOMO FROM THE SNAPSHOT
       return IsomoModel(
-        // AMASOMO DATA - FIELDS
         id: id is int
             ? id
             : id is String

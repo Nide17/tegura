@@ -7,7 +7,6 @@ class Faq extends StatelessWidget {
   final String qIcon;
   final String aIcon;
 
-  // CONSTRUCTOR
   const Faq(
       {super.key,
       required this.question,

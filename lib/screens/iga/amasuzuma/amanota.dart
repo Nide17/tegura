@@ -4,7 +4,6 @@ class Amanota extends StatelessWidget {
   final int score;
   final int maxScore;
 
-  // CONSTRUCTOR
   const Amanota({super.key, required this.score, required this.maxScore});
 
   @override

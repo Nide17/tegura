@@ -20,7 +20,6 @@ class _IgazetiImirongoState extends State<IgazetiImirongo> {
       //   Body with a floating top bar
       body: CustomScrollView(
         slivers: [
-          // APP BAR
           const QBAppBar(),
           SliverList(
             delegate: SliverChildListDelegate(

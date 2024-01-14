@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:tegura/main.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/screens/ibiciro/reba_ibiciro_button.dart';
-import 'package:tegura/utilities/app_bar.dart'; // APP BAR
+import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/screens/iga/iga_data.dart';
-import 'package:tegura/utilities/no_internet.dart'; // DATA FOR THE IGA PAGE
+import 'package:tegura/utilities/no_internet.dart';
 
 class IgaLanding extends StatefulWidget {
   const IgaLanding({super.key});
@@ -22,7 +22,6 @@ class _IgaLandingState extends State<IgaLanding> {
 
     bool everDisconnected = false;
 
-    // WHEN CONNECTION IS LOST, NOTIFY USER. IF IT COMES BACK AFTER BEING LOST NOTIFY USER TOO
     if (conn.isOnline == false) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -43,7 +42,6 @@ class _IgaLandingState extends State<IgaLanding> {
       everDisconnected = true;
     }
 
-    // WHEN CONNECTION IS BACK, NOTIFY USER
     if (conn.isOnline == true && everDisconnected == true) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -65,9 +63,7 @@ class _IgaLandingState extends State<IgaLanding> {
 
     return MultiProvider(
       providers: [
-        // PROVIDE FIREBASE FIRESTORE INSTANCE - DB REFERENCE TO PROFILES COLLECTION
         StreamProvider<List<IsomoModel?>?>.value(
-          // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value: null,
           initialData: null,
 
@@ -78,20 +74,14 @@ class _IgaLandingState extends State<IgaLanding> {
       ],
       child: Scaffold(
           backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-          // APP BAR
           appBar: const PreferredSize(
             preferredSize: Size.fromHeight(58.0),
             child: AppBarTegura(),
           ),
-
-          // PAGE BODY
           body:
-              // IF THERE IS NO INTERNET - SHOW "No internet" and BUTTON UNDER IT TO REFRESH BOTH CENTERED HOR. AND VERT.
               conn.isOnline == false
                   ? const NoInternet()
                   : ListView(
-                      // CHILDREN OF THE COLUMN WIDGET
                       children: igaList.asMap().entries.map((entry) {
                         final bool isFirst = entry.key == 0;
                         final bool isLast = entry.key == igaList.length - 1;
@@ -102,10 +92,7 @@ class _IgaLandingState extends State<IgaLanding> {
 
                         return Column(
                           children: <Widget>[
-                            // 1. VERTICAL SPACE
                             SizedBox(height: height),
-
-                            // 2. BUTTON CONTAINER WIDGET
                             Container(
                               width: MediaQuery.of(context).size.width * .9,
                               padding: EdgeInsets.symmetric(
@@ -131,10 +118,7 @@ class _IgaLandingState extends State<IgaLanding> {
                                   ),
                                 ],
                               ),
-
-                              // GestureDetector WIDGET, ROW WITH ICON AND TEXT - BUTTON
                               child: GestureDetector(
-                                // NAVIGATE TO THE CHILD PAGE
                                 onTap: () {
                                   Navigator.push(
                                       context,
@@ -144,27 +128,20 @@ class _IgaLandingState extends State<IgaLanding> {
                                 },
                                 child: Row(
                                   children: <Widget>[
-                                    // HORIZONTAL SPACE
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.025,
                                     ),
-
-                                    // SVG ICON
                                     SvgPicture.asset(
                                       item['icon'],
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.05,
                                     ),
-
-                                    // HORIZONTAL SPACE
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.025,
                                     ),
-
-                                    // TEXT WIDGET
                                     Text(item['text'],
                                         style: TextStyle(
                                           fontSize: MediaQuery.of(context)
@@ -178,24 +155,17 @@ class _IgaLandingState extends State<IgaLanding> {
                                 ),
                               ),
                             ),
-
-                            // 3. BOTTOM BORDER IF LAST ITEM
                             if (isLast)
                               Column(children: <Widget>[
-                                // VERTICAL SPACE
                                 SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height * 0.03,
                                 ),
-
-                                // BOTTOM BORDER
                                 Container(
                                   color: const Color(0xFF000000),
                                   height:
                                       MediaQuery.of(context).size.height * 0.01,
                                 ),
-
-                                // VERTICAL SPACE
                                 SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height * 0.01,

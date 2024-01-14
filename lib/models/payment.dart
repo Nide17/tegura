@@ -37,7 +37,7 @@ class PaymentModel {
     DateTime end = endAt;
 
     // FORMAT THE END DATE
-    String formatedEnd = '${end.year}-${end.month}-${end.day}';
+    String formatedEnd = '${end.day}-${end.month}-${end.year}';
 
     // RETURN THE FORMATED END DATE
     return formatedEnd;

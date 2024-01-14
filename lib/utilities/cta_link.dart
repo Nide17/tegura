@@ -8,7 +8,6 @@ class CtaAuthLink extends StatelessWidget {
   final Color color1;
   final Color color2;
 
-  // CONSTRUCTOR
   const CtaAuthLink(
       {super.key,
       required this.text1,
@@ -53,7 +52,6 @@ class CtaAuthLink extends StatelessWidget {
           ],
         ),
 
-        // VERTICAL SPACE
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.02,
         ),

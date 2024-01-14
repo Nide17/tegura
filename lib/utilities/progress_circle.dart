@@ -3,12 +3,10 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tegura/models/user.dart';
 
 class ProgressCircle extends StatelessWidget {
-  // PROPERTIES
   final double percent;
   final String progress;
   final UserModel? usr;
 
-  // CONSTRUCTOR - TO GET THE PERCENT, AUTH STATUS
   const ProgressCircle(
       {super.key,
       required this.percent,

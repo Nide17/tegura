@@ -7,7 +7,6 @@ class DefaultInput extends StatelessWidget {
   final Function(String)? onChanged;
   final bool? obscureText;
 
-  // CONSTRUCTOR
   const DefaultInput({
     super.key,
     this.placeholder,
@@ -124,7 +123,6 @@ class DefaultInput extends StatelessWidget {
           onSaved: (value) {},
         ),
 
-        // VERTICAL SPACE
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.024,
         )

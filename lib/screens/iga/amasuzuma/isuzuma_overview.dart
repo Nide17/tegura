@@ -69,13 +69,10 @@ class _IsuzumaOverviewState extends State<IsuzumaOverview> {
           Consumer<IsuzumaScoreModel?>(builder: (context, scoreUserIsuzuma, _) {
         return Scaffold(
           backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-          // APP BAR
           appBar: const PreferredSize(
             preferredSize: Size.fromHeight(58.0),
             child: AppBarTegura(),
           ),
-
           body: ListView(children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width * 0.4,

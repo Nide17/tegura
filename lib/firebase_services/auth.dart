@@ -35,30 +35,6 @@ class AuthService {
     });
   }
 
-  // SIGN IN ANONYMOUSLY METHOD
-  Future signInAnon() async {
-    // ASYNC METHOD TO RETURN A FUTURE
-    try {
-      // SIGN IN ANONYMOUSLY REQUEST - RETURN AUTH RESULT FUTURE
-      UserCredential result = await _authInstance.signInAnonymously();
-
-      // GET THE USER FROM THE RESULT
-      User? user = result.user;
-
-      // RETURN THE USER
-      if (user != null) {
-        return _userFromFirebaseUser(user);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print(e.toString());
-
-      // RETURN NULL
-      return null;
-    }
-  }
-
   // SIGN IN WITH EMAIL AND PASSWORD METHOD
   Future loginWithEmailAndPassword(String email, String password) async {
     try {

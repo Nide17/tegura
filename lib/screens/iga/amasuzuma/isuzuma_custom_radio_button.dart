@@ -152,7 +152,7 @@ class _IsuzumaCustomRadioButtonState extends State<IsuzumaCustomRadioButton> {
                               style: TextStyle(
                                   color: btnText == 'Wasubije ikitaricyo!'
                                       ? Colors.red
-                                      : Colors.green,
+                                      : const Color(0xFF00A651),
                                   fontSize: MediaQuery.of(context).size.height *
                                       0.014,
                                   fontWeight: FontWeight.bold)),

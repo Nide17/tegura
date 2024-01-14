@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/models/course_progress.dart';
 import 'package:tegura/models/isomo.dart';
+import 'package:tegura/models/pop_question.dart';
 import 'package:tegura/screens/iga/utils/custom_radio_button.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/providers/quiz_score_provider.dart';
@@ -10,7 +11,7 @@ import 'package:tegura/utilities/ikibazo_button.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 typedef ShowQnCallback = void Function(int index);
-typedef SetSetSelectedOption = void Function(Map<String, dynamic>? option);
+typedef SetSetSelectedOption = void Function(OptionPopQn? option);
 
 class IsuzumeDetails extends StatefulWidget {
   final IsomoModel isomo;
@@ -190,7 +191,6 @@ class _IsuzumeDetailsState extends State<IsuzumeDetails> {
                                         .options
                                         .map<Widget>((option) {
                                       return CustomRadioButton(
-                                        // VARIABLES PROPERTIES
                                         option: option,
                                         choosenOption: scoreProviderModel
                                             .quizScore
@@ -206,7 +206,7 @@ class _IsuzumeDetailsState extends State<IsuzumeDetails> {
                                             .isAnswerCorrect,
                                         isThisCorrect: widget.isCurrentCorrect,
                                         scoreProviderModel: scoreProviderModel,
-                                        isSelected: option['id'] ==
+                                        isSelected: option.id ==
                                             widget.selectedOption,
                                         currentQuestion:
                                             scorePopQns[widget.qnIndex]

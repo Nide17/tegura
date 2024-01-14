@@ -6,7 +6,6 @@ class IbibazoBibazaService {
   final CollectionReference ibibazoBibazaCollection =
       FirebaseFirestore.instance.collection('ibibazo_bibaza');
 
-  // CONSTRUCTOR
   IbibazoBibazaService();
 
 // #############################################################################

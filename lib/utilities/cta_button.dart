@@ -4,7 +4,6 @@ class CtaButton extends StatelessWidget {
   final String text;
   final Function()? onPressed;
 
-  // CONSTRUCTOR
   const CtaButton({
     super.key,
     required this.text,
@@ -45,7 +44,6 @@ class CtaButton extends StatelessWidget {
             ),
           ),
         ),
-        // VERTICAL SPACE
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.035,
         )

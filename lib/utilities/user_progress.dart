@@ -17,7 +17,6 @@ class UserProgress extends StatelessWidget {
   final String userId;
   final int totalIngingos;
 
-  // CONSTRUCTOR
   const UserProgress({
     super.key,
     required this.isomo,
@@ -27,11 +26,9 @@ class UserProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // PROVIDERS VARIABLES
     final progresses = Provider.of<List<CourseProgressModel?>?>(context);
     final usr = Provider.of<UserModel?>(context);
 
-    // GET THE PROGRESS
     final courseProgress =
         progresses?.firstWhere((progress) => progress!.courseId == isomo.id,
             orElse: () => CourseProgressModel(
@@ -42,27 +39,22 @@ class UserProgress extends StatelessWidget {
                   userId: '',
                 ));
 
-    // GET THE CURRENT INGINGO IF THE USER HAS STARTED THE COURSE OR 1
     final int curCourseIngingo =
         courseProgress != null ? courseProgress.currentIngingo : 1;
 
-    // GET THE PERCENTAGE
     final double percent = (courseProgress != null &&
             courseProgress.totalIngingos != 0 &&
             courseProgress.totalIngingos >= curCourseIngingo)
-        ? (curCourseIngingo / courseProgress.totalIngingos) // GET THE PROGRESS
-        : 1.0; // GET THE PROGRESS
+        ? (curCourseIngingo / courseProgress.totalIngingos)
+        : 1.0;
 
     return MultiProvider(
       providers: [
-        // GET CURRENT PAYMENT PLAN
         StreamProvider<PaymentModel?>.value(
-          // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value: usr != null
-              ? PaymentService().getLatestpaymentsByUserId(usr.uid)
+              ? PaymentService().getNewestPytByUserId(usr.uid)
               : null,
           initialData: null,
-
           catchError: (context, error) {
             return null;
           },
@@ -72,7 +64,6 @@ class UserProgress extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // PROGRESS BAR
             LinearPercentIndicator(
               width: MediaQuery.of(context).size.width * 0.4,
               animation: true,
@@ -87,18 +78,15 @@ class UserProgress extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              barRadius: const Radius.circular(16.0),
-              backgroundColor: const Color(0xFF494F56),
+              barRadius:
+                  Radius.circular(MediaQuery.of(context).size.width * 0.3),
+              backgroundColor: const Color.fromARGB(255, 76, 87, 99),
               progressColor: percent > 0.5
                   ? const Color(0xFF00A651)
                   : const Color(0xFFFF3131),
             ),
-
-            // CTA BUTTON
             GestureDetector(
-              // NAVIGATE TO IGA
               onTap: () {
-                // IF THE USER HAS NOT STARTED THE COURSE, CREATE A NEW PROGRESS
                 if (courseProgress?.totalIngingos != totalIngingos) {
                   CourseProgressService().updateUserCourseProgress(
                     userId,
@@ -108,7 +96,6 @@ class UserProgress extends StatelessWidget {
                   );
                 }
 
-                // NAVIGATE TO IGA CONTENT
                 payment != null && payment.isApproved != true
                     ? showDialog(
                         context: context,

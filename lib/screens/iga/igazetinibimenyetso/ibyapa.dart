@@ -10,7 +10,6 @@ import 'package:tegura/screens/iga/igazetinibimenyetso/utils/data/bibuza.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/data/bitegeka.dart';
 import 'package:tegura/screens/iga/igazetinibimenyetso/utils/data/ndanga.dart';
 
-
 class IgazetiIbyapa extends StatefulWidget {
   const IgazetiIbyapa({super.key});
 
@@ -34,7 +33,6 @@ class _IgazetiIbyapaState extends State<IgazetiIbyapa> {
       //   Body with a floating top bar
       body: CustomScrollView(
         slivers: [
-          // APP BAR
           const QBAppBar(),
           SliverList(
             delegate: SliverChildListDelegate(

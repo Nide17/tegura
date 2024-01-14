@@ -2,18 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tegura/models/isuzuma.dart';
 
 class IsuzumaService {
-  // COLLECTIONS REFERENCE - FIRESTORE
   final CollectionReference isuzumaCollection =
       FirebaseFirestore.instance.collection('amasuzumabumenyi');
 
-  // CONSTRUCTOR
   IsuzumaService();
 
-// #############################################################################
-// MODELING DATA
-// #############################################################################
   // GET AMASUZUMA FROM A SNAPSHOT USING THE Isuzuma MODEL - _amasuzumaFromSnapshot
   List<IsuzumaModel> _amasuzumaFromSnapshot(QuerySnapshot querySnapshot) {
+
     return querySnapshot.docs.map((doc) {
       final data = doc.data() as Map<String, dynamic>;
 
@@ -22,7 +18,6 @@ class IsuzumaService {
       final description =
           data.containsKey('description') ? data['description'] : '';
 
-      // Convert raw data for questions into List<IsuzumaQuestion>
       final questionsData =
           data.containsKey('questions') ? data['questions'] : [];
       final questions = List<IsuzumaQuestion>.from(
@@ -38,7 +33,6 @@ class IsuzumaService {
   }
 
   IsuzumaModel _isuzumaFromSnapshot(DocumentSnapshot documentSnapshot) {
-    // GET THE DATA FROM THE SNAPSHOT
     final data = documentSnapshot.data() as Map<String, dynamic>;
 
     // CHECK IF THE FIELDS EXIST BEFORE ASSIGNING TO THE VARIABLE
@@ -46,7 +40,7 @@ class IsuzumaService {
     final String title = data.containsKey('title') ? data['title'] : '';
     final String description =
         data.containsKey('description') ? data['description'] : '';
-          final questionsData =
+    final questionsData =
         data.containsKey('questions') ? data['questions'] : [];
     final questions = List<IsuzumaQuestion>.from(
         questionsData.map((qnData) => IsuzumaQuestion.fromJson(qnData)));
@@ -59,19 +53,15 @@ class IsuzumaService {
       questions: questions,
     );
   }
-// #############################################################################
-// GET DATA
-// #############################################################################
+
   // GET ALL AMASUZUMA
   Stream<List<IsuzumaModel>> get amasuzumabumenyi {
     return isuzumaCollection.snapshots().map(_amasuzumaFromSnapshot);
   }
 
-    Stream<IsuzumaModel?> getIsuzumaByTitle(String title) {
-    final documentsStream = isuzumaCollection
-        .where('title', isEqualTo: title)
-        .limit(1)
-        .snapshots();
+  Stream<IsuzumaModel?> getIsuzumaByTitle(String title) {
+    final documentsStream =
+        isuzumaCollection.where('title', isEqualTo: title).limit(1).snapshots();
 
     return documentsStream.map((querySnapshot) {
       final documents = querySnapshot.docs;
@@ -84,6 +74,3 @@ class IsuzumaService {
     });
   }
 }
-// #############################################################################
-// END OF FILE
-// #############################################################################

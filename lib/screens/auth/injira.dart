@@ -67,14 +67,10 @@ class _InjiraState extends State<Injira> {
         ? const LoadingWidget()
         : Scaffold(
             backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-            // APP BAR
             appBar: const PreferredSize(
               preferredSize: Size.fromHeight(58.0),
               child: AppBarTegura(),
             ),
-
-            // PAGE BODY
             body: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -129,7 +125,7 @@ class _InjiraState extends State<Injira> {
                           ),
                         )
                       : Container(),
-                  // 1. GRADIENT TITLE
+
                   const GradientTitle(
                       title: 'INJIRA', icon: 'assets/images/injira.svg'),
 
@@ -241,13 +237,12 @@ class _InjiraState extends State<Injira> {
                                   } else {
                                     Navigator.pop(context);
                                   }
-
-                                  // SHOW SNACKBAR TO SHOW SUCCESSFUL LOGIN
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                    content: Text('Kwinjira byagenze neza!'),
-                                    backgroundColor: Colors.green,
-                                  ));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text('Kwinjira byagenze neza!'),
+                                          backgroundColor:
+                                              Color(0xFF00A651)));
                                 }
                               } else {
                                 print('\nSigned in!!\n');

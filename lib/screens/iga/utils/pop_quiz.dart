@@ -68,20 +68,18 @@ class _PopQuizState extends State<PopQuiz> {
       }
     }
 
+    print(widget.popQuestions[currQnID].ingingoID);
+
     return currQnID >= 0 && currQnID < widget.popQuestions.length
         ? Scaffold(
             backgroundColor: const Color.fromARGB(255, 228, 225, 225),
-
-            // APP BAR
             appBar: const PreferredSize(
               preferredSize: Size.fromHeight(58.0),
               child: AppBarTegura(),
             ),
-            // PAGE BODY
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  // 1. GRADIENT TITLE
                   Container(
                     padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 4.0),
                     decoration: const BoxDecoration(
@@ -148,16 +146,15 @@ class _PopQuizState extends State<PopQuiz> {
                           children: widget.popQuestions[currQnID].options
                               .map<Widget>((option) {
                             return CustomRadioButton(
-                              // PROPERTIES
                               option: option,
-                              isSelected: option['id'] == selectedOption,
+                              isSelected: option.id == selectedOption,
                               isThisCorrect: isCurrentCorrect,
 
                               // ON CHANGE
                               onChanged: (value) {
                                 setState(() {
-                                  selectedOption = option['id'];
-                                  isCurrentCorrect = option['isCorrect'];
+                                  selectedOption = option.id;
+                                  isCurrentCorrect = option.isCorrect;
                                 });
                               },
                             );

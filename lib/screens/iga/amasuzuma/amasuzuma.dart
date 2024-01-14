@@ -55,16 +55,11 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
 
         return Scaffold(
             backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-            // APP BAR
             appBar: const PreferredSize(
               preferredSize: Size.fromHeight(58.0),
               child: AppBarTegura(),
             ),
-
-            // PAGE BODY
             body: ListView(children: <Widget>[
-              // 1. GRADIENT TITLE
               const GradientTitle(
                   title: 'AMASUZUMABUMENYI YOSE',
                   icon: 'assets/images/amasuzumabumenyi.svg'),
@@ -109,8 +104,6 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
               for (var i = 0; i < amasuzumabumenyi.length; i++)
                 AmasuzumaCard(isuzuma: amasuzumabumenyi[i])
             ]),
-
-            // BOTTOM NAVIGATION BAR
             bottomNavigationBar: const RebaIbiciro());
       }),
     );

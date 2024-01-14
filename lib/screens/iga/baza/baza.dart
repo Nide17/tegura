@@ -18,16 +18,11 @@ class _BazaState extends State<Baza> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-        // APP BAR
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(58.0),
           child: AppBarTegura(),
         ),
-
-        // PAGE BODY
         body: ListView(children: <Widget>[
-          // 1. GRADIENT TITLE
           const GradientTitle(
               title: 'BAZA MWARIMU', icon: 'assets/images/ibibazo_bibaza.svg'),
 
@@ -44,7 +39,6 @@ class _BazaState extends State<Baza> {
             height: MediaQuery.of(context).size.height * 0.01,
           ),
 
-          // VERTICAL SPACE
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
           ),
@@ -52,8 +46,6 @@ class _BazaState extends State<Baza> {
           // SOCIAL MEDIA
           const Social(),
         ]),
-
-        // BOTTOM NAVIGATION BAR
         bottomNavigationBar: const RebaIbiciro());
   }
 }

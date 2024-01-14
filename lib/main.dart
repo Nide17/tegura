@@ -27,7 +27,6 @@ import 'package:tegura/firebase_services/isomodb.dart';
 import 'package:tegura/utilities/loading_lightning.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-// ENTRY POINT OF THE APP - MAIN FUNCTION
 Future main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,10 +60,8 @@ class TeguraApp extends StatefulWidget {
 }
 
 class _TeguraAppState extends State<TeguraApp> {
-  // CHECK INTERNET CONNECTION
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-
   late ConnectionStatus _connectionStatus;
 
   @override
@@ -104,16 +101,12 @@ class _TeguraAppState extends State<TeguraApp> {
   // BUILD METHOD
   @override
   Widget build(BuildContext context) {
-    // RETURN THE APP
     return MultiProvider(
       providers: [
-        // PROVIDE INTERNET CONNECTION STATUS
         ChangeNotifierProvider<ConnectionStatus>(
           create: (context) => _connectionStatus,
         ),
-        // PROVIDE FIREBASE FIRESTORE INSTANCE - DB REFERENCE TO PROFILES COLLECTION
         StreamProvider<ProfileModel?>.value(
-          // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value: FirebaseAuth.instance.currentUser != null
               ? ProfileService()
                   .getCurrentProfile(FirebaseAuth.instance.currentUser!.uid)
@@ -128,7 +121,6 @@ class _TeguraAppState extends State<TeguraApp> {
 
         // PROVIDE FIREBASE AUTH INSTANCE
         StreamProvider<UserModel?>.value(
-          // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value: AuthService().getUser,
           initialData: null,
 
@@ -136,9 +128,7 @@ class _TeguraAppState extends State<TeguraApp> {
             return null;
           },
         ),
-        // PROVIDE FIREBASE FIRESTORE INSTANCE - DB REFERENCE TO PROFILES COLLECTION
         StreamProvider<List<IsomoModel?>?>.value(
-          // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value: IsomoService()
               .getAllAmasomo(FirebaseAuth.instance.currentUser?.uid),
           initialData: null,
@@ -149,7 +139,6 @@ class _TeguraAppState extends State<TeguraApp> {
         ),
 
         StreamProvider<List<CourseProgressModel?>?>.value(
-          // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value: CourseProgressService()
               .getUserProgresses(FirebaseAuth.instance.currentUser?.uid),
           initialData: null,
@@ -160,18 +149,11 @@ class _TeguraAppState extends State<TeguraApp> {
         ),
       ],
       child: MaterialApp(
-        // REMOVE DEBUG BANNER
         debugShowCheckedModeBanner: false,
-
-        // APP THEME
         theme: ThemeData(primarySwatch: Colors.blue),
-
-        // HOME PAGE - LOADING FIRST
         home: const LoadingLightning(
           duration: 4,
         ),
-
-        // ROUTES
         routes: {
           '/iga-landing': (context) => const IgaLanding(),
           '/ibiciro': (context) => const Ibiciro(),

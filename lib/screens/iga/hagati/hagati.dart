@@ -24,25 +24,18 @@ class _HagatiState extends State<Hagati> {
   Widget build(BuildContext context) {
     final usr = Provider.of<UserModel?>(context);
 
-    // RETURN THE WIDGETS
     return MultiProvider(
         providers: [
-          // GET THE AMASOMO
           StreamProvider<List<IsomoModel?>?>.value(
-            // WHAT TO GIVE TO THE CHILDREN WIDGETS
             value: IsomoService().getAllAmasomo(usr?.uid),
             initialData: null,
-
             catchError: (context, error) {
               return [];
             },
           ),
-
           StreamProvider<List<CourseProgressModel?>?>.value(
-            // WHAT TO GIVE TO THE CHILDREN WIDGETS
             value: CourseProgressService().getUserProgresses(usr?.uid),
             initialData: null,
-
             catchError: (context, error) {
               return [];
             },
@@ -51,10 +44,8 @@ class _HagatiState extends State<Hagati> {
         child: Consumer<List<IsomoModel?>?>(builder: (context, amasomo, child) {
           return Consumer<List<CourseProgressModel?>?>(
               builder: (context, progresses, child) {
-            // LIST OF PROGRESSES THAT ARE NOT FINISHED BY THE USER AND ALSO THE ONES THAT ARE NOT STARTED
             List<CourseProgressModel?>? notFinishedProgresses = [];
 
-            // GET UNFINISHED PROGRESSES
             if (progresses != null) {
               notFinishedProgresses = progresses
                   .where((progress) =>
@@ -62,7 +53,6 @@ class _HagatiState extends State<Hagati> {
                   .toList();
             }
 
-            // GET THE AMASOMOS THAT ARE NOT STARTED, MAKE EMPTY PROGRESSES FOR THEM, ADD THEM TO THE PROGRESSES LIST
             if (amasomo != null) {
               for (var isomo in amasomo) {
                 if (progresses != null) {
@@ -80,35 +70,24 @@ class _HagatiState extends State<Hagati> {
               }
             }
 
-            // OVERALL PROGRESS - RATIO OF FINISHED PROGRESSES TO ALL PROGRESSES
             final overallProgress = usr != null && amasomo != null
                 ? (amasomo.length - notFinishedProgresses.length) /
                     amasomo.length
                 : 0.0;
 
-            // LIST OF INGINGOS CONSUMER
             return Scaffold(
                 backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-                // APP BAR
                 appBar: const PreferredSize(
                   preferredSize: Size.fromHeight(58.0),
                   child: AppBarTegura(),
                 ),
-
-                // PAGE BODY
                 body: ListView(children: <Widget>[
-                  // 1. GRADIENT TITLE
                   const GradientTitle(
                       title: 'AMASOMO UGEZEMO HAGATI',
                       icon: 'assets/images/video_icon.svg'),
-
-                  // 2. ADD 10.0 PIXELS OF SPACE
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
-
-                  // 3. ELLIPSE WITH SPACES IN THE STROKE
                   ProgressCircle(
                     percent: usr != null ? overallProgress : 0.0,
                     progress: usr != null
@@ -116,7 +95,6 @@ class _HagatiState extends State<Hagati> {
                         : 'Banza winjire!',
                     usr: usr,
                   ),
-
                   if (usr != null)
                     AmasomoProgress(
                         userId: usr.uid,
@@ -126,8 +104,6 @@ class _HagatiState extends State<Hagati> {
                   else
                     const ViewNotLoggedIn(),
                 ]),
-
-                // BOTTOM NAVIGATION BAR
                 bottomNavigationBar: const RebaIbiciro());
           });
         }));

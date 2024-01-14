@@ -31,14 +31,10 @@ class _WibagiweState extends State<Wibagiwe> {
 
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-        // APP BAR
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(58.0),
           child: AppBarTegura(),
         ),
-
-        // PAGE BODY
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -50,7 +46,6 @@ class _WibagiweState extends State<Wibagiwe> {
           ),
           child: ListView(
             children: [
-              // 1. GRADIENT TITLE
               const GradientTitle(
                   title: 'WIBAGIWE IJAMBOBANGA?',
                   icon: 'assets/images/wibagiwe.svg'),
@@ -135,7 +130,6 @@ class _WibagiweState extends State<Wibagiwe> {
                         },
                       ),
 
-                      // VERTICAL SPACE
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
@@ -149,7 +143,6 @@ class _WibagiweState extends State<Wibagiwe> {
                         route: '/injira',
                       ),
 
-                      // VERTICAL SPACE
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),

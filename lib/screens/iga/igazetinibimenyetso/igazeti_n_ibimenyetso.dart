@@ -21,16 +21,11 @@ class _IgazetiState extends State<Igazeti> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-        // APP BAR
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(58.0),
           child: AppBarTegura(),
         ),
-
-        // PAGE BODY
         body: ListView(children: <Widget>[
-          // 1. GRADIENT TITLE
           const GradientTitle(
               title: 'IGAZETI N\'IBIMENYETSO',
               icon: 'assets/images/igazeti.svg'),
@@ -97,8 +92,6 @@ class _IgazetiState extends State<Igazeti> {
             ],
           ),
         ]),
-
-        // BOTTOM NAVIGATION BAR
         bottomNavigationBar: const RebaIbiciro());
   }
 }

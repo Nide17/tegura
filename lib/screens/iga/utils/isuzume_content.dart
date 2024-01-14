@@ -35,13 +35,9 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
         ChangeNotifierProvider(
           create: (context) => QuizScoreProvider(),
         ),
-        // STREAM PROVIDER FOR POP QUESTIONS
         StreamProvider<List<PopQuestionModel>?>.value(
-          // WHAT TO GIVE TO THE CHILDREN WIDGETS
-          value: PopQuestionService().getPopQuestionsByIsomoID(
-              widget.isomo.id), // GET THE POP QUESTIONS
+          value: PopQuestionService().getPopQuestionsByIsomoID(widget.isomo.id),
           initialData: null,
-
           catchError: (context, error) {
             return [];
           },
@@ -55,7 +51,6 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                 return const LoadingWidget();
               }
 
-              // SET Total Marks, Marks, User ID, Isomo ID
               scoreProviderModel.quizScore.setUserID(usr!.uid);
               scoreProviderModel.quizScore.setIsomoID(widget.isomo.id);
 
@@ -144,13 +139,10 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                 },
                 child: Scaffold(
                   backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-
-                  // APP BAR
                   appBar: const PreferredSize(
                     preferredSize: Size.fromHeight(58.0),
                     child: AppBarTegura(),
                   ),
-                  // PAGE BODY
                   body: IsuzumeDetails(
                     isomo: widget.isomo,
                     userID: usr.uid,
@@ -161,7 +153,6 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                     setSelectedOption: setSelectedOption,
                     showQn: showQn,
                   ),
-
                   bottomNavigationBar: popQuestions.isEmpty ||
                           scoreProviderModel.quizScore
                                   .getIsAtleastOneAnswered() ==
@@ -219,12 +210,11 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                                       builder: (context) {
                                         return ErrorAlert(
                                           errorTitle: 'Isuzumabumenyi',
-                                          errorMsg:
-                                              'Wasoje kwisuzuma!',
+                                          errorMsg: 'Wasoje kwisuzuma!',
                                           firstButtonTitle: 'Inyuma',
                                           firstButtonFunction: () {
-                                                    Navigator.of(context).pop();
-                                                    Navigator.pop(context);
+                                            Navigator.of(context).pop();
+                                            Navigator.pop(context);
                                           },
                                         );
                                       });
@@ -296,7 +286,7 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
   }
 
 // SET THE SELECTED OPTION AND THE CORRECTNESS OF THE ANSWER
-  void setSelectedOption(Map<String, dynamic>? option) {
+  void setSelectedOption(OptionPopQn? option) {
     if (option == null) {
       setState(() {
         selectedOption = -1;
@@ -305,8 +295,8 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
       return;
     }
     setState(() {
-      selectedOption = option['id'];
-      isCurrentCorrect = option['isCorrect'];
+      selectedOption = option.id;
+      isCurrentCorrect = option.isCorrect;
     });
   }
 }

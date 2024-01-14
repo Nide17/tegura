@@ -1,13 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:tegura/firebase_services/auth.dart';
 import 'package:tegura/firebase_services/payment_db.dart';
 import 'package:tegura/firebase_services/profiledb.dart';
 import 'package:tegura/main.dart';
 import 'package:tegura/models/payment.dart';
 import 'package:tegura/models/profile.dart';
 import 'package:tegura/models/user.dart';
-import 'package:tegura/firebase_services/auth.dart';
 import 'package:tegura/screens/iga/utils/error_alert.dart';
 
 class AppBarTegura extends StatefulWidget {
@@ -18,39 +20,79 @@ class AppBarTegura extends StatefulWidget {
 }
 
 class _AppBarTeguraState extends State<AppBarTegura> {
+  final CollectionReference paymentsCollection =
+      FirebaseFirestore.instance.collection('payments');
+
+  // GET THE CURRENT USER
+  final usr = FirebaseAuth.instance.currentUser;
+
+  // TRACK IF THERE IS A CHANGE IN THE PAYMENT COLLECTION
+  Stream<QuerySnapshot> get payments {
+    return paymentsCollection.where('userId', isEqualTo: usr!.uid).snapshots();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    payments.listen((event) {
+      for (var change in event.docChanges) {
+        dynamic doc = change.doc.data();
+        if (change.type == DocumentChangeType.modified &&
+            doc['userId'] == usr!.uid) {
+          String msg = doc['isApproved'] == true
+              ? 'Ifatabuguzi ryawe ryemejwe. Ubu watangira kwiga!'
+              : 'Ifatabuguzi ryawe ryahinduwe. Murakoze!';
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(msg),
+              action: SnackBarAction(
+                label: 'Funga',
+                onPressed: () {
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                },
+              ),
+              duration: const Duration(seconds: 20),
+              backgroundColor: doc['isApproved'] == true
+                  ? const Color(0xFF00A651)
+                  : const Color.fromARGB(255, 255, 0, 0),
+            ),
+          );
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // GET PROVIDER USER
     final usr = Provider.of<UserModel?>(context);
     final conn = Provider.of<ConnectionStatus>(context);
-    print("Conn in app bar build: ${conn.isOnline}");
+    // ignore: avoid_print
+    print('Connection status: ${conn.toString()}');
 
+// PROVIDERS
     return MultiProvider(
       providers: [
-        // GET CURRENT PAYMENT PLAN
         StreamProvider<PaymentModel?>.value(
-          // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value: usr != null
-              ? PaymentService().getLatestpaymentsByUserId(usr.uid)
+              ? PaymentService().getNewestPytByUserId(usr.uid)
               : null,
           initialData: null,
-
           catchError: (context, error) {
             return null;
           },
         ),
         StreamProvider<ProfileModel?>.value(
-          // WHAT TO GIVE TO THE CHILDREN WIDGETS
           value:
               usr != null ? ProfileService().getCurrentProfile(usr.uid) : null,
           initialData: null,
-
           catchError: (context, error) {
             return null;
           },
         ),
       ],
-      child: Consumer<PaymentModel?>(builder: (context, payment, _) {
+
+      // CONSUMERS
+      child: Consumer<PaymentModel?>(builder: (context, newestPyt, _) {
         return Consumer<ProfileModel?>(builder: (context, profile, _) {
           String username = profile != null
               ? profile.username!
@@ -60,10 +102,7 @@ class _AppBarTeguraState extends State<AppBarTegura> {
           return AppBar(
             backgroundColor: const Color(0xFF5B8BDF),
             automaticallyImplyLeading: false,
-
-            // BOTTOM BORDER OF THE APP BAR
             bottom: PreferredSize(
-              // SET RESPONSIVE HEIGHT OF THE BOTTOM BORDER
               preferredSize: MediaQuery.of(context).size * 0.001,
               child: Container(
                 color: const Color(0xFFFFBD59),
@@ -72,18 +111,14 @@ class _AppBarTeguraState extends State<AppBarTegura> {
             ),
             title: Row(
               children: <Widget>[
-                // ARRAY OF WIDGETS - ROW
                 SvgPicture.asset(
                   'assets/images/car.svg',
                   height: MediaQuery.of(context).size.height * 0.045,
                 ),
-
-                // SPACING BETWEEN THE TWO WIDGETS
                 SizedBox(
                   width: MediaQuery.of(context).size.height * 0.012,
                 ),
-
-                Text('Tegura.rw', // TEXT WIDGET
+                Text('Tegura.rw',
                     style: TextStyle(
                       color: const Color.fromARGB(255, 0, 0, 0),
                       fontWeight: FontWeight.w900,
@@ -91,14 +126,9 @@ class _AppBarTeguraState extends State<AppBarTegura> {
                     )),
               ],
             ),
-
-            // USER PROFILE ICON BUTTON - RIGHT SIDE OF THE APP BAR
-            // CHECK IF USER IS LOGGED IN OR NOT BEFORE
             actions: <Widget>[
-              // IF USER IS LOGGED IN
               if (usr != null && profile != null)
                 IconButton(
-                  // USE CUSTOM ICON - SVG
                   icon: profile.photo == null || profile.photo == ''
                       ? SvgPicture.asset(
                           'assets/images/avatar.svg',
@@ -108,11 +138,18 @@ class _AppBarTeguraState extends State<AppBarTegura> {
                           backgroundImage: NetworkImage(profile.photo!),
                         ),
                   onPressed: () {
-                    // OPEN A DIALOG BOX TO DISPLAY USER DETAILS AND LOGOUT BUTTON
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                MediaQuery.of(context).size.width * 0.024),
+                            side: BorderSide(
+                              color: const Color(0xFF5B8BDF),
+                              width: MediaQuery.of(context).size.width * 0.01,
+                            ),
+                          ),
                           icon: profile.photo == null || profile.photo == ''
                               ? SvgPicture.asset(
                                   'assets/images/avatar.svg',
@@ -142,10 +179,9 @@ class _AppBarTeguraState extends State<AppBarTegura> {
                                   ]),
                             ),
                           ),
-                          backgroundColor:
-                              const Color.fromARGB(255, 201, 222, 255),
+                          backgroundColor: const Color(0xFFFFBD59),
                           elevation: 10.0,
-                          shadowColor: const Color(0xFFFFF59D),
+                          shadowColor: const Color(0xFF5B8BDF),
                           content: SingleChildScrollView(
                             child: ListBody(
                               children: <Widget>[
@@ -155,70 +191,91 @@ class _AppBarTeguraState extends State<AppBarTegura> {
                                 ),
                                 Align(
                                   child: Text(
-                                      payment == null
+                                      newestPyt == null
                                           ? 'NTA FATABUGUZI URAFATA'
-                                          : payment.getRemainingDays() > 0
+                                          : newestPyt.getRemainingDays() > 0 &&
+                                                  newestPyt.isApproved == true
                                               ? 'IFATABUGUZI RYAWE'
-                                              : 'IFATABUGUZI RYARANGIYE!',
+                                              : newestPyt.getRemainingDays() >
+                                                          0 &&
+                                                      newestPyt.isApproved ==
+                                                          false
+                                                  ? ''
+                                                  : 'IFATABUGUZI RYARANGIYE!',
                                       style: TextStyle(
                                         fontWeight: FontWeight.w900,
-                                        decoration: TextDecoration.underline,
-                                        color: payment != null &&
-                                                payment.getRemainingDays() > 0
-                                            ? const Color.fromARGB(255, 0, 0, 0)
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
+                                        color: newestPyt != null &&
+                                                newestPyt.getRemainingDays() > 0
+                                            ? const Color.fromARGB(
+                                                255, 255, 255, 255)
                                             : const Color.fromARGB(
                                                 255, 255, 0, 0),
                                       )),
                                 ),
-                                if (payment != null &&
-                                    payment.getRemainingDays() > 0 &&
-                                    payment.isApproved == true)
+                                if (newestPyt != null &&
+                                    newestPyt.getRemainingDays() > 0 &&
+                                    newestPyt.isApproved == true)
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.024,
                                   ),
-                                if (payment != null &&
-                                    payment.getRemainingDays() > 0 &&
-                                    payment.isApproved == true)
+                                if (newestPyt != null &&
+                                    newestPyt.getRemainingDays() > 0 &&
+                                    newestPyt.isApproved == true)
                                   Text(
-                                      'Rizarangira: ${payment.getFormatedEndDate()}',
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15.0,
-                                          color:
-                                              Color.fromARGB(255, 61, 61, 61))),
-                                const SizedBox(height: 10.0),
-                                if (payment != null &&
-                                    payment.getRemainingDays() > 0 &&
-                                    payment.isApproved == true)
-                                  Text(
-                                      'Iminsi usigaje: ${payment.getRemainingDays()}',
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15.0,
-                                          color:
-                                              Color.fromARGB(255, 61, 61, 61))),
-                                const SizedBox(height: 10.0),
-                                if (payment != null &&
-                                    payment.getRemainingDays() > 0 &&
-                                    payment.isApproved == false)
-                                  const Text('Ntiriremezwa',
+                                      'Rizarangira kuri ${newestPyt.getFormatedEndDate()}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.004,
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 15.0,
-                                        color: Color.fromARGB(255, 255, 0, 0),
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.036,
+                                        color: const Color.fromARGB(
+                                            255, 0, 27, 116),
+                                      )),
+                                if (newestPyt != null &&
+                                    newestPyt.getRemainingDays() > 0 &&
+                                    newestPyt.isApproved == true)
+                                  Text(
+                                      'Usigaje iminsi ${newestPyt.getRemainingDays()}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.0032,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.032,
+                                        color: const Color.fromARGB(
+                                            255, 0, 27, 116),
+                                      )),
+                                const SizedBox(height: 10.0),
+                                if (newestPyt != null &&
+                                    newestPyt.getRemainingDays() > 0 &&
+                                    newestPyt.isApproved == false)
+                                  Text('Ifatabuguzi ryawe ntiriremezwa',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
+                                        color: const Color.fromARGB(
+                                            255, 255, 0, 0),
                                       )),
                               ],
                             ),
                           ),
                           actions: <Widget>[
-                            // LOGOUT BUTTON WITH logout.svg ICON
                             GestureDetector(
                               onTap: () {
-                                // OPEN A CONFIRMATION DIALOG BOX
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {

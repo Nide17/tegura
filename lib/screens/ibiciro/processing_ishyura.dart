@@ -15,7 +15,6 @@ import 'package:tegura/utilities/spinner.dart';
 class ProcessingIshyura extends StatefulWidget {
   final IfatabuguziModel ifatabuguzi;
 
-  // CONSTRUCTOR
   const ProcessingIshyura({super.key, required this.ifatabuguzi});
 
   @override
@@ -34,7 +33,7 @@ class _ProcessingIshyuraState extends State<ProcessingIshyura> {
   Future<void> _loadPaymentData() async {
     if (FirebaseAuth.instance.currentUser != null) {
       PaymentModel pymt = await PaymentService()
-          .getUserLatestPaymentData(FirebaseAuth.instance.currentUser!.uid);
+          .getUserLatestPytData(FirebaseAuth.instance.currentUser!.uid);
       setState(() {
         payment = pymt;
       });
@@ -45,24 +44,20 @@ class _ProcessingIshyuraState extends State<ProcessingIshyura> {
   Widget build(BuildContext context) {
     final usr = Provider.of<UserModel?>(context);
     final String message = widget.ifatabuguzi.type != 'ur'
-        ? 'Andika nimero ugiye gukoresha wishyura yawe hasi aho, ubundi wishyure ${widget.ifatabuguzi.igiciro} RWF kuri MoMo: 0780579067'
-        : 'Provide your payment number below, then pay ${widget.ifatabuguzi.igiciro} RWF on MoMo: 0780579067';
+        ? 'Andika nimero ugiye gukoresha wishyura yawe hasi aho, ubundi wishyure ${widget.ifatabuguzi.igiciro} RWF kuri MoMo: 0794033360'
+        : 'Provide your payment number below, then pay ${widget.ifatabuguzi.igiciro} RWF on MoMo: 0794033360';
     // final String message = widget.ifatabuguzi.type != 'ur'
-    //     ? 'Ishyura ${widget.ifatabuguzi.igiciro} RWF kuri MoMo: 0780579067 \n Cyangwa ukande ino mibare kuri telefone yawe ukoreshe numero yawe ya MTN maze wishyure: \n*182*8*1*36921*${widget.ifatabuguzi.igiciro}#'
-    //     : 'Provide your number below or Pay ${widget.ifatabuguzi.igiciro} RWF on MoMo: 0780579067 \n or dial the following on your phone using your MTN momo phone number: \n*182*8*1*36921*${widget.ifatabuguzi.igiciro}#';
+    //     ? 'Ishyura ${widget.ifatabuguzi.igiciro} RWF kuri MoMo: 0794033360 \n Cyangwa ukande ino mibare kuri telefone yawe ukoreshe numero yawe ya MTN maze wishyure: \n*182*8*1*36921*${widget.ifatabuguzi.igiciro}#'
+    //     : 'Provide your number below or Pay ${widget.ifatabuguzi.igiciro} RWF on MoMo: 0794033360 \n or dial the following on your phone using your MTN momo phone number: \n*182*8*1*36921*${widget.ifatabuguzi.igiciro}#';
 
     return loading
         ? const Spinner()
         : Scaffold(
             backgroundColor: const Color.fromARGB(255, 71, 103, 158),
-
-            // APP BAR
             appBar: const PreferredSize(
               preferredSize: Size.fromHeight(58.0),
               child: AppBarTegura(),
             ),
-
-            // PAGE BODY
             body: ListView(
               // YELLOW MOMO PAYING CONTAINER
               children: [
@@ -120,8 +115,9 @@ class _ProcessingIshyuraState extends State<ProcessingIshyura> {
                           placeholder: widget.ifatabuguzi.type == 'ur'
                               ? 'Your Phone Number'
                               : 'Nimero yawe ya MTN',
-                          validation: widget.ifatabuguzi.type ==
-                              'ur' ? 'Please provide your MTN number' : 'Injiza numero ya MTN telefone yawe!',
+                          validation: widget.ifatabuguzi.type == 'ur'
+                              ? 'Please provide your MTN number'
+                              : 'Injiza numero ya MTN telefone yawe!',
 
                           // ON CHANGED
                           onChanged: (value) {

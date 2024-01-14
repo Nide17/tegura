@@ -8,7 +8,6 @@ class ProfileService {
 
   final String? uid;
 
-  // CONSTRUCTOR
   ProfileService({this.uid});
 
   // THIS FUNCTION WILL UPDATE THE USER DATA IN THE DATABASE WHEN THE USER SIGNS UP AND WHEN THE USER UPDATES HIS/HER PROFILE
@@ -116,15 +115,12 @@ class ProfileService {
 
     return profilesCollection.doc(uid).snapshots().map(_profileFromSnapshot);
   }
-
-  // APP BAR PROFILE DATA
+  
   Future<dynamic> getAppBarProfileData(String? uid) async {
-
     if (uid == null) {
       return null;
-    }
-    else {
-          // GET THE USER PROFILE DATA
+    } else {
+      // GET THE USER PROFILE DATA
       final profileData = await profilesCollection.doc(uid).get();
 
       // RETURN THE USER PROFILE DATA AS _profileFromSnapshot

@@ -37,38 +37,39 @@ class QBAppFooter extends StatelessWidget {
             MediaQuery.of(context).size.height * 0.024,
           ),
           itemBuilder: (context, index) {
-            return Container(
-              padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.01,
-              ),
-              child: TextButton(
-                onPressed: () => _handleClick(_icons[index]['link']),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      _icons[index]['icon'],
-                      height: MediaQuery.of(context).size.height * 0.028,
+            return TextButton(
+              onPressed: () => _handleClick(_icons[index]['url']),
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    _icons[index]['icon'],
+                    height: MediaQuery.of(context).size.height * 0.028,
+                    colorFilter: _icons[index]['url'].contains('www')
+                        ? null
+                        : const ColorFilter.mode(
+                            Color.fromARGB(255, 0, 0, 0),
+                            BlendMode.srcIn,
+                          ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.04,
+                  ),
+                  Text(
+                    _icons[index]['title'],
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.042,
+                      color: _icons[index]['title'].contains('@') ||
+                              _icons[index]['title'].contains('www')
+                          ? const Color.fromARGB(255, 0, 102, 185)
+                          : Colors.black,
+                      fontWeight: FontWeight.w900,
+                      decoration: _icons[index]['title'].contains('@') ||
+                              _icons[index]['title'].contains('www')
+                          ? TextDecoration.underline
+                          : TextDecoration.none,
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.04,
-                    ),
-                    Text(
-                      _icons[index]['link'],
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.042,
-                        color: _icons[index]['link'].contains('@') ||
-                                _icons[index]['link'].contains('www')
-                            ? const Color.fromARGB(255, 0, 102, 185)
-                            : Colors.black,
-                        fontWeight: FontWeight.w900,
-                        decoration: _icons[index]['link'].contains('@') ||
-                                _icons[index]['link'].contains('www')
-                            ? TextDecoration.underline
-                            : TextDecoration.none,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           },
@@ -96,95 +97,66 @@ class QBAppFooter extends StatelessWidget {
 List<Map<String, dynamic>> _icons = [
   {
     'icon': 'assets/images/whatsapp.svg',
-    'link': '0780579067',
+    'title': '0794033360',
+    'url': 'https://wa.me/+250794033360',
   },
   {
     'icon': 'assets/images/web.svg',
-    'link': 'www.quizblog.rw',
+    'title': 'www.quizblog.rw',
+    'url': 'https://www.quizblog.rw',
   },
   {
     'icon': 'assets/images/email.svg',
-    'link': 'quizblog.rw@gmail.com',
+    'title': 'quizblog.rw@gmail.com',
+    'url': 'mailto:quizblog.rw@gmail.com',
   },
   {
     'icon': 'assets/images/twitter.svg',
-    'link': 'QuizblogRw',
+    'title': 'QuizblogRw',
+    'url': 'https://twitter.com/QuizblogRw',
   },
   {
     'icon': 'assets/images/instagram.svg',
-    'link': 'quizblogrw',
+    'title': 'quizblogrw',
+    'url': 'https://www.instagram.com/quizblogrw',
   },
   {
     'icon': 'assets/images/linkedin.svg',
-    'link': 'quiz-blog',
+    'title': 'quiz-blog',
+    'url': 'https://www.linkedin.com/company/quiz-blog',
   },
   {
     'icon': 'assets/images/facebook.svg',
-    'link': 'QuizblogRw',
+    'title': 'QuizblogRw',
+    'url': 'https://www.facebook.com/QuizblogRw',
   },
 ];
 
 // Handle the click with corresponding link or text
-void _handleClick(String link) async {
-  // Open email link
-  if (link.contains('@')) {
-    if (await canLaunchUrl(Uri.parse('mailto:$link'))) {
-      await launchUrl(Uri.parse('mailto:$link'));
+void _handleClick(String url) async {
+  if (url.contains('0794033360')) {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
     } else {
-      throw 'Could not launch $link';
+      throw 'Could not launch $url';
     }
+  }
 
-    // Open website link
-  } else if (link.contains('www')) {
-    if (await canLaunchUrl(Uri.parse(link))) {
-      await launchUrl(Uri.parse(link), mode: LaunchMode.inAppBrowserView);
+  // Send email
+  else if (url.contains('mailto:')) {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
     } else {
-      throw 'Could not launch $link';
+      throw 'Could not launch $url';
     }
+  }
 
-    // Open whatsapp link
-  } else if (link.contains('0780579067')) {
-    if (await canLaunchUrl(Uri.parse('https://wa.me/$link'))) {
-      await launchUrl(Uri.parse('https://wa.me/$link'));
+  // Open url
+  else {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url), mode: LaunchMode.inAppBrowserView);
     } else {
-      throw 'Could not launch $link';
-    }
-
-    // Open twitter link
-  } else if (link.contains('QuizblogRw')) {
-    if (await canLaunchUrl(Uri.parse('https://twitter.com/$link'))) {
-      await launchUrl(Uri.parse('https://twitter.com/$link'),
-          mode: LaunchMode.inAppBrowserView);
-    } else {
-      throw 'Could not launch $link';
-    }
-
-    // Open instagram link
-  } else if (link.contains('quizblogrw')) {
-    if (await canLaunchUrl(Uri.parse('https://www.instagram.com/$link'))) {
-      await launchUrl(Uri.parse('https://www.instagram.com/$link'),
-          mode: LaunchMode.inAppBrowserView);
-    } else {
-      throw 'Could not launch $link';
-    }
-
-    // Open linkedin link
-  } else if (link.contains('quiz-blog')) {
-    if (await canLaunchUrl(
-        Uri.parse('https://www.linkedin.com/company/$link'))) {
-      await launchUrl(Uri.parse('https://www.linkedin.com/company/$link'),
-          mode: LaunchMode.inAppBrowserView);
-    } else {
-      throw 'Could not launch $link';
-    }
-
-    // Open facebook link
-  } else if (link.contains('QuizblogRw')) {
-    if (await canLaunchUrl(Uri.parse('https://www.facebook.com/$link'))) {
-      await launchUrl(Uri.parse('https://www.facebook.com/$link'),
-          mode: LaunchMode.inAppBrowserView);
-    } else {
-      throw 'Could not launch $link';
+      throw 'Could not launch $url';
     }
   }
 }

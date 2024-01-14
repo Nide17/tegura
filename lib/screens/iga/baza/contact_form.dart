@@ -22,11 +22,11 @@ class _ContactFormState extends State<ContactForm> {
   @override
   Widget build(BuildContext context) {
     Future<bool> sendEmail() async {
-      final smtpServer = gmail('quizblog.rw@gmail.com', 'ixvepscvgpgxyftz');
+      final smtpServer = gmail('tegura.rw@gmail.com', 'ixvepscvgpgxyftz');
 
       final message = Message()
         ..from = Address('$email', '$_name')
-        ..recipients.add('quizblog.rw@gmail.com')
+        ..recipients.add('tegura.rw@gmail.com')
         ..subject = 'Message from $_name[$email]'
         ..text = _message;
 
@@ -116,13 +116,12 @@ class _ContactFormState extends State<ContactForm> {
                         _formKey.currentState!.reset();
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text(
-                              'Ubutumwa bwawe bwagiye!',
-                              textAlign: TextAlign.center,
-                            ),
-                            duration: Duration(seconds: 10),
-                            backgroundColor: Colors.green,
-                          ),
+                              content: Text(
+                                'Ubutumwa bwawe bwagiye!',
+                                textAlign: TextAlign.center,
+                              ),
+                              duration: Duration(seconds: 10),
+                              backgroundColor: const Color(0xFF00A651)),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

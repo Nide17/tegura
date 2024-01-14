@@ -10,7 +10,6 @@ class Subscription extends StatelessWidget {
   final IfatabuguziModel ifatabuguzi;
   final String curWidget;
 
-  // CONSTRUCTOR
   const Subscription(
       {super.key,
       required this.title,
@@ -196,7 +195,6 @@ class Subscription extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      // VERTICAL SPACE
                                       SizedBox(
                                         height:
                                             MediaQuery.of(context).size.height *

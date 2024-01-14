@@ -4,7 +4,6 @@ class ContentTitlenText extends StatefulWidget {
   final String? title;
   final String? text;
 
-  // CONSTRUCTOR
   const ContentTitlenText({super.key, this.text, this.title});
 
   @override

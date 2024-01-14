@@ -103,12 +103,10 @@ class _IsuzumaScoreReviewState extends State<IsuzumaScoreReview> {
                 'Wagize ${scorePrModel.marks}/${scorePrModel.totalMarks}';
 
             return Scaffold(
-              // APP BAR
               appBar: const PreferredSize(
                 preferredSize: Size.fromHeight(58.0),
                 child: AppBarTegura(),
               ),
-
               body: Container(
                 padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 4.0),
                 decoration: const BoxDecoration(
