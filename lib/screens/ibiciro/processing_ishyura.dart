@@ -7,7 +7,7 @@ import 'package:tegura/models/payment.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/ibiciro/ifatabuguzi.dart';
 import 'package:tegura/screens/ibiciro/subscription.dart';
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/utilities/default_input.dart';
 import 'package:tegura/utilities/spinner.dart';
@@ -110,28 +110,21 @@ class _ProcessingIshyuraState extends State<ProcessingIshyura> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // TELEPHONE NUMBER
                         DefaultInput(
                           placeholder: widget.ifatabuguzi.type == 'ur'
-                              ? 'Your Phone Number'
+                              ? 'Your MTN Number'
                               : 'Nimero yawe ya MTN',
                           validation: widget.ifatabuguzi.type == 'ur'
                               ? 'Please provide your MTN number'
                               : 'Injiza numero ya MTN telefone yawe!',
-
-                          // ON CHANGED
                           onChanged: (value) {
                             setState(() {
                               phone = value;
                             });
                           },
                         ),
-
-                        // CONFIRM PAYMENT
                         GestureDetector(
-                          // NAVIGATE TO THE CHILD PAGE
                           onTap: () async {
-                            // CREATE A NEW PAYMENT OBJECT
                             PaymentModel payment = PaymentModel(
                                 createdAt: DateTime.now(),
                                 endAt: widget.ifatabuguzi.getEndDate(),
@@ -162,9 +155,10 @@ class _ProcessingIshyuraState extends State<ProcessingIshyura> {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return ErrorAlert(
+                                        return TeguraAlert(
                                             errorTitle: 'Error',
-                                            errorMsg: error);
+                                            errorMsg: error,
+                                            alertType: 'error');
                                       });
                                 });
                               } else {

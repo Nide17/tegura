@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:tegura/firebase_services/isomodb.dart';
+import 'package:tegura/firebase_services/isomo_db.dart';
 import 'package:tegura/firebase_services/isuzuma_score_db.dart';
 import 'package:tegura/models/isuzuma.dart';
 import 'package:tegura/models/isuzuma_score.dart';
@@ -76,15 +76,17 @@ class _IsuzumaOverviewState extends State<IsuzumaOverview> {
           body: ListView(children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width * 0.4,
-              margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.05,
-                vertical: MediaQuery.of(context).size.height * 0.05,
+              margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.width * 0.05,
+                right: MediaQuery.of(context).size.height * 0.02,
+                left: MediaQuery.of(context).size.height * 0.02,
+                bottom: MediaQuery.of(context).size.height * 0.02,
               ),
               decoration: BoxDecoration(
                 color: const Color(0xFF00CCE5),
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(
-                  width: 2.0,
+                  width: MediaQuery.of(context).size.width * 0.008,
                   color: const Color(0xFFFFBD59),
                 ),
               ),
@@ -92,57 +94,86 @@ class _IsuzumaOverviewState extends State<IsuzumaOverview> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // TITLE
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // ICON
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 6.0,
-                        ),
-                        child: Image.asset(
-                          'assets/images/isuzuma.png',
-                          height: MediaQuery.of(context).size.height * 0.028,
-                        ),
-                      ),
-
-                      // TEXT WIDGET
-                      Flexible(
-                        child: Text(
-                          widget.isuzuma.title.toUpperCase(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * 0.045,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.01,
+                      bottom: MediaQuery.of(context).size.height * 0.006,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 6.0,
+                          ),
+                          child: Image.asset(
+                            'assets/images/isuzuma.png',
+                            height: MediaQuery.of(context).size.height * 0.028,
                           ),
                         ),
-                      ),
-                    ],
+                        Flexible(
+                          child: Text(
+                            widget.isuzuma.title.toUpperCase(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.045,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
 
-                  // BOTTOM BORDER OF THE ABOVE SECTION
                   Container(
                     color: const Color(0xFFFFBD59),
                     height: MediaQuery.of(context).size.height * 0.009,
+                    margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.008,
+                    ),
                   ),
 
-                  // PNG ICON
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8.0,
                       vertical: 6.0,
                     ),
-                    child: Text(
-                        'Iri suzumabumenyi rigizwe n’ibibazo ${widget.isuzuma.questions.length} kumasomo akurikira:',
-                        textAlign: TextAlign.center,
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: 'Iri suzumabumenyi rigizwe n’ibibazo ',
+                          ),
+                          TextSpan(
+                            text: '${widget.isuzuma.questions.length} ',
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 0, 27, 116),
+                            ),
+                          ),
+                          const TextSpan(
+                            text: 'bikorwa mu minota ',
+                          ),
+                          const TextSpan(
+                            text: '20, ',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 0, 27, 116),
+                            ),
+                          ),
+                          const TextSpan(
+                            text: ' kumasomo akurikira:',
+                          ),
+                        ],
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * 0.036,
                           color: const Color.fromARGB(255, 255, 255, 255),
                           fontWeight: FontWeight.w500,
-                        )),
+                        ),
+                      ),
+                    ),
                   ),
 
                   // ORDERED LIST OF amasomo - HEIGHT = HEIGHT OF LIST amasomo
@@ -159,10 +190,10 @@ class _IsuzumaOverviewState extends State<IsuzumaOverview> {
                             itemBuilder: (context, index) {
                               return ListTile(
                                 dense: true,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 0.0),
                                 visualDensity: const VisualDensity(
-                                    horizontal: 0, vertical: -4),
+                                  horizontal: 0,
+                                  vertical: -4,
+                                ),
                                 leading: Text(
                                   '${index + 1}.',
                                   style: TextStyle(
@@ -233,9 +264,11 @@ class _IsuzumaOverviewState extends State<IsuzumaOverview> {
                   )
                 : Container(),
 
-            // BUTTON TANGIRA UKORE
             Container(
               width: MediaQuery.of(context).size.width * 0.45,
+              margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.width * 0.025,
+              ),
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: () {
@@ -262,7 +295,6 @@ class _IsuzumaOverviewState extends State<IsuzumaOverview> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // PLAY BUTTON PNG
                     Align(
                       alignment: Alignment.center,
                       child: SvgPicture.asset(

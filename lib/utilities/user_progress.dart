@@ -7,7 +7,7 @@ import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/payment.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/ibiciro/ibiciro.dart';
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/screens/iga/utils/iga_content.dart';
 import 'package:tegura/screens/iga/utils/isuzume_content.dart';
 import 'package:tegura/firebase_services/isomo_progress.dart';
@@ -96,33 +96,53 @@ class UserProgress extends StatelessWidget {
                   );
                 }
 
-                payment != null && payment.isApproved != true
-                    ? showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ErrorAlert(
-                            errorTitle: 'Ntibyagenze neza',
-                            errorMsg: payment.isApproved == false
-                                ? 'Ifatabuguzi ryawe ntiriremezwa'
-                                : 'Ongera ugerageze!',
-                          );
-                        })
-                    : Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => payment == null ||
-                                    !payment.endAt.isAfter(DateTime.now())
-                                ? const Ibiciro(
-                                    message: 'Banza ugure ifatabuguzi!')
-                                : percent != 1.0
-                                    ? IgaContent(
-                                        isomo: isomo,
-                                        courseProgress: courseProgress,
-                                      )
-                                    : IsuzumeContent(
-                                        isomo: isomo,
-                                        courseProgress: courseProgress,
-                                      )));
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return payment != null && payment.isApproved != true
+                          ? const TeguraAlert(
+                              errorTitle: 'Ntibyagenze neza',
+                              errorMsg: 'Ifatabuguzi ryawe ntiryemeje!',
+                              alertType: 'error',
+                            )
+                          : percent != 1.0
+                              ? TeguraAlert(
+                                  errorTitle: 'IBIJYANYE NIRI SOMO',
+                                  errorMsg:
+                                      'Ugiye kwiga isomo ryitwa "${isomo.title}" rigizwe n’ingingo "$totalIngingos" ni iminota "${(isomo.duration != null && isomo.duration! > 0) ? isomo.duration : totalIngingos * 3}" gusa!',
+                                  firstButtonTitle: 'Inyuma',
+                                  firstButtonFunction: () {
+                                    Navigator.pop(context);
+                                  },
+                                  firstButtonColor: const Color(0xFFE60000),
+                                  secondButtonTitle:
+                                      percent == 0.0 ? 'Tangira' : 'Komeza',
+                                  secondButtonFunction: () {
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => payment ==
+                                                        null ||
+                                                    !payment.endAt
+                                                        .isAfter(DateTime.now())
+                                                ? const Ibiciro(
+                                                    message:
+                                                        'Banza ugure ifatabuguzi!')
+                                                : IgaContent(
+                                                    isomo: isomo,
+                                                    courseProgress:
+                                                        courseProgress,
+                                                  )));
+                                  },
+                                  secondButtonColor: const Color(0xFF00A651),
+                                  alertType: 'success',
+                                )
+                              : IsuzumeContent(
+                                  isomo: isomo,
+                                  courseProgress: courseProgress,
+                                );
+                    });
               },
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.3,

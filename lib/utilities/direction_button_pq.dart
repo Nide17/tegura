@@ -33,22 +33,15 @@ class _DirectionButtonPqState extends State<DirectionButtonPq> {
   Widget build(BuildContext context) {
     final int lastQn = (widget.popQuestions.length) - 1;
 
-    // RETURN THE WIDGETS
     return ElevatedButton(
       onPressed: () {
         if (widget.direction == 'inyuma' && widget.isDisabled == false) {
-          // DECREASE SKIP STATE
           widget.backward!();
-
-          // REMOVE THE CURRENT PAGE FROM THE STACK IF NO MORE PREVIOUS PAGES
           if (widget.currQnID == 0) {
             Navigator.pop(context);
           }
         } else if (widget.direction == 'komeza' && widget.isDisabled == false) {
-          // INCREASE SKIP STATE
           widget.forward!();
-
-          // REMOVE THE CURRENT PAGE FROM THE STACK IF NO MORE NEXT PAGES
           if (widget.currQnID == lastQn) {
             Navigator.pop(context);
           }
@@ -72,7 +65,6 @@ class _DirectionButtonPqState extends State<DirectionButtonPq> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // ICON
             Visibility(
               visible: widget.direction == 'inyuma' ? true : false,
               child: Opacity(
@@ -91,7 +83,7 @@ class _DirectionButtonPqState extends State<DirectionButtonPq> {
                   fontWeight: FontWeight.bold,
                   fontSize: MediaQuery.of(context).size.width * 0.035,
                   color: Colors.black),
-            ), // ICON
+            ),
             Visibility(
               visible: widget.direction == 'inyuma' ? false : true,
               child: Opacity(

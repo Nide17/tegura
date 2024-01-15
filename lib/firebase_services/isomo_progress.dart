@@ -112,10 +112,7 @@ class CourseProgressService {
     int currentIngingo,
     int totalIngingos,
   ) async {
-    // RETURN THE USER DATA - IF THE DOC DOESN'T EXIST,
-    //IT WILL BE CREATED BY FIRESTORE
     return await progressCollection.doc('${courseId}_$uid').set({
-      // USER PROGRESS DATA
       'id': '${courseId}_$uid',
       'userId': uid,
       'courseId': courseId,

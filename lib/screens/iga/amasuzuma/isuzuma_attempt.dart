@@ -7,7 +7,7 @@ import 'package:tegura/models/isuzuma_score.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_score_review.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_views.dart';
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_direction_button.dart';
 
@@ -114,7 +114,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
               showDialog(
                 context: context,
                 builder: (context) {
-                  return ErrorAlert(
+                  return TeguraAlert(
                     errorTitle: 'Ugiye gusohoka udasoje?',
                     errorMsg:
                         'Ushaka gusohoka udasoje kwisuzuma? Ibyo wahisemo birasibama.',
@@ -122,11 +122,13 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                     firstButtonFunction: () {
                       Navigator.of(context).pop();
                     },
+                    firstButtonColor: const Color(0xFF00A651),
                     secondButtonTitle: 'YEGO',
                     secondButtonFunction: () {
                       Navigator.of(context).pop();
                       Navigator.pop(context);
                     },
+                    secondButtonColor: const Color(0xFFE60000),
                   );
                 },
               );
@@ -175,7 +177,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                             showDialog(
                               context: context,
                               builder: (context) {
-                                return ErrorAlert(
+                                return TeguraAlert(
                                   errorTitle: 'Hari ibidasubije!',
                                   errorMsg:
                                       'Hari ibibazo utasubije. Ushaka gusoza?',
@@ -183,9 +185,9 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                                   firstButtonFunction: () {
                                     Navigator.of(context).pop();
                                   },
+                                  firstButtonColor: const Color(0xFF00A651),
                                   secondButtonTitle: 'SOZA',
                                   secondButtonFunction: () {
-                                    // SET THE UNANSWERED QUESTIONS TO ANSWERED IN THE OBJECT TO SAVE (scorePrModel)
                                     for (var qn in scorePrModel.questions) {
                                       if (!qn.isAnswered) {
                                         qn.isAnswered = true;
@@ -196,7 +198,8 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                                     IsuzumaScoreService()
                                         .createOrUpdateIsuzumaScore(
                                             scorePrModel);
-                                    // GO TO THE SCORE PAGE
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -207,6 +210,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                                       ),
                                     );
                                   },
+                                  secondButtonColor: const Color(0xFFE60000),
                                 );
                               },
                             );
@@ -214,7 +218,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                             showDialog(
                               context: context,
                               builder: (context) {
-                                return ErrorAlert(
+                                return TeguraAlert(
                                   errorTitle: 'Gusoza isuzuma!',
                                   errorMsg:
                                       'Wasubije ibibazo byose. Ese ushaka gusoza nonaha?',
@@ -222,12 +226,13 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                                   firstButtonFunction: () {
                                     Navigator.of(context).pop();
                                   },
+                                  firstButtonColor: const Color(0xFFE60000),
                                   secondButtonTitle: 'YEGO',
                                   secondButtonFunction: () {
                                     IsuzumaScoreService()
                                         .createOrUpdateIsuzumaScore(
                                             scorePrModel);
-                                    Navigator.pop(context);
+                                    Navigator.of(context).pop();
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
@@ -239,6 +244,7 @@ class _IsuzumaAttemptState extends State<IsuzumaAttempt> {
                                       ),
                                     );
                                   },
+                                  secondButtonColor: const Color(0xFF00A651),
                                 );
                               },
                             );

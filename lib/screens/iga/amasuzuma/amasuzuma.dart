@@ -83,17 +83,24 @@ class _AmasuzumabumenyiState extends State<Amasuzumabumenyi> {
                       top: MediaQuery.of(context).size.height * 0.02,
                       left: MediaQuery.of(context).size.width * 0.15,
                     ),
-                    child: Text(
-                      "AMANOTA",
-                      textAlign: TextAlign.end,
-                      softWrap: true,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: MediaQuery.of(context).size.width * 0.04,
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        decoration: TextDecoration.underline,
-                        decorationColor: const Color(0xFFFFBD59),
-                        decorationThickness: 2,
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: '            ',
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'AMANOTA',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.04,
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                              decoration: TextDecoration.underline,
+                              decorationColor: const Color(0xFFFFBD59),
+                              decorationThickness: 2,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   )

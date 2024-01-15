@@ -4,7 +4,7 @@ import 'package:tegura/models/course_progress.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/pop_question.dart';
 import 'package:tegura/models/user.dart';
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/screens/iga/utils/isuzume_details.dart';
 import 'package:tegura/providers/quiz_score_provider.dart';
 import 'package:tegura/firebase_services/pop_question_db.dart';
@@ -77,9 +77,10 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
               void forward() {
                 if (qnIndex >=
                     scoreProviderModel.quizScore.questions.length - 1) {
-                  const ErrorAlert(
+                  const TeguraAlert(
                     errorTitle: 'Ikibazo cyanyuma!',
                     errorMsg: 'Ibibazo byose byasubije!',
+                    alertType: 'warning',
                   );
                 } else {
                   setState(() {
@@ -118,18 +119,20 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return ErrorAlert(
+                        return TeguraAlert(
                           errorTitle: 'Subiza byose',
                           errorMsg: 'Ushaka gusohoka udasubije ibibazo byose?',
                           firstButtonTitle: 'OYA',
-                          secondButtonTitle: 'YEGO',
                           firstButtonFunction: () {
                             Navigator.of(context).pop();
                           },
+                          firstButtonColor: const Color(0xFF00A651),
+                          secondButtonTitle: 'YEGO',
                           secondButtonFunction: () {
                             Navigator.of(context).pop();
                             Navigator.pop(context);
                           },
+                          secondButtonColor: const Color(0xFFE60000),
                         );
                       },
                     );
@@ -168,7 +171,7 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                             color: Color.fromARGB(255, 255, 255, 255),
                             boxShadow: [
                               BoxShadow(
-                                color: Color.fromARGB(255, 72, 255, 0),
+                                color: Color(0xFF00A651),
                                 offset: Offset(0, -1),
                                 blurRadius: 1,
                               ),
@@ -186,19 +189,23 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                                     showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return ErrorAlert(
+                                        return TeguraAlert(
                                           errorTitle: 'Subiza byose',
                                           errorMsg:
                                               'Ushaka gusohoka udasubije ibibazo byose?',
                                           firstButtonTitle: 'OYA',
-                                          secondButtonTitle: 'YEGO',
                                           firstButtonFunction: () {
                                             Navigator.of(context).pop();
                                           },
+                                          firstButtonColor:
+                                              const Color(0xFF00A651),
+                                          secondButtonTitle: 'YEGO',
                                           secondButtonFunction: () {
                                             Navigator.of(context).pop();
                                             Navigator.pop(context);
                                           },
+                                          secondButtonColor:
+                                              const Color(0xFFE60000),
                                         );
                                       },
                                     );
@@ -208,14 +215,18 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return ErrorAlert(
-                                          errorTitle: 'Isuzumabumenyi',
-                                          errorMsg: 'Wasoje kwisuzuma!',
+                                        return TeguraAlert(
+                                          errorTitle: 'Wasoje kwisuzuma!',
+                                          errorMsg:
+                                              'Wabonye ${popQuestions.length}/${popQuestions.length}',
                                           firstButtonTitle: 'Inyuma',
                                           firstButtonFunction: () {
                                             Navigator.of(context).pop();
                                             Navigator.pop(context);
                                           },
+                                          firstButtonColor:
+                                              const Color(0xFF00A651),
+                                          alertType: 'success',
                                         );
                                       });
                                 },
@@ -234,7 +245,6 @@ class _IsuzumeContentState extends State<IsuzumeContent> {
                                               0.03),
                                 ),
                               ),
-                              // 2. INYUMA BUTTON
                               Row(
                                 children: [
                                   DirectionButtonIsuzume(

@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/utilities/cta_button.dart';
 import 'package:tegura/utilities/default_input.dart';
 import 'package:tegura/utilities/description.dart';
@@ -16,7 +16,6 @@ class UrStudent extends StatefulWidget {
 
 // STATE FOR THE SIGN IN PAGE - STATEFUL
 class _UrStudentState extends State<UrStudent> {
-  // AUTH SERVICE INSTANCE
   final AuthService _authInstance = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -40,7 +39,6 @@ class _UrStudentState extends State<UrStudent> {
 
   @override
   Widget build(BuildContext context) {
-    // IF THE USER IS LOGGED IN, POP THE CURRENT PAGE
     if (_authInstance.currentUser() != null) {
       Navigator.pop(context);
     }
@@ -65,13 +63,9 @@ class _UrStudentState extends State<UrStudent> {
               const GradientTitle(
                   title: 'REGISTER AS UR STUDENT',
                   icon: 'assets/images/ur_student.svg'),
-
-              // 2. DESCRIPTION
               const Description(
                   text:
                       'Register as UR student and get a discount up to 50% of regular cost!'),
-
-              // CENTERED IMAGE
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,7 +76,6 @@ class _UrStudentState extends State<UrStudent> {
                       width: MediaQuery.of(context).size.width * 0.2,
                     ),
                   ]),
-
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.05,
@@ -92,7 +85,6 @@ class _UrStudentState extends State<UrStudent> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // FORM DROPDOWN
                       DropdownButtonFormField<String>(
                         items: _items.map((String item) {
                           return DropdownMenuItem<String>(
@@ -112,7 +104,6 @@ class _UrStudentState extends State<UrStudent> {
                           ),
                         ),
                         decoration: const InputDecoration(
-                          // BACKGROUND COLOR
                           filled: true,
                           fillColor: Color.fromARGB(255, 255, 255, 255),
                           border: OutlineInputBorder(
@@ -120,8 +111,6 @@ class _UrStudentState extends State<UrStudent> {
                               Radius.circular(20.0),
                             ),
                           ),
-
-                          // HEIGHT
                           contentPadding: EdgeInsets.symmetric(
                             vertical: 16.0,
                             horizontal: 24.0,
@@ -140,14 +129,11 @@ class _UrStudentState extends State<UrStudent> {
                           }
                           return null;
                         },
-                        onSaved: (value) {
-                          // do something with the selected value
-                        },
+                        onSaved: (value) {},
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
-                      // NOMERO ZA TELEPHONE
                       DefaultInput(
                         placeholder: 'Registration number',
                         validation: 'Please enter your registration number!',
@@ -157,8 +143,6 @@ class _UrStudentState extends State<UrStudent> {
                           setState(() => regNbr = val);
                         },
                       ),
-
-                      // AMAZINA
                       DefaultInput(
                         placeholder: 'Names',
                         validation: 'Please enter your names!',
@@ -166,8 +150,6 @@ class _UrStudentState extends State<UrStudent> {
                           setState(() => username = val);
                         },
                       ),
-
-                      // EMAIL
                       DefaultInput(
                         placeholder: 'E-mail',
                         validation: 'Please enter your e-mail!',
@@ -177,55 +159,37 @@ class _UrStudentState extends State<UrStudent> {
                           setState(() => email = val);
                         },
                       ),
-
-                      // IJAMBOBANGA
                       DefaultInput(
-                        placeholder: 'Password',
-                        validation: 'Please enter your password!',
-                        onChanged: (val) {
-                          setState(() => password = val);
-                        },
-                        // OBSCURE TEXT
-                        obscureText: true,
-                      ),
-
-                      // CTA BUTTON
+                          placeholder: 'Password',
+                          validation: 'Please enter your password!',
+                          onChanged: (val) {
+                            setState(() => password = val);
+                          }),
                       CtaButton(
                         text: 'Register',
-
-                        // ON PRESSED
                         onPressed: () async {
-                          // VALIDATE FORM
                           if (_formKey.currentState!.validate()) {
-                            // REGISTER USER
                             dynamic resSignUp = await _authInstance
                                 .registerWithEmailAndPassword(username, email,
                                     password, true, regNbr, _selectedCampus);
-
-                            // CHECK IF USER IS REGISTERED
                             if (resSignUp == null) {
                               setState(() {
                                 error =
                                     'Please supply a valid email and password';
-
-                                // SHOW ERROR DIALOG
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return ErrorAlert(
+                                    return TeguraAlert(
                                       errorTitle: 'Error signing up!',
                                       errorMsg: error,
+                                      alertType: 'error',
                                     );
                                   },
                                 );
                               });
                             } else {
-                              // LOGOUT USER
                               await _authInstance.logOut();
-
-                              // REDIRECT TO LOGIN PAGE AFTER SUCCESSFUL REGISTRATION
                               if (!mounted) return;
-
                               Navigator.pushReplacementNamed(
                                   context, '/injira');
                             }

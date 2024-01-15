@@ -20,16 +20,16 @@ final List<Map<String, dynamic>> igaList = [
     'screen': const Wasoje(),
   },
   {
-    'icon': 'assets/images/igazeti.svg',
-    'text': 'Igazeti n\'ibimenyetso',
-    'route': 'igazeti',
-    'screen': const Igazeti(),
-  },
-  {
     'icon': 'assets/images/amasuzumabumenyi.svg',
     'text': 'Amasuzumabumenyi yose',
     'route': 'amasuzumabumenyi',
     'screen': const Amasuzumabumenyi(),
+  },
+    {
+    'icon': 'assets/images/igazeti.svg',
+    'text': 'Igazeti n\'ibimenyetso',
+    'route': 'igazeti',
+    'screen': const Igazeti(),
   },
   {
     'icon': 'assets/images/ibibazo_bibaza.svg',

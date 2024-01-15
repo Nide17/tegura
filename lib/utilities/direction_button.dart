@@ -38,18 +38,19 @@ class DirectionButton extends StatefulWidget {
 class _DirectionButtonState extends State<DirectionButton> {
   @override
   Widget build(BuildContext context) {
-    
     final pageIngingos = Provider.of<List<IngingoModel>?>(context) ?? [];
     final courseProgress = Provider.of<CourseProgressModel?>(context);
+    final List<int> listIngingosID = pageIngingos.map((ing) => ing.id + widget.increment).toList();
 
     return MultiProvider(
       providers: [
-        // POP QUESTIONS STREAM PROVIDER FOR THE CURRENT RANGE OF INGINGOS
         StreamProvider<List<PopQuestionModel>?>.value(
-          value: PopQuestionService().getPopQuestionsByIngingoIDs(
-              widget.isomo.id,
-              List<int>.from(
-                  pageIngingos.map((ing) => ing.id + widget.increment))),
+          value:  listIngingosID.isNotEmpty
+              ? PopQuestionService().getPopQuestionsByIngingoIDs(
+                  widget.isomo.id,
+                  listIngingosID,
+                )
+              : null,
           initialData: null,
           catchError: (context, error) {
             return [];
@@ -58,26 +59,32 @@ class _DirectionButtonState extends State<DirectionButton> {
       ],
       child: Consumer<List<PopQuestionModel>?>(
           builder: (context, popQuestions, child) {
-            print('POP QUESTIONS: $popQuestions');
-        // LIST OF INGINGOS STATE IDS
         List<int> currentIngingosIds = pageIngingos.map((e) => e.id).toList();
 
-        // CHECK IF THE FIRST POP QUESTION ID IS IN THE LIST OF INGINGOS IDS
         bool isIngingosHavePopQuestions = currentIngingosIds.contains(
             popQuestions != null && popQuestions.isNotEmpty
                 ? popQuestions[0].ingingoID
                 : 0);
         return ElevatedButton(
           onPressed: () {
-            // SCROLL TO THE TOP
             widget.scrollTop();
-
-            // DECREASE SKIP STATE
             if (widget.direction == 'inyuma') {
               widget.changeSkipNumber(-5);
-            }
-            // IF THIS PAGE HAS POP QUESTIONS, THEN SHOW THEM FIRST BEFORE PROCEEDING TO THE NEXT PAGE
-            else if (widget.direction == 'komeza') {
+            } else if (widget.direction == 'komeza') {
+
+              // UPDATE THE CURRENT INGINGO
+              if (widget.skip >= 0 &&
+                  widget.skip <= courseProgress!.totalIngingos &&
+                  pageIngingos.length + widget.skip >
+                      courseProgress.currentIngingo) {
+                CourseProgressService().updateUserCourseProgress(
+                  courseProgress.userId,
+                  widget.isomo.id,
+                  widget.skip + pageIngingos.length,
+                  courseProgress.totalIngingos,
+                );
+              }
+
               if (popQuestions != null &&
                   popQuestions.isNotEmpty &&
                   isIngingosHavePopQuestions) {
@@ -93,19 +100,6 @@ class _DirectionButtonState extends State<DirectionButton> {
                 );
               } else {
                 widget.changeSkipNumber(5);
-              }
-
-              // UPDATE THE CURRENT INGINGO
-              if (widget.skip > 0 &&
-                  widget.skip <= courseProgress!.totalIngingos &&
-                  pageIngingos.length + widget.skip >
-                      courseProgress.currentIngingo) {
-                CourseProgressService().updateUserCourseProgress(
-                  courseProgress.userId,
-                  widget.isomo.id,
-                  widget.skip + pageIngingos.length,
-                  courseProgress.totalIngingos,
-                );
               }
             }
           },
@@ -126,7 +120,6 @@ class _DirectionButtonState extends State<DirectionButton> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // ICON
                 Visibility(
                   visible: widget.direction == 'inyuma' ? true : false,
                   child: Opacity(
@@ -145,7 +138,7 @@ class _DirectionButtonState extends State<DirectionButton> {
                       fontWeight: FontWeight.bold,
                       fontSize: MediaQuery.of(context).size.width * 0.035,
                       color: Colors.black),
-                ), // ICON
+                ),
                 Visibility(
                   visible: widget.direction == 'inyuma' ? false : true,
                   child: Opacity(

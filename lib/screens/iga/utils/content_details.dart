@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tegura/firebase_services/ingingodb.dart';
+import 'package:tegura/firebase_services/ingingo_db.dart';
 import 'package:tegura/models/course_progress.dart';
 import 'package:tegura/models/ingingo.dart';
 import 'package:tegura/models/isomo.dart';
@@ -27,11 +27,9 @@ class _ContentDetailsState extends State<ContentDetails> {
   bool loadingTotalIngingos = true;
 
   Future<void> getTotalIngingos() async {
-    // GET THE TOTAL INGINGOS: IngingoService().getTotalIsomoIngingos(widget.isomo.id)
     Stream<int> totalIngingos =
         IngingoService().getTotalIsomoIngingos(widget.isomo.id);
 
-    // SET THE TOTAL INGINGOS
     totalIngingos.listen((event) {
       setState(() {
         thisCourseTotalIngingos = event;
@@ -77,7 +75,6 @@ class _ContentDetailsState extends State<ContentDetails> {
                     EdgeInsets.all(MediaQuery.of(context).size.width * 0.024),
                 child: Column(
                   children: [
-                    // IF THE COURSE HAS BEEN COMPLETED, SHOW THE COMPLETED MESSAGE
                     if (index == 0 && currentIngingo == totalIngingos)
                       Text(
                         'Wasoje kwiga isomo!',
@@ -87,8 +84,6 @@ class _ContentDetailsState extends State<ContentDetails> {
                                 MediaQuery.of(context).size.height * 0.023,
                             color: Colors.green),
                       ),
-
-                    // IF THE COURSE HAS BEEN COMPLETED, MAKE A RESET BUTTON
                     if (index == 0 && currentIngingo == totalIngingos)
                       ElevatedButton(
                         onPressed: () {
@@ -98,17 +93,12 @@ class _ContentDetailsState extends State<ContentDetails> {
                             0,
                             totalIngingos,
                           );
-
-                          // GO BACK TO THE COURSE PAGE
                           Navigator.pop(context);
                         },
                         child: const Text('Ongera utangire iri somo!'),
                       ),
-
                     if (index == 0 && currentIngingo == totalIngingos)
                       const SizedBox(height: 10.0),
-
-                    // isomo.introText IF ANY, ON THE FIRST INGINGO
                     if (index == 0 && widget.isomo.introText != '')
                       Text(
                         '\n${widget.isomo.introText}\n\n',
@@ -117,13 +107,10 @@ class _ContentDetailsState extends State<ContentDetails> {
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.022),
                       ),
-
                     ContentTitlenText(
                       title: '${currPageIngingos[index].title} ',
                       text: '${currPageIngingos[index].text}',
                     ),
-
-                    // IF INGINGO HAS insideTitle
                     if (currPageIngingos[index].insideTitle != null &&
                         currPageIngingos[index].insideTitle != '')
                       Text(
@@ -133,27 +120,18 @@ class _ContentDetailsState extends State<ContentDetails> {
                                 MediaQuery.of(context).size.height * 0.023,
                             fontWeight: FontWeight.bold),
                       ),
-
-                    // IF INGINGO HAS OPTIONS USING ABOVE METHOD
                     if (currPageIngingos[index].options != null &&
                         currPageIngingos[index].options != [])
                       Column(
                         children: List.generate(
                           currPageIngingos[index].options.length,
                           (optionIndex) {
-                            // ONE OPTION
                             Option option = Option.fromJson(
                                 currPageIngingos[index].options[optionIndex]);
-
-                            // RETURN THE WIDGETS OF THE OPTIONS
-                            return OptionContent(
-                                option: // check if null or not
-                                    option);
+                            return OptionContent(option: option);
                           },
                         ).toList(),
                       ),
-
-                    // INGINGO NB IF ANY
                     if (currPageIngingos[index].nb != null &&
                         currPageIngingos[index].nb != '')
                       Text.rich(
@@ -170,8 +148,6 @@ class _ContentDetailsState extends State<ContentDetails> {
                           ],
                         ),
                       ),
-
-                    // INGINGO FB STORAGE NETWORK IMAGE IF ANY
                     if (currPageIngingos[index].imageUrl != null &&
                         currPageIngingos[index].imageUrl != '')
                       Column(
@@ -180,24 +156,18 @@ class _ContentDetailsState extends State<ContentDetails> {
                             margin: EdgeInsets.fromLTRB(0.0, 4.0, 0.0,
                                 MediaQuery.of(context).size.height * 0.01),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  10.0), // Set the desired border radius
+                              borderRadius: BorderRadius.circular(10.0),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey
-                                      .withOpacity(0.8), // Set the shadow color
-                                  spreadRadius: 2.0, // Set the spread radius
-                                  blurRadius: 5.0, // Set the blur radius
-                                  offset: const Offset(
-                                      0, 3), // Set the shadow offset
+                                  color: Colors.grey.withOpacity(0.8),
+                                  spreadRadius: 2.0,
+                                  blurRadius: 5.0,
+                                  offset: const Offset(0, 3),
                                 ),
                               ],
                             ),
-
-                            // BORDER RADIUS OF THE IMAGE
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  10.0),
+                              borderRadius: BorderRadius.circular(10.0),
                               child: FadeInImage.memoryNetwork(
                                 placeholder: kTransparentImage,
                                 image: currPageIngingos[index].imageUrl ?? '',
@@ -207,8 +177,6 @@ class _ContentDetailsState extends State<ContentDetails> {
                               ),
                             ),
                           ),
-
-                          // INGINGO IMAGE CAPTION IF ANY
                           if (currPageIngingos[index].imageDesc != null &&
                               currPageIngingos[index].imageDesc != '')
                             Text(
@@ -220,8 +188,6 @@ class _ContentDetailsState extends State<ContentDetails> {
                             ),
                         ],
                       ),
-
-                    // ISOMO CONCLUSION IF ANY
                     if (index == currPageIngingos.length - 1 &&
                         widget.isomo.conclusion != '')
                       Container(

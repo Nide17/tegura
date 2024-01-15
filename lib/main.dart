@@ -23,7 +23,7 @@ import 'package:tegura/screens/iga/iga_landing.dart';
 import 'package:tegura/firebase_services/isomo_progress.dart';
 import 'package:tegura/firebase_services/auth.dart';
 import 'package:tegura/firebase_services/profiledb.dart';
-import 'package:tegura/firebase_services/isomodb.dart';
+import 'package:tegura/firebase_services/isomo_db.dart';
 import 'package:tegura/utilities/loading_lightning.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -38,7 +38,6 @@ Future main() async {
       create: (_) => ConnectionStatus(), child: const TeguraApp()));
 }
 
-// TO NOTIFY ALL WIDGETS OF THE INTERNET CONNECTION STATUS
 class ConnectionStatus extends ChangeNotifier {
   bool _isOnline = false;
 
@@ -111,9 +110,7 @@ class _TeguraAppState extends State<TeguraApp> {
               ? ProfileService()
                   .getCurrentProfile(FirebaseAuth.instance.currentUser!.uid)
               : null,
-
           initialData: null,
-
           catchError: (context, error) {
             return null;
           },
@@ -123,7 +120,6 @@ class _TeguraAppState extends State<TeguraApp> {
         StreamProvider<UserModel?>.value(
           value: AuthService().getUser,
           initialData: null,
-
           catchError: (context, error) {
             return null;
           },
@@ -132,7 +128,6 @@ class _TeguraAppState extends State<TeguraApp> {
           value: IsomoService()
               .getAllAmasomo(FirebaseAuth.instance.currentUser?.uid),
           initialData: null,
-
           catchError: (context, error) {
             return [];
           },
@@ -142,7 +137,6 @@ class _TeguraAppState extends State<TeguraApp> {
           value: CourseProgressService()
               .getUserProgresses(FirebaseAuth.instance.currentUser?.uid),
           initialData: null,
-
           catchError: (context, error) {
             return [];
           },

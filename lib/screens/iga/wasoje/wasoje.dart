@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tegura/firebase_services/isomo_progress.dart';
-import 'package:tegura/firebase_services/isomodb.dart';
+import 'package:tegura/firebase_services/isomo_db.dart';
 import 'package:tegura/models/course_progress.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/user.dart';

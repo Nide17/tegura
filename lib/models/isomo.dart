@@ -5,16 +5,18 @@ class IsomoModel {
   String description = '';
   String introText = '';
   String conclusion = '';
+  int? duration = 0;
 
   IsomoModel(
       {required this.id,
       required this.title,
       required this.description,
       required this.introText,
-      required this.conclusion});
+      required this.conclusion,
+      this.duration});
 
   @override
   String toString() {
-    return 'IsomoModel{id: $id, title: $title, description: $description, introText: $introText, conclusion: $conclusion}';
+    return 'IsomoModel{id: $id, title: $title, description: $description, introText: $introText, conclusion: $conclusion, duration: $duration}';
   }
 }

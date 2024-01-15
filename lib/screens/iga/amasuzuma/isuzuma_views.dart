@@ -7,9 +7,9 @@ import 'package:tegura/screens/iga/amasuzuma/isuzuma_custom_radio_button.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_ikibazo_button.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_score_review.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_timer.dart';
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/amasuzuma/qn_img_url.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 typedef ShowQnCallback = void Function(int index);
 
@@ -38,7 +38,7 @@ class _IsuzumaViewsState extends State<IsuzumaViews> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return ErrorAlert(
+        return TeguraAlert(
           errorTitle: 'Iminota yarangiye!',
           errorMsg: 'Igihe cyashize, reba uko wakoze cyangwa usubiremo!',
           firstButtonTitle: 'Funga',
@@ -61,6 +61,7 @@ class _IsuzumaViewsState extends State<IsuzumaViews> {
                       IsuzumaScoreReview(isuzuma: widget.isuzuma),
                 ));
           },
+          alertType: 'error',
         );
       },
     );
@@ -154,46 +155,8 @@ class _IsuzumaViewsState extends State<IsuzumaViews> {
                             // DISPLAY NETWORK IMAGE IF ANY
                             currentQn.imageUrl == null
                                 ? const SizedBox.shrink()
-                                : SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.16,
-                                    child: Container(
-                                      padding: EdgeInsets.all(
-                                          MediaQuery.of(context).size.width *
-                                              0.02),
-                                      margin: EdgeInsets.only(
-                                          top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.02),
-                                      decoration: const BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        border: Border.fromBorderSide(
-                                          BorderSide(
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                            width: 1,
-                                            style: BorderStyle.solid,
-                                          ),
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                            offset: Offset(0, 1),
-                                            blurRadius: 1,
-                                          ),
-                                        ],
-                                      ),
-                                      child: FadeInImage.memoryNetwork(
-                                        placeholder: kTransparentImage,
-                                        image: currentQn.imageUrl!,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                1,
-                                      ),
-                                    ),
+                                : QuestionImgUrl(
+                                    currentQn: currentQn,
                                   ),
 
                             SizedBox(

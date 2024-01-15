@@ -71,7 +71,6 @@ class _ReviewActionButtonsState extends State<ReviewActionButtons> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // ICON
               widget.text != 'Kora irindi suzuma'
                   ? Visibility(
                       visible: true,

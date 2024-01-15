@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 import 'package:tegura/firebase_services/auth.dart';
 import 'package:tegura/firebase_services/payment_db.dart';
 import 'package:tegura/firebase_services/profiledb.dart';
-import 'package:tegura/main.dart';
+// import 'package:tegura/main.dart';
 import 'package:tegura/models/payment.dart';
 import 'package:tegura/models/profile.dart';
 import 'package:tegura/models/user.dart';
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 
 class AppBarTegura extends StatefulWidget {
   const AppBarTegura({super.key});
@@ -22,13 +22,14 @@ class AppBarTegura extends StatefulWidget {
 class _AppBarTeguraState extends State<AppBarTegura> {
   final CollectionReference paymentsCollection =
       FirebaseFirestore.instance.collection('payments');
-
-  // GET THE CURRENT USER
   final usr = FirebaseAuth.instance.currentUser;
 
-  // TRACK IF THERE IS A CHANGE IN THE PAYMENT COLLECTION
+  // payments stream
   Stream<QuerySnapshot> get payments {
-    return paymentsCollection.where('userId', isEqualTo: usr!.uid).snapshots();
+    if (usr != null) {
+      return paymentsCollection.where('userId', isEqualTo: usr!.uid).snapshots();
+    }
+    return const Stream.empty();
   }
 
   @override
@@ -65,9 +66,9 @@ class _AppBarTeguraState extends State<AppBarTegura> {
   @override
   Widget build(BuildContext context) {
     final usr = Provider.of<UserModel?>(context);
-    final conn = Provider.of<ConnectionStatus>(context);
+    // final conn = Provider.of<ConnectionStatus>(context);
     // ignore: avoid_print
-    print('Connection status: ${conn.toString()}');
+    // print('Connection status: ${conn.toString()}');
 
 // PROVIDERS
     return MultiProvider(
@@ -279,7 +280,7 @@ class _AppBarTeguraState extends State<AppBarTegura> {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return ErrorAlert(
+                                    return TeguraAlert(
                                       errorTitle: 'Gusohoka',
                                       errorMsg: 'Ushaka gusohoka?',
                                       firstButtonTitle: 'YEGO',
@@ -288,11 +289,14 @@ class _AppBarTeguraState extends State<AppBarTegura> {
                                             context, (route) => route.isFirst);
                                         AuthService().logOut();
                                       },
+                                      firstButtonColor: const Color(0xFFE60000),
                                       secondButtonTitle: 'OYA',
                                       secondButtonFunction: () {
                                         Navigator.pop(context);
                                         Navigator.pop(context);
                                       },
+                                      secondButtonColor:
+                                          const Color(0xFF00A651),
                                     );
                                   },
                                 );

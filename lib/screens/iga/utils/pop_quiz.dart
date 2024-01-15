@@ -31,18 +31,12 @@ class _PopQuizState extends State<PopQuiz> {
 
   @override
   Widget build(BuildContext context) {
-    // CALLBACK FOR FORWARD BUTTON
     void forward() {
       setState(() {
-        // INCREASE THE CURRENT QUESTION ID BY 1 IF NOT THE LAST QUESTION
         if (currQnID < widget.popQuestions.length) {
           currQnID = currQnID + 1;
         }
-
-        // RESET THE SELECTED OPTION
         selectedOption = 0;
-
-        // RESET THE CORRECTNESS OF THE ANSWER
         isCurrentCorrect = false;
 
         // UPDATE THE SKIP VALUE IN THE PARENT WIDGET (IGA_CONTENT) IF THE USER IS ON THE LAST QUESTION
@@ -68,8 +62,6 @@ class _PopQuizState extends State<PopQuiz> {
       }
     }
 
-    print(widget.popQuestions[currQnID].ingingoID);
-
     return currQnID >= 0 && currQnID < widget.popQuestions.length
         ? Scaffold(
             backgroundColor: const Color.fromARGB(255, 228, 225, 225),
@@ -88,13 +80,10 @@ class _PopQuizState extends State<PopQuiz> {
                     child: GradientTitle(
                         title: widget.isomo.title, icon: '', marginTop: 8.0),
                   ),
-
-                  // 2. QUESTION OPTIONS
                   Container(
                     padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
                     child: Column(
                       children: [
-                        // 1. QUESTION TITLE
                         Text(
                           widget.popQuestions[currQnID].title ?? '',
                           style: const TextStyle(
@@ -102,8 +91,6 @@ class _PopQuizState extends State<PopQuiz> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-
-                        // DISPLAY NETWORK IMAGE IF ANY
                         widget.popQuestions[currQnID].imageUrl == null ||
                                 widget.popQuestions[currQnID].imageUrl == ''
                             ? const SizedBox.shrink()
@@ -140,7 +127,6 @@ class _PopQuizState extends State<PopQuiz> {
                                   ),
                                 ),
                               ),
-
                         const SizedBox(height: 10.0),
                         Column(
                           children: widget.popQuestions[currQnID].options
@@ -183,7 +169,6 @@ class _PopQuizState extends State<PopQuiz> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // 2. INYUMA BUTTON
                   DirectionButtonPq(
                     buttonText: 'inyuma',
                     direction: 'inyuma',
@@ -193,13 +178,9 @@ class _PopQuizState extends State<PopQuiz> {
                     currQnID: currQnID,
                     isDisabled: selectedOption == 0,
                   ),
-
-                  // 1. PERCENTAGE INDICATOR
                   CircleProgressPq(
                     percent: (currQnID + 1) / widget.popQuestions.length,
                   ),
-
-                  // 3. KOMEZA BUTTON
                   DirectionButtonPq(
                     buttonText: 'komeza',
                     direction: 'komeza',

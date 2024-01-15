@@ -9,7 +9,7 @@ import 'package:tegura/models/payment.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/screens/auth/iyandikishe.dart';
 import 'package:tegura/screens/iga/amasuzuma/amanota.dart';
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_overview.dart';
 import 'package:tegura/utilities/spinner.dart';
 
@@ -27,7 +27,6 @@ class _AmasuzumaCardState extends State<AmasuzumaCard> {
   bool loading = false;
 
   Future<bool> _isPaymentApproved() async {
-    // SET THE LOADING STATE TO TRUE
     setState(() => loading = true);
 
     if (FirebaseAuth.instance.currentUser != null) {
@@ -39,7 +38,6 @@ class _AmasuzumaCardState extends State<AmasuzumaCard> {
         loading = false;
       });
 
-      // IF THE USER HAS A PAYMENT PLAN APPROVED
       if (pymt != null && pymt.isApproved == true) {
         return true;
       } else {
@@ -63,10 +61,7 @@ class _AmasuzumaCardState extends State<AmasuzumaCard> {
 
     return loading
         ? const Spinner()
-        :
-
-        // PROVIDE THE SCORES BY USER
-        MultiProvider(
+        : MultiProvider(
             providers: [
               StreamProvider<List<IsuzumaScoreModel>?>.value(
                 value: usr != null
@@ -78,11 +73,8 @@ class _AmasuzumaCardState extends State<AmasuzumaCard> {
                 },
               ),
             ],
-
-            // CONSUMER TO LISTEN TO THE SCORES BY USER AND ISUZUMA
             child: Consumer<List<IsuzumaScoreModel>?>(
                 builder: (context, amaUserScores, _) {
-              // GET THE SCORE OF THE USER FOR THE CURRENT ISUZUMA
               IsuzumaScoreModel? userScore;
               if (amaUserScores != null) {
                 for (var i = 0; i < amaUserScores.length; i++) {
@@ -115,27 +107,27 @@ class _AmasuzumaCardState extends State<AmasuzumaCard> {
                                                 isuzuma: widget.isuzuma,
                                               )),
                                     )
-                                  :
-                                  // SHOW ALERT DIALOG
-                                  showDialog(
+                                  : showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return ErrorAlert(
+                                        return TeguraAlert(
                                             errorTitle: 'Ntibyagenze neza',
                                             errorMsg: payment == null
                                                 ? 'Nturishyura'
                                                 : payment.isApproved == false
                                                     ? 'Ifatabuguzi ryawe ntiriremezwa'
-                                                    : 'Ongera ugerageze!');
+                                                    : 'Ongera ugerageze!',
+                                                    alertType: 'error');
                                       });
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.4,
                           decoration: BoxDecoration(
                             color: const Color(0xFF00CCE5),
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: BorderRadius.circular(
+                                MediaQuery.of(context).size.width * 0.03),
                             border: Border.all(
-                              width: 2.0,
+                              width: MediaQuery.of(context).size.width * 0.006,
                               color: const Color(0xFFFFBD59),
                             ),
                           ),
@@ -143,9 +135,10 @@ class _AmasuzumaCardState extends State<AmasuzumaCard> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // TITLE
                               Padding(
-                                padding: const EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.width * 0.01,
+                                ),
                                 child: Text(
                                   widget.isuzuma.title.toUpperCase(),
                                   textAlign: TextAlign.center,
@@ -160,15 +153,11 @@ class _AmasuzumaCardState extends State<AmasuzumaCard> {
                                   ),
                                 ),
                               ),
-
-                              // BOTTOM BORDER OF THE ABOVE SECTION
                               Container(
                                 color: const Color(0xFFFFBD59),
                                 height:
                                     MediaQuery.of(context).size.height * 0.009,
                               ),
-
-                              // PNG ICON
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 8.0,
@@ -194,23 +183,9 @@ class _AmasuzumaCardState extends State<AmasuzumaCard> {
                                 fontWeight: FontWeight.bold,
                               ),
                             )
-                          : userScore != null
-                              ? Amanota(
-                                  score: userScore.marks,
-                                  maxScore: userScore.totalMarks,
-                                )
-                              : const Text(
-                                  'Nturarikora!',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                          : Amanota(userScore: userScore)
                     ],
                   ),
-
-                  // 3. VERTICAL SPACE
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.04,
                   ),

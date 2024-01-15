@@ -10,12 +10,12 @@ import 'package:tegura/screens/iga/amasuzuma/isuzuma_custom_radio_button.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_direction_button.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_ikibazo_button.dart';
 import 'package:tegura/screens/iga/amasuzuma/isuzuma_overview.dart';
+import 'package:tegura/screens/iga/amasuzuma/qn_img_url.dart';
 import 'package:tegura/screens/iga/amasuzuma/review_action_buttons.dart';
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/screens/iga/utils/gradient_title.dart';
 import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/utilities/loading_widget.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class IsuzumaScoreReview extends StatefulWidget {
   final IsuzumaModel isuzuma;
@@ -77,9 +77,10 @@ class _IsuzumaScoreReviewState extends State<IsuzumaScoreReview> {
               'bgColor': 0xFF00A651,
               'color': 0xFFFFFFFF,
               'screen': nextIsuzuma == null
-                  ? const ErrorAlert(
+                  ? const TeguraAlert(
                       errorTitle: 'Amasuzuma yarangiye!',
                       errorMsg: 'Nta suzuma rindi ryabashije kuboneka!',
+                      alertType: 'warning'
                     )
                   : IsuzumaOverview(
                       isuzuma: nextIsuzuma,
@@ -97,8 +98,8 @@ class _IsuzumaScoreReviewState extends State<IsuzumaScoreReview> {
                 qnIndex > -1 ? scoreQns[qnIndex - 1] : null;
 
             String outcome = scorePrModel.marks / scorePrModel.totalMarks < 0.6
-                ? 'Watsinzwe!'
-                : 'Watsinze!';
+                ? 'Watsinzwe 😢!'
+                : 'Watsinze 🙂!';
             String amanota =
                 'Wagize ${scorePrModel.marks}/${scorePrModel.totalMarks}';
 
@@ -186,46 +187,8 @@ class _IsuzumaScoreReviewState extends State<IsuzumaScoreReview> {
                                       currentQn.imageUrl == null ||
                                       currentQn.imageUrl == ''
                                   ? const SizedBox.shrink()
-                                  : SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.16,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(4.0),
-                                        margin:
-                                            const EdgeInsets.only(top: 10.0),
-                                        decoration: const BoxDecoration(
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          border: Border.fromBorderSide(
-                                            BorderSide(
-                                              color:
-                                                  Color.fromARGB(255, 0, 0, 0),
-                                              width: 1,
-                                              style: BorderStyle.solid,
-                                            ),
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Color.fromARGB(255, 0, 0, 0),
-                                              offset: Offset(0, 1),
-                                              blurRadius: 1,
-                                            ),
-                                          ],
-                                        ),
-                                        child: FadeInImage.memoryNetwork(
-                                          placeholder: kTransparentImage,
-                                          image: currentQn.imageUrl!,
-                                          fit: BoxFit.cover,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              1,
-                                        ),
-                                      ),
+                                  : QuestionImgUrl(
+                                      currentQn: currentQn,
                                     ),
 
                               // ######################## CONTENT #######################
@@ -411,9 +374,10 @@ class _IsuzumaScoreReviewState extends State<IsuzumaScoreReview> {
   void forward() {
     if (qnIndex >= widget.isuzuma.questions.length) {
       // ALERT DIALOG FOR LAST QUESTION
-      const ErrorAlert(
+      const TeguraAlert(
         errorTitle: 'Last Question',
         errorMsg: 'This is the last question',
+        alertType: 'warning',
       );
     } else {
       setState(() {

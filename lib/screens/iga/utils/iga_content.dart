@@ -5,10 +5,10 @@ import 'package:tegura/models/ingingo.dart';
 import 'package:tegura/models/isomo.dart';
 import 'package:tegura/models/user.dart';
 import 'package:tegura/firebase_services/isomo_progress.dart';
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/utilities/app_bar.dart';
 import 'package:tegura/utilities/direction_button.dart';
-import 'package:tegura/firebase_services/ingingodb.dart';
+import 'package:tegura/firebase_services/ingingo_db.dart';
 import 'package:tegura/screens/iga/utils/circle_progress.dart';
 import 'package:tegura/screens/iga/utils/content_details.dart';
 import 'package:tegura/utilities/loading_widget.dart';
@@ -27,16 +27,14 @@ class IgaContent extends StatefulWidget {
 class _IgaContentState extends State<IgaContent> {
   int _skip = 0;
   int _increment = 0;
-  final ScrollController _scrollController =
-      ScrollController(); // SCROLL CONTROLLER FOR THE LISTVIEW
+  final ScrollController _scrollController = ScrollController();
 
-  // SET THE SKIP TO THE CURRENT INGINGO IF IT IS NOT NULL
   @override
   void initState() {
     super.initState();
-    _skip = widget.courseProgress != null &&
+    _skip = (widget.courseProgress != null &&
             widget.courseProgress.currentIngingo !=
-                widget.courseProgress.totalIngingos
+                widget.courseProgress.totalIngingos)
         ? widget.courseProgress.currentIngingo
         : 0;
   }
@@ -55,7 +53,6 @@ class _IgaContentState extends State<IgaContent> {
     );
   }
 
-  // CALLBACK TO CHANGE THE SKIP NUMBER
   void changeSkipNumber(int number) {
     setState(() {
       _skip = _skip + number;
@@ -64,7 +61,6 @@ class _IgaContentState extends State<IgaContent> {
         Navigator.pop(context);
       }
 
-      // SET THE ADD VALUE DEPENDING ON THE DIRECTION
       if (number > 0) {
         _increment = 5;
       } else {
@@ -80,7 +76,6 @@ class _IgaContentState extends State<IgaContent> {
 
     return MultiProvider(
       providers: [
-        // STREAM PROVIDER FOR THE PAGINATED INGINGOS OF THIS ISOMO TO CHILDREN
         StreamProvider<List<IngingoModel>?>.value(
           value: _skip >= 0
               ? IngingoService().getIngingosByIsomoIdPaginated(
@@ -91,8 +86,6 @@ class _IgaContentState extends State<IgaContent> {
             return [];
           },
         ),
-
-        // GET THIS ISOMO PROGRESS FOR THIS USER
         StreamProvider<CourseProgressModel?>.value(
           value: CourseProgressService().getProgress(usr?.uid, widget.isomo.id),
           initialData: null,
@@ -101,8 +94,6 @@ class _IgaContentState extends State<IgaContent> {
           },
         ),
       ],
-
-      // COURSE PROGRESS CONSUMER FOR CURRENT USER ON THIS ISOMO
       child: Consumer<CourseProgressModel?>(
         builder: (context, progress, _) {
           final int totalIngingos = progress != null
@@ -112,27 +103,23 @@ class _IgaContentState extends State<IgaContent> {
               ? progress.currentIngingo
               : widget.courseProgress.currentIngingo;
 
-          // CONSUMER FOR LIST OF PAGINATED INGINGOS FOR THIS ISOMO
           return Consumer<List<IngingoModel>?>(
             builder: (context, ingingos, _) {
               return ingingos == null
                   ? const Scaffold(
                       body: LoadingWidget(),
                     )
-                  : ingingos.isEmpty
+                  : currentIngingo >= totalIngingos
                       ? Scaffold(
-                          body: ErrorAlert(
-                            errorTitle: currentIngingo >= totalIngingos
-                                ? 'Isomo rirarangiye!'
-                                : 'Iri somo ntiribonetse!',
-                            errorMsg: currentIngingo >= totalIngingos
-                                ? 'Wasoje neza ingingo zose zigize iri somo!'
-                                : 'Iri somo ntangingo zo kwiga rifite!',
-                            firstButtonTitle: 'Funga',
-                            firstButtonFunction: () {
-                              Navigator.pop(context);
-                            },
-                          ),
+                          body: TeguraAlert(
+                              errorTitle: 'Isomo rirarangiye!',
+                              errorMsg:
+                                  'Wasoje neza ingingo zose zigize iri somo 🙂!',
+                              firstButtonTitle: 'Funga',
+                              firstButtonFunction: () {
+                                Navigator.pop(context);
+                              },
+                              alertType: 'success'),
                         )
                       : Scaffold(
                           backgroundColor:
@@ -153,8 +140,8 @@ class _IgaContentState extends State<IgaContent> {
                               boxShadow: [
                                 BoxShadow(
                                   color: Color(0xFFFFBD59),
-                                  offset: Offset(0, -1),
-                                  blurRadius: 1,
+                                  offset: Offset(0, 2),
+                                  blurRadius: 3,
                                 ),
                               ],
                             ),

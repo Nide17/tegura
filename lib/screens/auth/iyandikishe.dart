@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/utilities/cta_button.dart';
 import 'package:tegura/utilities/cta_link.dart';
 import 'package:tegura/utilities/default_input.dart';
@@ -21,7 +21,6 @@ class Iyandikishe extends StatefulWidget {
 
 // STATE FOR THE SIGN IN PAGE - STATEFUL
 class _IyandikisheState extends State<Iyandikishe> {
-  // AUTH SERVICE INSTANCE
   final AuthService _authInstance = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -97,16 +96,11 @@ class _IyandikisheState extends State<Iyandikishe> {
                       ),
                     )
                   : Container(),
-
               const GradientTitle(
                   title: 'IYANDIKISHE', icon: 'assets/images/iyandikishe.svg'),
-
-              // 2. DESCRIPTION
               const Description(
                   text:
                       'Iyandikishe ubundi, wige, umenye utsindire provisoire!'),
-
-              // CENTERED IMAGE
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,7 +111,6 @@ class _IyandikisheState extends State<Iyandikishe> {
                       width: MediaQuery.of(context).size.width * 0.2,
                     ),
                   ]),
-
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.05,
@@ -127,23 +120,16 @@ class _IyandikisheState extends State<Iyandikishe> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // NOMERO ZA TELEPHONE
                       DefaultInput(
                         placeholder: 'Izina',
                         validation: 'Injiza izina ryawe!',
-
-                        // ON CHANGED
                         onChanged: (val) {
                           setState(() => username = val);
                         },
                       ),
-
-                      // EMAIL
                       DefaultInput(
                         placeholder: 'Imeyili',
                         validation: 'Injiza imeyili yawe!',
-
-                        // ON CHANGED
                         onChanged: (val) {
                           setState(() => email = val);
                         },
@@ -153,28 +139,15 @@ class _IyandikisheState extends State<Iyandikishe> {
                       DefaultInput(
                         placeholder: 'Ijambobanga',
                         validation: 'Injiza ijambobanga!',
-
-                        // ON CHANGED
                         onChanged: (val) {
                           setState(() => password = val);
                         },
-
-                        // OBSCURE TEXT
-                        obscureText: true,
                       ),
-
-                      // CTA BUTTON
                       CtaButton(
                         text: 'Iyandikishe',
-
-                        // ON PRESSED
                         onPressed: () async {
-                          // VALIDATE FORM
                           if (_formKey.currentState!.validate()) {
-                            // REGISTER USER
                             dynamic resSignUp;
-
-                            // REGISTER USER
                             try {
                               resSignUp = await FirebaseAuth.instance
                                   .createUserWithEmailAndPassword(
@@ -196,26 +169,21 @@ class _IyandikisheState extends State<Iyandikishe> {
                                 error = e.toString();
                               });
                             }
-
-                            // CHECK IF USER IS REGISTERED
                             if (resSignUp == null) {
                               setState(() {
-                                // SHOW ERROR DIALOG
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return ErrorAlert(
+                                    return TeguraAlert(
                                       errorTitle: 'Kwiyandikisha ntibikunze!',
                                       errorMsg: error,
+                                      alertType: 'error',
                                     );
                                   },
                                 );
                               });
                             } else {
-                              // LOGOUT USER
                               await _authInstance.logOut();
-
-                              // REDIRECT TO LOGIN PAGE AFTER SUCCESSFUL REGISTRATION
                               if (!mounted) return;
                               Navigator.pushReplacementNamed(
                                   context, '/injira');
@@ -223,8 +191,6 @@ class _IyandikisheState extends State<Iyandikishe> {
                           }
                         },
                       ),
-
-                      // CTA LINK
                       const CtaAuthLink(
                         text1: 'Niba wariyandikishije, ',
                         text2: 'injira',
@@ -232,8 +198,6 @@ class _IyandikisheState extends State<Iyandikishe> {
                         color2: Color.fromARGB(255, 0, 27, 116),
                         route: '/injira',
                       ),
-
-                      // UR STUDENT BUTTON
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -259,13 +223,9 @@ class _IyandikisheState extends State<Iyandikishe> {
                               ),
                             ),
                           ),
-
-                          // HORIZONTAL SPACE
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02,
                           ),
-
-                          // PNG IMAGE ASSET
                           Image.asset(
                             'assets/images/50off.png',
                             height: MediaQuery.of(context).size.height * 0.1,

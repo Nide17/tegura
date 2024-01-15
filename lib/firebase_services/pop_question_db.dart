@@ -41,13 +41,8 @@ class PopQuestionService {
   Stream<List<PopQuestionModel>> getPopQuestionsByIngingoIDs(
       int isomoID, List<int> ingingoIDs) {
     if (ingingoIDs.isEmpty) {
-      print("Emopty ingingoIDs");
       return const Stream.empty();
     }
-
-    print('ingingoIDs: $ingingoIDs');
-    print('isomoID: $isomoID');
-
     final documentsStream = popQuestionCollection
         .where(
           'isomoID',

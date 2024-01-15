@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import 'package:tegura/firebase_services/profiledb.dart';
 import 'package:tegura/main.dart';
 import 'package:tegura/models/profile.dart';
-import 'package:tegura/screens/iga/utils/error_alert.dart';
+import 'package:tegura/screens/iga/utils/tegura_alert.dart';
 import 'package:tegura/utilities/cta_button.dart';
 import 'package:tegura/utilities/cta_link.dart';
 import 'package:tegura/utilities/default_input.dart';
@@ -24,7 +24,6 @@ class Injira extends StatefulWidget {
 
 // STATE FOR THE SIGN IN PAGE - STATEFUL
 class _InjiraState extends State<Injira> {
-  // AUTH SERVICE INSTANCE - TO ACCESS THE AUTH METHODS
   final AuthService _authInstance = AuthService();
 
 // DECLARE FORM KEY TO VALIDATE THE FORM
@@ -35,7 +34,6 @@ class _InjiraState extends State<Injira> {
   String password = '';
   String error = '';
   bool loading = false;
-
   dynamic profile;
 
   Future<void> _loadProfileData() async {
@@ -155,77 +153,53 @@ class _InjiraState extends State<Injira> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // EMAIL
                           DefaultInput(
                             placeholder: 'Imeyili',
                             validation: 'Injiza imeyili yawe!',
-
-                            // ON CHANGED
                             onChanged: (value) {
                               setState(() {
                                 email = value;
                               });
                             },
-
-                            obscureText: false,
                           ),
 
-                          // IJAMBOBANGA
                           DefaultInput(
                             placeholder: 'Ijambobanga',
                             validation: 'Injiza ijambobanga!',
-
-                            // ON CHANGED
                             onChanged: (value) {
                               setState(() {
                                 password = value;
                               });
                             },
-                            obscureText: true,
                           ),
-
-                          // CTA BUTTON
                           CtaButton(
                             text: 'Injira',
                             onPressed: () async {
-                              //VALIDATING THE FORM FIELDS
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-
-                                // SET THE LOADING STATE TO TRUE
                                 setState(() => loading = true);
-
-                                // LOGIN THE USER
                                 dynamic loginRes = await _authInstance
                                     .loginWithEmailAndPassword(email, password);
-
-                                // CHECK IF LOGIN SUCCESSFUL
                                 if (loginRes == null) {
                                   setState(() {
                                     error = 'Injiza ibisabwa byanyabyo!';
                                     loading = false;
-
-                                    // SHOW ALERT DIALOG
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          return ErrorAlert(
+                                          return TeguraAlert(
                                               errorTitle:
                                                   'Kwinjira ntibyakunze.',
-                                              errorMsg: error);
+                                              errorMsg: error,
+                                              alertType: 'error',
+                                          );
                                         });
                                   });
                                 } else {
-                                  // LOAD PROFILE DATA
                                   await _loadProfileData();
 
-                                  // SET THE LOADING STATE TO FALSE
                                   setState(() => loading = false);
-
-                                  // NAVIGATE TO THE PREVIOUS PAGE
                                   if (!mounted) return;
-
-                                  // if previous page login or signup, go to home
                                   if (ModalRoute.of(context)!.settings.name ==
                                           '/injira' ||
                                       ModalRoute.of(context)!.settings.name ==
@@ -241,8 +215,7 @@ class _InjiraState extends State<Injira> {
                                       const SnackBar(
                                           content:
                                               Text('Kwinjira byagenze neza!'),
-                                          backgroundColor:
-                                              Color(0xFF00A651)));
+                                          backgroundColor: Color(0xFF00A651)));
                                 }
                               } else {
                                 print('\nSigned in!!\n');
